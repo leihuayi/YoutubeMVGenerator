@@ -1,0 +1,23 @@
+- https://rotorvideos.com/ Generate video clips
+- https://thenextweb.com/artificial-intelligence/2018/01/19/clever-coder-uses-ai-to-make-disturbingly-cool-music-videos/ Generate video clips
+- http://www.asimovinstitute.org/analyzing-deep-learning-tools-music/ Generating music
+- http://fastml.com/deep-nets-generating-stuff/ Generating stuff
+- https://thump.vice.com/en_us/article/ae8dzj/people-are-making-their-own-music-videos-with-generate-app generate live video
+- https://deeplearning4j.org/generative-adversarial-network about GAN
+- https://github.com/dyelax/Adversarial_Video_Generation code GAN video
+- http://carlvondrick.com/tinyvideo/ generation video code + theory !!
+- https://github.com/NVIDIA/FastPhotoStyle GAN code image style
+- http://blog.otoro.net/2016/04/01/generating-large-images-from-latent-vectors/ explanation GAN
+- https://github.com/manuelruder/artistic-videos code video artistic transfer
+- http://music.ece.drexel.edu/research/musicSim Music similarity
+- https://labrosa.ee.columbia.edu/projects/musicsim/Music similarity
+- https://github.com/aubio/aubio Python library edit music
+- https://github.com/tyiannak/pyAudioAnalysis/ Python library audio classification and segmentation
+- https://hackernoon.com/finding-the-genre-of-a-song-with-deep-learning-da8f59a61194 Classification music using deep NN
+- https://pythonhosted.org/msaf/index.html Python framework music structure
+- https://www.similarityapp.com/ Software music similarity
+- http://www.musly.org/ Library music similarity big database
+- http://www.peachnote.com/similarity Website music similarity
+- https://github.com/nficano/pytube Python library download Youtube videos
+- PySceneDetect split video
+- https://www.math.ucdavis.edu/~aberrian/research/voice_separation/index.html Voice Instrumental separation
