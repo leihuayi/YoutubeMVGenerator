@@ -74,13 +74,13 @@ def find_scenes(video_path):
                 myfile.write('%d\n'%len(scene_list))
 
             # Split the video
-            folder = os.path.splitext(video_path)[0]
-            if os.path.exists(folder):
-                print('--- STOP : The folder for this video already exists, it is probably already split.')
-            else:
-                print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))
-                os.mkdir(folder)
-                video_splitter.split_video_ffmpeg([video_path], scene_list, folder+"/"+VIDEO_SPLIT_TEMPLATE+".mp4", os.path.basename(folder),suppress_output=True)
+            # folder = os.path.splitext(video_path)[0]
+            # if os.path.exists(folder):
+            #     print('--- STOP : The folder for this video already exists, it is probably already split.')
+            # else:
+            #     print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))
+            #     os.mkdir(folder)
+            #     video_splitter.split_video_ffmpeg([video_path], scene_list, folder+"/"+VIDEO_SPLIT_TEMPLATE+".mp4", os.path.basename(folder),suppress_output=True)
             
             print("-- Finished video splitting in {:.2f}s --".format(time.time() - start_time))
         else:
@@ -92,7 +92,7 @@ def find_scenes(video_path):
     return scene_list
 
 def main():
-    for video in glob.glob('../Tests/*.mp4'):
+    for video in glob.glob('../data/*.mp4'):
         find_scenes(video)
 
 
