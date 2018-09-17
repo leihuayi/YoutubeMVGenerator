@@ -9,15 +9,24 @@
 - https://github.com/NVIDIA/FastPhotoStyle GAN code image style
 - http://blog.otoro.net/2016/04/01/generating-large-images-from-latent-vectors/ explanation GAN
 - https://github.com/manuelruder/artistic-videos code video artistic transfer
+- https://hackernoon.com/finding-the-genre-of-a-song-with-deep-learning-da8f59a61194 Classification music using deep NN
+
 - http://music.ece.drexel.edu/research/musicSim Music similarity
 - https://labrosa.ee.columbia.edu/projects/musicsim/Music similarity
-- https://github.com/aubio/aubio Python library edit music
-- https://github.com/tyiannak/pyAudioAnalysis/ Python library audio classification and segmentation
-- https://hackernoon.com/finding-the-genre-of-a-song-with-deep-learning-da8f59a61194 Classification music using deep NN
-- https://pythonhosted.org/msaf/index.html Python framework music structure
+- http://essentia.upf.edu/documentation/documentation.html Essential : music library many stuff
+- http://ifs.tuwien.ac.at/mir/musicbricks/index.html#SMINT Music similarity Vienna
+- https://github.com/JohannesBuchner/PyMirage Music similarity
 - https://www.similarityapp.com/ Software music similarity
 - http://www.musly.org/ Library music similarity big database
 - http://www.peachnote.com/similarity Website music similarity
+- https://towardsdatascience.com/discovering-similarities-across-my-spotify-music-using-data-clustering-and-visualization-52b58e6f547b Tutotial music similarity
+- https://github.com/aubio/aubio Python library edit music
+- https://github.com/tyiannak/pyAudioAnalysis/ Python library audio classification and segmentation
+- https://pythonhosted.org/msaf/index.html Python framework music structure
 - https://github.com/nficano/pytube Python library download Youtube videos
 - PySceneDetect split video
 - https://www.math.ucdavis.edu/~aberrian/research/voice_separation/index.html Voice Instrumental separation
+- https://stackoverflow.com/questions/10826683/detecting-where-vocals-start-in-a-song Vocals in song
+- http://www.ismir2004.ismir.net/proceedings/p028-page-138-paper183.pdf Detection vocal segment in song
+- https://github.com/tuwien-musicir/rp_extract  Python library for music feature, genre classification
+
