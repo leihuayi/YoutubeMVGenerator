@@ -67,7 +67,7 @@ def find_scenes(video_path):
             # Store scenes length for statistics
             with open(FILE_SCENE_LENGH,'a') as myfile:
                for i, scene in enumerate(scene_list):
-                   myfile.write('%d, %f\n' % (scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
+                   myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
             
             # Store number of scenes for statistics
             with open(FILE_SCENE_NUMBER,'a') as myfile:
