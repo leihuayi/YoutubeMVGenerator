@@ -17,8 +17,8 @@ from scenedetect.detectors.content_detector import ContentDetector
 import scenedetect.video_splitter as video_splitter
 
 VIDEO_SPLIT_TEMPLATE = '$VIDEO_NAME-$SCENE_NUMBER'
-FILE_SCENE_LENGH = 'scenes_length.csv'
-FILE_SCENE_NUMBER = 'scenes_number.csv'
+FILE_SCENE_LENGH = '../statistics/scenes_length.csv'
+FILE_SCENE_NUMBER = '../statistics/scenes_number.csv'
 
 def find_scenes(video_path):
     start_time = time.time()
