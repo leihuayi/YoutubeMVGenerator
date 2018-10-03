@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 def scenes_analysis():
     dfLength = pd.read_csv("scenes_length.csv")
     dfNum = pd.read_csv("scenes_number.csv")
-    dfVid = pd.read_csv("lengths.csv")
+    dfVid = pd.read_csv("videos_length.csv")
     duration = list(dfLength["duration"])
     frames = list(dfLength["frames"])
     numScenes = list(dfNum["number"])
-    video = list(dfVid["video"])
+    video = list(dfVid["duration"])
 
     plt.subplot(131)
     plt.boxplot(numScenes)

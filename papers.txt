@@ -22,9 +22,15 @@
 - Music segmentation http://www.mecs-press.org/ijitcs/ijitcs-v6-n11/IJITCS-V6-N11-1.pdf
 
 - Music separation http://ijcert.org/ems/ijcert_papers/V3I1103.pdf
+- Segmentation speech cocktail party https://arxiv.org/pdf/1804.03619.pdf
+- http://www.ismir2004.ismir.net/proceedings/p028-page-138-paper183.pdf Detection vocal segment in song
 
 - Cut video in frames 1963 http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/Hu.pdf
-- Cut video in shots dominant clutering 2009 https://dl.acm.org/citation.cfm?id=1734645
+- Cut video in shots dominant clustering 2009 https://dl.acm.org/citation.cfm?id=1734645
+- Video segmentation dominant color 2018 https://www.researchgate.net/publication320409998_News_Videos_Segmentation_Using_Dominant_Colors_Representation
 - Formal study shot boundary 2007 https://ieeexplore.ieee.org/document/4079667/
+- Efficient key-frame extraction 2002 https://ieeexplore.ieee.org/abstract/document/1000355/
+- Interest point detection in video 2005 https://www.irisa.fr/vista/Papers/2005_ijcv_laptev.pdf
+- Video exact similarity 2003 http://www-video.eecs.berkeley.edu/papers/cheungsc/csvt2003.pdf
 
 - Emotions linked to colors 2013 https://link.springer.com/article/10.1007/s00371-012-0755-3

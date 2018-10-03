@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
@@ -18,7 +19,7 @@ def centroid_histogram(clt):
 	# return the histogram
 	return hist
 
-def plot_colors(hist, centroids):
+def plot_colors(arr):
 	# initialize the bar chart representing the relative frequency
 	# of each of the colors
 	bar = np.zeros((50, 300, 3), dtype = "uint8")
@@ -26,7 +27,7 @@ def plot_colors(hist, centroids):
  
 	# loop over the percentage of each cluster and the color of
 	# each cluster
-	for (percent, color) in zip(hist, centroids):
+	for (color,percent) in arr:
 		# plot the relative percentage of each cluster
 		endX = startX + (percent * 300)
 		cv2.rectangle(bar, (int(startX), 0), (int(endX), 50),
@@ -37,15 +38,17 @@ def plot_colors(hist, centroids):
 	return bar
 
 # Function to extract frames 
-def extract_frame(path): 
+def extract_frames(path): 
+    stats = []
+
     # Path to video file 
     vidObj = cv2.VideoCapture(path) 
 
     # Used as counter variable 
     count = 5
     numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
-    print(numFrames)
-    extract = (numFrames-10)//5
+    numExtract = 5
+    extract = (numFrames-10)//numExtract
 
     # checks whether frames were extracted 
     success = 1
@@ -53,16 +56,42 @@ def extract_frame(path):
     while success: 
         success, image = vidObj.read() 
         if count%extract==0:
-            extract_feature(image)
-  
+            zipped = extract_feature(image)
+            print("New image")
+
+            if len(stats)==0:
+                for (percent, color) in zipped:
+                    stats.append([color, percent])
+            else:
+                # Merge together colors which are similar
+                for (percent, color) in zipped:
+                    minDist = (-1,1000000)
+                    for i in range(len(stats)):
+                        col = stats[i][0]
+                        distance = np.linalg.norm(col-color)
+                        if distance<minDist[1]:
+                            minDist = (i,distance)
+
+                    stats[minDist[0]][0] = (stats[minDist[0]][0] + color)/2
+                    stats[minDist[0]][1] += percent
+                    print("pairing up : %d with distance %d"%(minDist[0],minDist[1]))
+
         count += 1
 
-def extract_feature(image):
-    # load the image and convert it from BGR to RGB
-    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # Normalize the percentage
+    for s in stats:
+        s[1] /= numExtract
+
+    bar = plot_colors(stats)
     plt.figure()
     plt.axis("off")
-    plt.imshow(img)
+    plt.imshow(bar)
+    plt.savefig("../statistics/average_color.png")
+    plt.close('all')
+
+def extract_feature(img):
+    # load the image and convert it from BGR to RGB
+    # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # reshape the image to be a list of pixels
     img = img.reshape((img.shape[0] * img.shape[1], 3))
@@ -76,15 +105,13 @@ def extract_feature(image):
     hist = centroid_histogram(clt)
     
     # show our color bar
-    bar = plot_colors(hist, clt.cluster_centers_)
-    plt.figure()
-    plt.axis("off")
-    plt.imshow(bar)
-    plt.show()
+    # bar = plot_colors(hist, clt.cluster_centers_)
+    return zip(hist, np.array(clt.cluster_centers_))
+
 
 
 def main():
-    extract_frame("/home/manu/Documents/Thesis/Tests/aJOTlE1K90k/aJOTlE1K90k-002.mp4")
+    extract_frames("/home/manu/Documents/Thesis/Tests/aJOTlE1K90k/aJOTlE1K90k-002.mp4")
 
 if __name__ == "__main__":
     main()

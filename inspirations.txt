@@ -11,6 +11,8 @@
 - https://github.com/manuelruder/artistic-videos code video artistic transfer
 - https://hackernoon.com/finding-the-genre-of-a-song-with-deep-learning-da8f59a61194 Classification music using deep NN
 
+- http://vca.ele.tue.nl/node/497 course video features
+
 - http://music.ece.drexel.edu/research/musicSim Music similarity
 - https://labrosa.ee.columbia.edu/projects/musicsim/Music similarity
 - http://essentia.upf.edu/documentation/documentation.html Essential : music library many stuff
@@ -27,6 +29,5 @@
 - PySceneDetect split video
 - https://www.math.ucdavis.edu/~aberrian/research/voice_separation/index.html Voice Instrumental separation
 - https://stackoverflow.com/questions/10826683/detecting-where-vocals-start-in-a-song Vocals in song
-- http://www.ismir2004.ismir.net/proceedings/p028-page-138-paper183.pdf Detection vocal segment in song
 - https://github.com/tuwien-musicir/rp_extract  Python library for music feature, genre classification
 
