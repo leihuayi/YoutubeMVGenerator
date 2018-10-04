@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import os
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
@@ -20,7 +21,7 @@ def centroid_histogram(clt):
 	# return the histogram
 	return hist
 
-def plot_colors(arr):
+def plot_colors(stats, hist):
     # initialize the bar chart representing the relative frequency
     # of each of the colors
     bar = np.zeros((50, 300, 3), dtype = "uint8")
@@ -28,11 +29,11 @@ def plot_colors(arr):
 
     # loop over the percentage of each cluster and the color of
     # each cluster
-    for (color,percent) in arr:
+    for (percent, color) in zip(stats, hist):
         # plot the relative percentage of each cluster
         endX = startX + (percent * 300)
-        if type(color) is not int:
-            color = color.astype("uint8").tolist()
+        color = color.astype("uint8").tolist()
+        #color = [col[2],col[1],col[0]]
         cv2.rectangle(bar, (int(startX), 0), (int(endX), 50), color, -1)
         startX = endX
 
@@ -42,84 +43,63 @@ def plot_colors(arr):
 # Function to average the dominant color analysis on several frames
 def extract_frames(path): 
 
-    # Number of frames we will use to average the dominant colors
-    numExtract = 5
+    samplings = [5, 10, 15, 20]
+    extract = 10
 
-    # Contains the dominant color and their percentage
-    stats = [[] for i in range(CLUSTERS)]
-    # Keeps track of the dominant color for each frame
-    colorBars = [[0]*CLUSTERS for i in range(numExtract)]
+    # Path to video file
+    if os.path.exists("/home/manu/Documents/Thesis/Tests/"+path):
 
-    # Path to video file 
-    vidObj = cv2.VideoCapture(path) 
+        vidObj = cv2.VideoCapture("/home/manu/Documents/Thesis/Tests/"+path) 
+        numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    # Used as counter variable 
-    count = 5
-    numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
-    extract = (numFrames-10)//numExtract
+        if numFrames<12:
+            print("Scene too short. No analyzing")
 
-    # checks whether frames were extracted 
-    success = 1
-  
-    while success: 
-        success, image = vidObj.read() 
+        else:
+            print("Analyzing video %s : %d frames ..."%(path,numFrames))
 
-        # When we encounter a frame we want to analyse
-        if count%extract==0:
-            zipped = extract_feature(image)
-            numImage = count//extract
-            print("Image number %d"%numImage)
+            # Used as counter variable 
+            count = 0 
+            deviate = 3 # Not start at 0 because of transition frames
 
-            if numImage==1:
-                for i, (percent, color) in enumerate(zipped):
-                    stats[i] = [color, percent]
-                    colorBars[numImage-1][i] = color
-            else:
-                # Merge together colors which are similar
-                for (percent, color) in zipped:
-                    # minDist : tuple containing (index of closest color, distance to closest color)
-                    minDist = (-1,1000000)
-                    for i in range(len(stats)):
-                        col = stats[i][0]
-                        distance = np.linalg.norm(col-color)
-                        if distance<minDist[1]:
-                            minDist = (i,distance)
+            # checks whether frames were extracted 
+            success = 1
 
-                    # if have not already done this color
-                    if type(colorBars[numImage-1][minDist[0]]) is int:
-                        print("pairing up : %d with distance %d"%(minDist[0],minDist[1]))
-                        stats[minDist[0]][0] = (stats[minDist[0]][0] + color)/2
-                        stats[minDist[0]][1] += percent
-                        colorBars[numImage-1][minDist[0]] = color
+            # We stack all images on imgBase.
+            imgBase = np.zeros((150,150,3), np.uint8)
 
-        count += 1 # Keeps track of number of frames
+            while success: 
+                success, image = vidObj.read() 
 
-    # Normalize the percentage
-    for s in stats:
-        s[1] /= numExtract
-    
-    # Draws the result
-    fig = plt.figure()
-    # Draw all the colors paired together
-    print("Drawing color bars for each frame...")
-    for i in range(numExtract):
-        plt.subplot(numExtract+1,1,i+1)
-        bar = plot_colors(zip(colorBars[i], np.array([1/CLUSTERS]*CLUSTERS)))
-        plt.imshow(bar)
-        plt.axis("off")
-    # Draw the averages dominant colors
-    print("Drawing average dominant ...")
-    plt.subplot(numExtract+1,1,numExtract+1)
-    bar = plot_colors(stats)
-    plt.imshow(bar)
-    plt.axis("off")
-    plt.savefig("../statistics/average_color.png")
-    plt.close(fig)
+                # When we encounter a frame we want to analyse : stack image
+                if count%extract==deviate and count<numFrames:
+                    numImg = (count-deviate)//extract
+                    print("New image: %d"%numImg)
+
+                    if numImg==0:
+                        imgBase = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
+                    
+                    else:
+                        img = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
+                        imgBase = np.concatenate((imgBase, img), axis=1)
+
+                count += 1 # Keeps track of number of frames
+            
+            imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
+            bar = extract_feature(imgBase)
+
+            # Draws the result
+            fig = plt.figure()
+            plt.subplot(211)
+            plt.imshow(imgBase)
+            plt.axis("off")
+            plt.subplot(212)
+            plt.imshow(bar)
+            plt.axis("off")
+            plt.show()
+            plt.close(fig)
 
 def extract_feature(img):
-    # load the image and convert it from BGR to RGB
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
     # reshape the image to be a list of pixels
     img = img.reshape((img.shape[0] * img.shape[1], 3))
 
@@ -132,13 +112,14 @@ def extract_feature(img):
     hist = centroid_histogram(clt)
     
     # show our color bar
-    # bar = plot_colors(hist, clt.cluster_centers_)
-    return zip(hist, np.array(clt.cluster_centers_))
-
-
+    return plot_colors(hist, clt.cluster_centers_)
 
 def main():
-    extract_frames("/home/manu/Documents/Thesis/Tests/aJOTlE1K90k/aJOTlE1K90k-002.mp4")
+    vidName = "9bZkp7q19f0"
+    scenes = ["003", "007", "008", "018", "021", "022", "051 ","079"]
+
+    for s in scenes :
+        extract_frames(vidName+"/"+vidName+"-"+ s +".mp4")
 
 if __name__ == "__main__":
     main()

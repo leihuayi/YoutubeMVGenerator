@@ -26,7 +26,11 @@
 - https://github.com/tyiannak/pyAudioAnalysis/ Python library audio classification and segmentation
 - https://pythonhosted.org/msaf/index.html Python framework music structure
 - https://github.com/nficano/pytube Python library download Youtube videos
+
 - PySceneDetect split video
+- https://www.pyimagesearch.com/2014/06/30/super-fast-color-transfer-images/ Color transfer images
+- http://www.alanzucconi.com/2015/09/30/colour-sorting/ color sorting
+
 - https://www.math.ucdavis.edu/~aberrian/research/voice_separation/index.html Voice Instrumental separation
 - https://stackoverflow.com/questions/10826683/detecting-where-vocals-start-in-a-song Vocals in song
 - https://github.com/tuwien-musicir/rp_extract  Python library for music feature, genre classification
