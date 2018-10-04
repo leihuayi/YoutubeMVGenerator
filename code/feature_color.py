@@ -21,7 +21,7 @@ def centroid_histogram(clt):
 	# return the histogram
 	return hist
 
-def plot_colors(stats, hist):
+def plot_colors(stats, clusters):
     # initialize the bar chart representing the relative frequency
     # of each of the colors
     bar = np.zeros((50, 300, 3), dtype = "uint8")
@@ -29,10 +29,12 @@ def plot_colors(stats, hist):
 
     # loop over the percentage of each cluster and the color of
     # each cluster
-    for (percent, color) in zip(stats, hist):
+    zipped = zip(stats, [c.astype("uint8").tolist() for c in clusters])
+    zipped = sorted(zipped, key=lambda x:x[1])
+
+    for (percent, color) in zipped:
         # plot the relative percentage of each cluster
         endX = startX + (percent * 300)
-        color = color.astype("uint8").tolist()
         #color = [col[2],col[1],col[0]]
         cv2.rectangle(bar, (int(startX), 0), (int(endX), 50), color, -1)
         startX = endX
@@ -43,61 +45,66 @@ def plot_colors(stats, hist):
 # Function to average the dominant color analysis on several frames
 def extract_frames(path): 
 
-    samplings = [5, 10, 15, 20]
-    extract = 10
+    samplings = [5, 10, 15, 20, 25, 30, 35, 40]
+    fig = plt.figure()
 
-    # Path to video file
-    if os.path.exists("/home/manu/Documents/Thesis/Tests/"+path):
+    for i in range(8):
+        sampling = samplings[i]
 
-        vidObj = cv2.VideoCapture("/home/manu/Documents/Thesis/Tests/"+path) 
-        numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
+        # Path to video file
+        if os.path.exists("/home/manu/Documents/Thesis/Tests/"+path):
 
-        if numFrames<12:
-            print("Scene too short. No analyzing")
+            vidObj = cv2.VideoCapture("/home/manu/Documents/Thesis/Tests/"+path) 
+            numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
 
-        else:
-            print("Analyzing video %s : %d frames ..."%(path,numFrames))
+            if numFrames<12:
+                print("Scene too short. No analyzing")
 
-            # Used as counter variable 
-            count = 0 
-            deviate = 3 # Not start at 0 because of transition frames
+            else:
+                print("Analyzing video %s : %d frames ..."%(path,numFrames))
 
-            # checks whether frames were extracted 
-            success = 1
+                # Used as counter variable 
+                count = 0 
+                deviate = 3 # Not start at 0 because of transition frames
 
-            # We stack all images on imgBase.
-            imgBase = np.zeros((150,150,3), np.uint8)
+                # checks whether frames were extracted 
+                success = 1
 
-            while success: 
-                success, image = vidObj.read() 
+                # We stack all images on imgBase.
+                imgBase = np.zeros((150,150,3), np.uint8)
 
-                # When we encounter a frame we want to analyse : stack image
-                if count%extract==deviate and count<numFrames:
-                    numImg = (count-deviate)//extract
-                    print("New image: %d"%numImg)
+                while success: 
+                    success, image = vidObj.read() 
 
-                    if numImg==0:
-                        imgBase = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
-                    
-                    else:
-                        img = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
-                        imgBase = np.concatenate((imgBase, img), axis=1)
+                    # When we encounter a frame we want to analyse : stack image
+                    if count%sampling==deviate and count<numFrames:
+                        numImg = (count-deviate)//sampling
+                        print("New image: %d"%numImg)
 
-                count += 1 # Keeps track of number of frames
-            
-            imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
-            bar = extract_feature(imgBase)
+                        if numImg==0:
+                            imgBase = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
+                        
+                        else:
+                            img = cv2.resize(image, (0,0), fx=0.1, fy=0.1)
+                            imgBase = np.concatenate((imgBase, img), axis=1)
 
-            # Draws the result
-            fig = plt.figure()
-            plt.subplot(211)
-            plt.imshow(imgBase)
-            plt.axis("off")
-            plt.subplot(212)
-            plt.imshow(bar)
-            plt.axis("off")
-            plt.show()
-            plt.close(fig)
+                    count += 1 # Keeps track of number of frames
+                
+                imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
+                bar = extract_feature(imgBase)
+
+                # Draws the result
+                plt.subplot(8,2,i*2+1)
+                plt.imshow(imgBase)
+                plt.axis("off")
+                plt.title(sampling,rotation='vertical',x=-0.1,y=0.5)
+                plt.subplot(8,2,(i+1)*2)
+                plt.imshow(bar)
+                plt.axis("off")
+                
+                
+    plt.savefig("/home/manu/Documents/Thesis/statistics/%s-%d.png"%(path, numFrames))
+    plt.close(fig)
 
 def extract_feature(img):
     # reshape the image to be a list of pixels
@@ -116,10 +123,10 @@ def extract_feature(img):
 
 def main():
     vidName = "9bZkp7q19f0"
-    scenes = ["003", "007", "008", "018", "021", "022", "051 ","079"]
+    scenes = ["008", "018", "021", "031", "032", "041", "044","049", "077", "082", "117"]
 
     for s in scenes :
-        extract_frames(vidName+"/"+vidName+"-"+ s +".mp4")
+        extract_frames("%s/%s-%s.mp4"%(vidName,vidName,s))
 
 if __name__ == "__main__":
     main()
