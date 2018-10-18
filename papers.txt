@@ -34,3 +34,5 @@
 - Video exact similarity 2003 http://www-video.eecs.berkeley.edu/papers/cheungsc/csvt2003.pdf
 
 - Emotions linked to colors 2013 https://link.springer.com/article/10.1007/s00371-012-0755-3
+- Image Clustering using Color, Texture and Shape Features 2011 https://www.researchgate.net/publication/220595166_Image_Clustering_using_Color_Texture_and_Shape_Features
+- Image color analysis 2002 http://www.cse.msu.edu/~pramanik/research/papers/2002Papers/icip.hsv.pdf
