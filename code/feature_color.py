@@ -7,8 +7,8 @@ import os
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 5
-
+CLUSTERS = 20
+imgClusters = []
 
 # Function to average the dominant color analysis on several frames
 def extract_frames(path): 
@@ -45,13 +45,16 @@ def extract_frames(path):
                     # print("New image: %d"%numImg)
 
                     if numImg==0:
-                        imgBase = cv2.resize(image, (0,0), fx=0.5, fy=0.5)
+                        imgBase = cv2.resize(image, (0,0), fx=0.2, fy=0.2)
                     
                     else:
-                        img = cv2.resize(image, (0,0), fx=0.5, fy=0.5)
+                        img = cv2.resize(image, (0,0), fx=0.2, fy=0.2)
                         imgBase = np.concatenate((imgBase, img), axis=1)
 
                 count += 1 # Keeps track of number of frames
+
+                if count==numFrames//2:
+                    imgClusters.append(image)
             
             # imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
             hist = extract_feature(imgBase)
@@ -63,12 +66,42 @@ def extract_feature(img):
     # fig = plt.figure()
     for i,col in enumerate(color):
         histcolor = cv2.calcHist([img],[i],None,[256],[0,256])
-        hist = np.append(hist, histcolor)
+        hist = np.append(hist, histcolor/np.linalg.norm(histcolor))
         # plt.plot(histcolor,color = col)
         # plt.xlim([0,256])
     # plt.show()
     # plt.close(fig)
-    return hist/np.linalg.norm(hist)
+    return hist
+
+def display_clusters(df):
+    clusNum = -1
+    # We stack all images on imgBase.
+    imgBase = np.empty((150,150,3), np.uint8)
+    fig = plt.figure()
+    columns = 2
+    rows = CLUSTERS/2
+
+    for index, row in df.iterrows():
+        # new cluster
+        if row['cluster'] != clusNum:
+            if clusNum >= 0:
+                # draw previous cluster
+                plt.imshow(cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB))
+
+            # start new cluster
+            plt.subplot(rows, columns, row['cluster']+1)
+            plt.axis("off")
+            clusNum = row['cluster']
+            imgBase = imgClusters[index]
+        # aggregate image in cluster
+        else:
+            imgBase = np.concatenate((imgBase, imgClusters[index]), axis=1)
+
+    plt.imshow(cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB))
+    figManager = plt.get_current_fig_manager()
+    figManager.window.showMaximized()
+    plt.show()
+    fig.close()
 
 def main():
     start = time.time()
@@ -85,11 +118,13 @@ def main():
 
     # Compute Kmeans on histograms to group videos
     kmeans = KMeans(n_clusters=CLUSTERS, random_state=0).fit(arrHist)
-
     print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
 
+    # Display the clutering results
     df = pd.DataFrame.from_records(zip(listFiles,kmeans.labels_), columns=['file','cluster'])
-    df.to_csv("../statistics/clusters-%s.csv"%vidName)
+    df = df.sort_values(by=['cluster','file'])
+    # df.to_csv("../statistics/clusters-%s.csv"%vidName)
+    display_clusters(df)
 
 if __name__ == "__main__":
     main()
