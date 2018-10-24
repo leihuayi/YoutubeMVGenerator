@@ -3,25 +3,35 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
-import os
+import os, glob
+import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 20
-imgClusters = []
+CLUSTERS = 16
+imgClusters = {}
 
 # Function to average the dominant color analysis on several frames
-def extract_frames(path): 
+def extract_feature(path): 
 
+    # We will use image every sampling frame to compute the mean histogram
     sampling = 15
+
     # Path to video file
     if os.path.exists(path):
 
         vidObj = cv2.VideoCapture(path) 
         numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
 
+        # Do not use scenes too short
         if numFrames<12:
-            print("Scene too short. No analyzing")
+            print("Scene too short (<25 frames, ~500ms). No analyzing")
+            return np.empty((0,0))
+
+        # Do not use scenes too long
+        elif numFrames>125:
+            print("Scene too long (>125 frames, ~5 sec). No analyzing")
+            return np.empty((0,0))
 
         else:
             # print("Analyzing video %s : %d frames ..."%(os.path.basename(path),numFrames))
@@ -53,14 +63,19 @@ def extract_frames(path):
 
                 count += 1 # Keeps track of number of frames
 
-                if count==numFrames//2:
-                    imgClusters.append(image)
+                # if count==numFrames//2:
+                    # imgClusters[path] = image
             
             # imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
-            hist = extract_feature(imgBase)
-            return hist
-                
-def extract_feature(img):
+            hist = compute_histogram(imgBase)
+
+            if hist[0] == 1 and hist[256] == 1 and hist[512] == 1:
+                return np.empty((0,0))
+            else:
+                return hist
+
+
+def compute_histogram(img):
     color = ('b','g','r')
     hist = np.empty((0,256))
     # fig = plt.figure()
@@ -72,6 +87,36 @@ def extract_feature(img):
     # plt.show()
     # plt.close(fig)
     return hist
+
+
+def listScenes(folder, extension):
+    listFiles = []
+
+    for f in glob.glob(folder+"/*.mp4"):
+        fname = os.path.splitext(f)[0]
+        # Find the folders for each video
+        if os.path.exists(fname):
+            # Add the list of scenes
+            listFiles += glob.glob(fname+"/*."+extension)
+
+    return listFiles
+
+
+def store_color_features(folder):
+
+    listFiles = listScenes(folder, "mp4")
+
+    for f in listFiles:
+        hist = extract_feature(f)
+        print(hist.size)
+
+        if hist.size > 0 :
+            jsonpath = os.path.splitext(f)[0]+'.json'
+            jsondata = {'color':hist.tolist()}
+            print("Saving feature info in %s..."%jsonpath)
+            with open(jsonpath, 'w') as outfile:
+                json.dump(jsondata, outfile)
+
 
 def display_clusters(df):
     clusNum = -1
@@ -101,30 +146,43 @@ def display_clusters(df):
     figManager = plt.get_current_fig_manager()
     figManager.window.showMaximized()
     plt.show()
-    fig.close()
+    plt.close(fig)
 
-def main():
-    start = time.time()
-    vidName = "9bZkp7q19f0"
-    
-    listFiles = os.listdir("/home/manu/Documents/Thesis/Tests/"+vidName)
+
+def compute_kmeans(folder):
+    # Read the features from json file
+    listFiles = listScenes(folder, "json")
+
     arrHist = []
-
-    for i,f in enumerate(listFiles):
-        hist = extract_frames("/home/manu/Documents/Thesis/Tests/%s/%s"%(vidName,f))
-        arrHist.append(hist)
+    for jsonFile in listFiles:
+        with open(jsonFile, "r") as jFile:
+            jdata = json.load(jFile)
+            arrHist.append(jdata['color'])
 
     arrHist = np.array(arrHist)
 
     # Compute Kmeans on histograms to group videos
     kmeans = KMeans(n_clusters=CLUSTERS, random_state=0).fit(arrHist)
-    print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
-
+    
     # Display the clutering results
     df = pd.DataFrame.from_records(zip(listFiles,kmeans.labels_), columns=['file','cluster'])
     df = df.sort_values(by=['cluster','file'])
-    # df.to_csv("../statistics/clusters-%s.csv"%vidName)
-    display_clusters(df)
+    df.to_csv("../statistics/clusters.csv")
+    # display_clusters(df)
+
+
+def main():
+    start = time.time()
+
+    folder = "/home/manu/Documents/Thesis/Tests"
+
+    # Extract the color features and store them
+    # store_color_features(folder)
+
+    # Kmeans
+    compute_kmeans(folder)
+
+    print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
 
 if __name__ == "__main__":
     main()
