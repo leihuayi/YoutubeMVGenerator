@@ -64,23 +64,23 @@ def find_scenes(video_path):
 
             print('%s scenes obtained' % len(scene_list))
 
-            # Store scenes length for statistics
-            with open(FILE_SCENE_LENGH,'a') as myfile:
-               for i, scene in enumerate(scene_list):
-                   myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
+            # STATISTICS : Store scenes length
+            # with open(FILE_SCENE_LENGH,'a') as myfile:
+            #    for i, scene in enumerate(scene_list):
+            #        myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
             
-            # Store number of scenes for statistics
-            with open(FILE_SCENE_NUMBER,'a') as myfile:
-                myfile.write('%d\n'%len(scene_list))
+            # STATISTICS : Store number of scenes
+            # with open(FILE_SCENE_NUMBER,'a') as myfile:
+            #     myfile.write('%d\n'%len(scene_list))
 
             # Split the video
-            # folder = os.path.splitext(video_path)[0]
-            # if os.path.exists(folder):
-            #     print('--- STOP : The folder for this video already exists, it is probably already split.')
-            # else:
-            #     print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))
-            #     os.mkdir(folder)
-            #     video_splitter.split_video_ffmpeg([video_path], scene_list, folder+"/"+VIDEO_SPLIT_TEMPLATE+".mp4", os.path.basename(folder),suppress_output=True)
+            folder = os.path.splitext(video_path)[0]
+            if os.path.exists(folder):
+                print('--- STOP : The folder for this video already exists, it is probably already split.')
+            else:
+                print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))
+                os.mkdir(folder)
+                video_splitter.split_video_ffmpeg([video_path], scene_list, folder+"/"+VIDEO_SPLIT_TEMPLATE+".mp4", os.path.basename(folder),suppress_output=True)
             
             print("-- Finished video splitting in {:.2f}s --".format(time.time() - start_time))
         else:
@@ -92,7 +92,7 @@ def find_scenes(video_path):
     return scene_list
 
 def main():
-    for video in glob.glob('../data/*.mp4'):
+    for video in glob.glob('../Tests/*.mp4'):
         find_scenes(video)
 
 

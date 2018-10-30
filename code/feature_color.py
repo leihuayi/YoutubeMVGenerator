@@ -8,11 +8,15 @@ import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 16
-imgClusters = {}
+CLUSTERS = 20
+thumbnailsPath = "/home/manu/Documents/Thesis/statistics/imgClusters/"
 
-# Function to average the dominant color analysis on several frames
-def extract_feature(path): 
+'''
+EXTRACT_FEATURE : for one video file, compute the mean color histogram
+path (string) : path of video file
+saveThumbnail (bool) : save or not an image representing the video (useful for representing kmeans result)
+'''
+def extract_feature(path, saveThumbnail): 
 
     # We will use image every sampling frame to compute the mean histogram
     sampling = 15
@@ -63,8 +67,8 @@ def extract_feature(path):
 
                 count += 1 # Keeps track of number of frames
 
-                # if count==numFrames//2:
-                    # imgClusters[path] = image
+                if saveThumbnail and count==numFrames//2 :
+                    cv2.imwrite(thumbnailsPath+os.path.basename(path)+".jpg",image)
             
             # imgBase = cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB)
             hist = compute_histogram(imgBase)
@@ -103,12 +107,10 @@ def listScenes(folder, extension):
 
 
 def store_color_features(folder):
-
     listFiles = listScenes(folder, "mp4")
 
     for f in listFiles:
-        hist = extract_feature(f)
-        print(hist.size)
+        hist = extract_feature(f, False)
 
         if hist.size > 0 :
             jsonpath = os.path.splitext(f)[0]+'.json'
@@ -120,29 +122,42 @@ def store_color_features(folder):
 
 def display_clusters(df):
     clusNum = -1
-    # We stack all images on imgBase.
-    imgBase = np.empty((150,150,3), np.uint8)
-    fig = plt.figure()
-    columns = 2
-    rows = CLUSTERS/2
+    columns = 10
+    rows = 0
+    totalImgCluster = 0
+    indexImgCluster = 0
 
     for index, row in df.iterrows():
-        # new cluster
+        # new cluster = new plot
         if row['cluster'] != clusNum:
+
+            # Show previous plot
             if clusNum >= 0:
-                # draw previous cluster
-                plt.imshow(cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB))
+                figManager = plt.get_current_fig_manager()
+                figManager.window.showMaximized()
+                plt.show()
+                plt.close(fig)
 
-            # start new cluster
-            plt.subplot(rows, columns, row['cluster']+1)
-            plt.axis("off")
+            # Build new plot
             clusNum = row['cluster']
-            imgBase = imgClusters[index]
-        # aggregate image in cluster
-        else:
-            imgBase = np.concatenate((imgBase, imgClusters[index]), axis=1)
+            fig = plt.figure()
+            totalImgCluster = len(df[df['cluster'] == clusNum])
+            print("-- Cluster n°%d containing %d videos --"%(clusNum,totalImgCluster))
+            indexImgCluster = 0
 
-    plt.imshow(cv2.cvtColor(imgBase, cv2.COLOR_BGR2RGB))
+            # Have 10 columns and adapted number lines
+            rows = totalImgCluster//10 if totalImgCluster%10==0 else totalImgCluster//10 + 1
+
+        # draw image
+        indexImgCluster += 1
+        print("subplot (%d,%d,%d)"%(rows, columns, indexImgCluster))
+        plt.subplot(rows, columns, indexImgCluster)
+        plt.axis("off")
+        thumbPath = os.path.splitext(thumbnailsPath+os.path.basename(row['file']))[0]+".mp4.jpg"
+        image = cv2.imread(thumbPath)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        plt.imshow(image)
+
     figManager = plt.get_current_fig_manager()
     figManager.window.showMaximized()
     plt.show()
@@ -167,8 +182,8 @@ def compute_kmeans(folder):
     # Display the clutering results
     df = pd.DataFrame.from_records(zip(listFiles,kmeans.labels_), columns=['file','cluster'])
     df = df.sort_values(by=['cluster','file'])
-    df.to_csv("../statistics/clusters.csv")
-    # display_clusters(df)
+    df.to_csv("../statistics/clusters-%d.csv"%CLUSTERS)
+    display_clusters(df)
 
 
 def main():
@@ -186,4 +201,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
