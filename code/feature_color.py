@@ -8,7 +8,7 @@ import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 20
+CLUSTERS = 70
 thumbnailsPath = "/home/manu/Documents/Thesis/statistics/imgClusters/"
 
 '''
@@ -19,7 +19,7 @@ saveThumbnail (bool) : save or not an image representing the video (useful for r
 def extract_feature(path, saveThumbnail): 
 
     # We will use image every sampling frame to compute the mean histogram
-    sampling = 15
+    sampling = 5
 
     # Path to video file
     if os.path.exists(path):
@@ -38,7 +38,7 @@ def extract_feature(path, saveThumbnail):
             return np.empty((0,0))
 
         else:
-            # print("Analyzing video %s : %d frames ..."%(os.path.basename(path),numFrames))
+            print("Analyzing video %s : %d frames ..."%(os.path.basename(path),numFrames))
 
             # Used as counter variable 
             count = 0 
@@ -110,6 +110,7 @@ def store_color_features(folder):
     listFiles = listScenes(folder, "mp4")
 
     for f in listFiles:
+        # extract_feature(video file, save thumbnail for not)
         hist = extract_feature(f, False)
 
         if hist.size > 0 :
@@ -150,7 +151,6 @@ def display_clusters(df):
 
         # draw image
         indexImgCluster += 1
-        print("subplot (%d,%d,%d)"%(rows, columns, indexImgCluster))
         plt.subplot(rows, columns, indexImgCluster)
         plt.axis("off")
         thumbPath = os.path.splitext(thumbnailsPath+os.path.basename(row['file']))[0]+".mp4.jpg"
@@ -177,7 +177,7 @@ def compute_kmeans(folder):
     arrHist = np.array(arrHist)
 
     # Compute Kmeans on histograms to group videos
-    kmeans = KMeans(n_clusters=CLUSTERS, random_state=0).fit(arrHist)
+    kmeans = KMeans(n_clusters=CLUSTERS, init='random', random_state=2, max_iter=800, algorithm="full").fit(arrHist)
     
     # Display the clutering results
     df = pd.DataFrame.from_records(zip(listFiles,kmeans.labels_), columns=['file','cluster'])
