@@ -92,9 +92,8 @@ def find_scenes(video_path):
     return scene_list
 
 def main():
-    for video in glob.glob('../Tests/*.mp4'):
+    for video in glob.glob('../data/*.mp4'):
         find_scenes(video)
-
 
 if __name__ == "__main__":
     main()
