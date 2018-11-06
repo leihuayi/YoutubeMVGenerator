@@ -41,60 +41,65 @@ def find_scenes(video_path):
 
     scene_list = []
 
-    try:
-        # If stats file exists, load it.
-        if os.path.exists(stats_file_path):
-            # Read stats from CSV file opened in read mode:
-            with open(stats_file_path, 'r') as stats_file:
-                stats_manager.load_from_csv(stats_file, base_timecode)
-        
-        if video_splitter.is_ffmpeg_available():
-            # Set downscale factor to improve processing speed.
-            video_manager.set_downscale_factor()
+    folder = os.path.splitext(video_path)[0]
 
-            # Start video_manager.
-            video_manager.start()
+    if os.path.exists(folder):
+        print('--- STOP : The folder for this video already exists, it is probably already split.')
 
-            # Perform scene detection on video_manager.
-            scene_manager.detect_scenes(frame_source=video_manager)
-
-            # Obtain list of detected scenes.
-            scene_list = scene_manager.get_scene_list(base_timecode)
-            # Each scene is a tuple of (start, end) FrameTimecodes.
-
-            print('%s scenes obtained' % len(scene_list))
-
-            # STATISTICS : Store scenes length
-            # with open(FILE_SCENE_LENGH,'a') as myfile:
-            #    for i, scene in enumerate(scene_list):
-            #        myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
+    else:
+        try:
+            # If stats file exists, load it.
+            if os.path.exists(stats_file_path):
+                # Read stats from CSV file opened in read mode:
+                with open(stats_file_path, 'r') as stats_file:
+                    stats_manager.load_from_csv(stats_file, base_timecode)
             
-            # STATISTICS : Store number of scenes
-            # with open(FILE_SCENE_NUMBER,'a') as myfile:
-            #     myfile.write('%d\n'%len(scene_list))
+            if video_splitter.is_ffmpeg_available():
+                # Set downscale factor to improve processing speed.
+                video_manager.set_downscale_factor()
 
-            # Split the video
-            folder = os.path.splitext(video_path)[0]
-            if os.path.exists(folder):
-                print('--- STOP : The folder for this video already exists, it is probably already split.')
-            else:
+                # Start video_manager.
+                video_manager.start()
+
+                # Perform scene detection on video_manager.
+                scene_manager.detect_scenes(frame_source=video_manager)
+
+                # Obtain list of detected scenes.
+                scene_list = scene_manager.get_scene_list(base_timecode)
+                # Each scene is a tuple of (start, end) FrameTimecodes.
+
+                print('%s scenes obtained' % len(scene_list))
+
+                # STATISTICS : Store scenes length
+                # with open(FILE_SCENE_LENGH,'a') as myfile:
+                #    for i, scene in enumerate(scene_list):
+                #        myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
+                
+                # STATISTICS : Store number of scenes
+                # with open(FILE_SCENE_NUMBER,'a') as myfile:
+                #     myfile.write('%d\n'%len(scene_list))
+
+                # Split the video
                 print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))
                 os.mkdir(folder)
                 video_splitter.split_video_ffmpeg([video_path], scene_list, folder+"/"+VIDEO_SPLIT_TEMPLATE+".mp4", os.path.basename(folder),suppress_output=True)
             
-            print("-- Finished video splitting in {:.2f}s --".format(time.time() - start_time))
-        else:
-            print('Ffmpeg is not installed on your computer. Please install it before running this code')
+                print("-- Finished video splitting in {:.2f}s --".format(time.time() - start_time))
+            else:
+                print('Ffmpeg is not installed on your computer. Please install it before running this code')
 
-    finally:
-        video_manager.release()
+        finally:
+            video_manager.release()
 
     return scene_list
 
 def main():
-    for video in glob.glob('../Tests/*.mp4'):
-        find_scenes(video)
-
+    listVideos = glob.glob('../Tests/*.mp4')
+    if len(listVideos)>0:
+        for video in listVideos:
+            find_scenes(video)
+    else:
+        print("No videos in this folder.")
 
 if __name__ == "__main__":
     main()
