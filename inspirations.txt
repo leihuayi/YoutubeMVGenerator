@@ -34,4 +34,4 @@
 - https://www.math.ucdavis.edu/~aberrian/research/voice_separation/index.html Voice Instrumental separation
 - https://stackoverflow.com/questions/10826683/detecting-where-vocals-start-in-a-song Vocals in song
 - https://github.com/tuwien-musicir/rp_extract  Python library for music feature, genre classification
-
+- https://www.last.fm/music/ website music labels genres
