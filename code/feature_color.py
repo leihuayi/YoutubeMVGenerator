@@ -111,7 +111,7 @@ def store_color_features(folder):
 
     for f in listFiles:
         # extract_feature(video file, save thumbnail for not)
-        hist = extract_feature(f, False)
+        hist = extract_feature(f, True)
 
         if hist.size > 0 :
             jsonpath = os.path.splitext(f)[0]+'.json'
