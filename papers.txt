@@ -20,11 +20,11 @@
 - Segmentation based on emotions https://ieeexplore.ieee.org/document/7293429/
 - ML in music general http://andersoland.com/wp-content/uploads/2012/02/mlreport.pdf
 - Music segmentation http://www.mecs-press.org/ijitcs/ijitcs-v6-n11/IJITCS-V6-N11-1.pdf
-
 - Music separation http://ijcert.org/ems/ijcert_papers/V3I1103.pdf
 - Segmentation speech cocktail party https://arxiv.org/pdf/1804.03619.pdf
 - http://www.ismir2004.ismir.net/proceedings/p028-page-138-paper183.pdf Detection vocal segment in song
 - https://github.com/ybayle/awesome-deep-learning-music
+- https://arxiv.org/abs/1703.09179 Music Classification Keunwoo Choi
 
 - Cut video in frames 1963 http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/Hu.pdf
 - Cut video in shots dominant clustering 2009 https://dl.acm.org/citation.cfm?id=1734645

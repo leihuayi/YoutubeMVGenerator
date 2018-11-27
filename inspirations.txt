@@ -35,5 +35,10 @@
 - https://stackoverflow.com/questions/10826683/detecting-where-vocals-start-in-a-song Vocals in song
 - https://github.com/tuwien-musicir/rp_extract  Python library for music feature, genre classification
 - https://www.last.fm/music/ website music labels genres
+- https://developer.spotify.com/documentation/web-api/reference/artists/get-artist/ Spotify get artist genre
+- https://developer.gracenote.com/, https://github.com/spotify/echoprint-server, https://www.acrcloud.com/docs/acrcloud/ recognize song
+- http://developer.rovicorp.com/docs, https://www.last.fm/api music search
+- https://www.programmableweb.com/category/music/apis?category=19990 List music APIs
+
 
 - https://github.com/topics/pretrained-models
