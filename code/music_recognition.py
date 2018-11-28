@@ -1,33 +1,68 @@
-import os, sys, json, glob
 from acrcloud.recognizer import ACRCloudRecognizer
-import pandas as pd
+import requests, json
 
-if __name__ == '__main__':
-    '''This module can recognize ACRCloud by most of audio/video file. 
-        Audio: mp3, wav, m4a, flac, aac, amr, ape, ogg ...
-        Video: mp4, mkv, wmv, flv, ts, avi ...'''
+authorizedGenres = ["rock","pop","hip-hop","rnb","dance"]
 
-    with open('acr_config.json', 'r') as f:
-        config = json.load(f) # Load host, key, secret from json file
-        config["timeout"] = 10 # seconds
+"""
+Recognize music fingerprint using ACR API
+"""
+def recognizeMusic(filePath,config):
+    config["timeout"] = 10 # seconds
 
     re = ACRCloudRecognizer(config)
-    musics = []
 
-    for f in glob.glob(sys.argv[1]+"*.mp3") :
-        #recognize by file path, and skip 0 seconds from from the beginning of sys.argv[1].
-        result = json.loads(re.recognize_by_file(f, 20, 30))
-        if 'metadata' in result.keys():
-            result = result['metadata']['music'][0]
-            
-            # print(json.dumps(result))
-            if 'genres' in result.keys():
-                musics.append((os.path.splitext(os.path.basename(f))[0],result['title'],result['artists'][0]['name'],",".join([g['name'] for g in result['genres']])))
-            else:
-                musics.append((os.path.splitext(os.path.basename(f))[0],result['title'],result['artists'][0]['name'],""))
+    #recognize by file path, and skip 20 seconds from from the beginning of sys.argv[1].
+    result = json.loads(re.recognize_by_file(filePath, 20, 30))
+
+    if 'metadata' in result.keys():
+        result = result['metadata']['music'][0]
+
+        if 'genres' in result.keys():
+            # TODO : check if genres in required list
+            return (result['title'],result['artists'][0]['name'],",".join([g['name'] for g in result['genres']]))
         else:
-            musics.append((os.path.splitext(os.path.basename(f))[0],"","",""))
-        
-    df = pd.DataFrame(musics)
-    df.columns = ['id','name','artist','genres']
-    df.to_csv("../statistics/songs_on_server.csv",sep=";")
+            return (result['title'],result['artists'][0]['name'],"")
+    else:
+        return -1
+
+
+"""
+Get music genre using Last.fm API
+"""
+def getMusicGenre(title,artist,config):
+    params = (
+        ('method', 'track.getTopTags'),
+        ('api_key', config['api_key']),
+        ('artist', artist),
+        ('track', title),
+        ('format', 'json'),
+    )
+
+    tags = []
+    # First try to get track genre, else get artist genre
+    reqs = ['track','artist']
+
+    while len(tags) == 0 and len(reqs) > 0:
+        response = requests.get('http://ws.audioscrobbler.com/2.0/', params=params).json()
+        reqs.pop(0)
+
+        if ('error' not in response.keys() and 'toptags' in response.keys() and
+        'tag' in response['toptags'] and len(response['toptags']['tag'])) > 0:
+
+            tagList = response['toptags']['tag']
+            # get top 3 tags
+            i=0
+            while i < min(len(tagList),3):
+                tags.append(tagList[i]['name'])
+                i+=1
+
+            # TODO : check if tags are in required list
+        else:
+            params= (
+                ('method', 'artist.getTopTags'),
+                ('api_key', config['api_key']),
+                ('artist', artist),
+                ('format', 'json'),
+            )
+
+    return tags

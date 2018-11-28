@@ -2,10 +2,10 @@ import msaf
 import librosa
 import librosa.display
 
-file_name = "9bZkp7q19f0"
+file_name = "../Tests/9bZkp7q19f0"
 
 # Choose an audio file and listen to it
-audio_file = file_name+".wav"
+audio_file = file_name+".mp3"
 
 y, sr = librosa.load(audio_file)
 librosa.display.waveplot(y, sr)
