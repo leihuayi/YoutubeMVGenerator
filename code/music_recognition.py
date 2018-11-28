@@ -1,6 +1,5 @@
 import os, sys, json, glob
 from acrcloud.recognizer import ACRCloudRecognizer
-from acrcloud.recognizer import ACRCloudRecognizeType
 import pandas as pd
 
 if __name__ == '__main__':
