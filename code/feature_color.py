@@ -26,19 +26,20 @@ def extract_feature(path, saveThumbnail):
 
         vidObj = cv2.VideoCapture(path) 
         numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
+        numSec = numFrames/vidObj.get(cv2.CAP_PROP_FPS)
 
         # Do not use scenes too short
         if numFrames<12:
             print("Scene too short (<25 frames, ~500ms). No analyzing")
-            return np.empty((0,0))
+            return (numSec, np.empty((0,0)))
 
         # Do not use scenes too long
         elif numFrames>125:
             print("Scene too long (>125 frames, ~5 sec). No analyzing")
-            return np.empty((0,0))
+            return (numSec, np.empty((0,0)))
 
         else:
-            print("Analyzing video %s : %d frames ..."%(os.path.basename(path),numFrames))
+            print("Analyzing video %s : %d frames, %f seconds ..."%(os.path.basename(path),numFrames,numSec))
 
             # Used as counter variable 
             count = 0 
@@ -74,9 +75,9 @@ def extract_feature(path, saveThumbnail):
             hist = compute_histogram(imgBase)
 
             if hist[0] == 1 and hist[256] == 1 and hist[512] == 1:
-                return np.empty((0,0))
+                return (numSec, np.empty((0,0)))
             else:
-                return hist
+                return (numSec, hist)
 
 
 def compute_histogram(img):
@@ -93,7 +94,7 @@ def compute_histogram(img):
     return hist
 
 
-def listScenes(folder, extension):
+def list_scenes(folder, extension):
     listFiles = []
 
     for f in glob.glob(folder+"/*.mp4"):
@@ -107,16 +108,15 @@ def listScenes(folder, extension):
 
 
 def store_color_features(folder):
-    listFiles = listScenes(folder, "mp4")
+    listFiles = list_scenes(folder, "mp4")
 
     for f in listFiles:
         # extract_feature(video file, save thumbnail for not)
-        hist = extract_feature(f, True)
+        sceneLength, hist = extract_feature(f, True)
 
         if hist.size > 0 :
             jsonpath = os.path.splitext(f)[0]+'.json'
-            jsondata = {'color':hist.tolist()}
-            print("Saving feature info in %s..."%jsonpath)
+            jsondata = {'length':sceneLength,'color':hist.tolist()}
             with open(jsonpath, 'w') as outfile:
                 json.dump(jsondata, outfile)
 
@@ -133,10 +133,11 @@ def display_clusters(df):
         if row['cluster'] != clusNum:
 
             # Show previous plot
-            if clusNum >= 0:
-                figManager = plt.get_current_fig_manager()
-                figManager.window.showMaximized()
-                plt.show()
+            if clusNum >= 0 :
+                if totalImgCluster>10:
+                    figManager = plt.get_current_fig_manager()
+                    figManager.window.showMaximized()
+                    plt.show()
                 plt.close(fig)
 
             # Build new plot
@@ -164,15 +165,15 @@ def display_clusters(df):
     plt.close(fig)
 
 
-def compute_kmeans(folder):
-    # Read the features from json file
-    listFiles = listScenes(folder, "json")
-
+def compute_kmeans(listFiles):
+    # Read the features from json files
     arrHist = []
+    arrLength = []
     for jsonFile in listFiles:
         with open(jsonFile, "r") as jFile:
             jdata = json.load(jFile)
             arrHist.append(jdata['color'])
+            arrLength.append(jdata['length'])
 
     arrHist = np.array(arrHist)
 
@@ -180,11 +181,12 @@ def compute_kmeans(folder):
     kmeans = KMeans(n_clusters=CLUSTERS, init='random', random_state=2, max_iter=800, algorithm="full").fit(arrHist)
     
     # Display the clutering results
-    df = pd.DataFrame.from_records(zip(listFiles,kmeans.labels_), columns=['file','cluster'])
+    df = pd.DataFrame.from_records(zip(listFiles,arrLength,kmeans.labels_), columns=['file','length','cluster'])
     df = df.sort_values(by=['cluster','file'])
     df.to_csv("../statistics/clusters-%d.csv"%CLUSTERS)
-    display_clusters(df)
-
+    # display_clusters(df)
+    return df
+    
 
 def main():
     start = time.time()
@@ -195,7 +197,8 @@ def main():
     # store_color_features(folder)
 
     # Kmeans
-    compute_kmeans(folder)
+    listFiles = list_scenes(folder, "json")
+    compute_kmeans(listFiles)
 
     print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
 

@@ -6,7 +6,7 @@ authorizedGenres = ["rock","pop","hip-hop","rnb","dance"]
 """
 Recognize music fingerprint using ACR API
 """
-def recognizeMusic(filePath,config):
+def recognize_music(filePath,config):
     config["timeout"] = 10 # seconds
 
     re = ACRCloudRecognizer(config)
@@ -29,7 +29,7 @@ def recognizeMusic(filePath,config):
 """
 Get music genre using Last.fm API
 """
-def getMusicGenre(title,artist,config):
+def get_music_genre(title,artist,config):
     params = (
         ('method', 'track.getTopTags'),
         ('api_key', config['api_key']),
