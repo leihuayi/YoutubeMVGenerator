@@ -65,13 +65,13 @@ def main(args):
     musicGenre = args.genre
     if musicGenre == '': # No genre given, must find it
 
-        with open('acr_config.json', 'r') as f:
-            config = json.load(f) # Load host, key, secret from json file
+        with open('acr_config.json', 'r') as conffile:
+            config = json.load(conffile) # Load host, key, secret from json file
 
         # Recognize the input music
-        musicInput = recognize_music(args.input, config)
+        musicInput = recognize_music(args.input, config, 20)
 
-        if musicInput == -1: # Did not recognize the music
+        if musicInput[1] == '': # Did not recognize the music
             print("The algorithm did not manage the recognize the music genre.\n"
             "Please try with another music, or manually add genre with the argument --genre <name of genre>.")
             return -1
