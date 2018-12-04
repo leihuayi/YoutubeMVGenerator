@@ -70,6 +70,9 @@ def get_music_genre(title,artist,config):
     return tags
 
 
+"""
+Use above functions to classify all musics from MVs in database
+"""
 def recognize_database_genres():
     listMusics = []
 
@@ -93,11 +96,7 @@ def recognize_database_genres():
             if musicInput[2] == '': # Did not find the genre
                 # Use APi to find genre knowing music title and artist
                 tags = get_music_genre(musicInput[0],musicInput[1], config)
-                if len(tags) == 0:
-                    print("The algorithm did not manage the recognize the music genre.\n"
-                    "Please try with another music, or manually add genre with the argument --genre <name of genre>.")
-                    return -1
-                else:
+                if len(tags) != 0:
                     musicGenre = ','.join(tags)
             else:
                 musicGenre = musicInput[2]
@@ -105,7 +104,7 @@ def recognize_database_genres():
         listMusics.append((os.path.splitext(os.path.basename(f))[0],musicInput[0],musicInput[1],musicGenre))
 
     df = pd.DataFrame(listMusics, columns=['id','name','artist','genres'])
-    df.to_csv("../statistics/songs_on_server_test.csv", sep=";")
+    df.to_csv("../statistics/songs_on_server.csv", sep=";")
 
 
 if __name__ == "__main__":
