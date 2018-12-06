@@ -1,13 +1,17 @@
-import os, sys, json, glob
-import argparse
-import random
+import argparse, random, os, json time
 import subprocess
-import msaf, librosa
-import pandas as pd
+import msaf
 from music_recognition import recognize_music, get_music_genre, authorizedGenres
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
-def build_mv(df, boundaries):
+"""
+Arguments : 
+df = dataframe (result of videos clustering)
+boudaries = list of timestamps in seconds
+
+assemble some videos using the result of df around the boundaries
+"""
+def assemble_videos(df, boundaries):
     # Get 5 random clusters such as sum lengths more than whole music
     # with approximately same proportion of each
 
@@ -36,9 +40,8 @@ def build_mv(df, boundaries):
 
                 if indexes[numClus] < len(clus[numClus]) :
                     filename = os.path.splitext(clus[numClus].iloc[indexes[numClus]]['file'])[0]
-                    if not os.path.exists(filename+".MTS"):
-                        subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", filename+".mp4", "-q", "0", filename+".MTS"])
-                    vidList.write("file '"+filename+"'.MTS\n")
+                    subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", filename+".mp4", "-q", "0", filename+".MTS"])
+                    vidList.write("file '"+filename+".MTS'\n")
                     videoLength += clus[numClus].iloc[indexes[numClus]]['length']
                     indexes[numClus]+=1
                 else:
@@ -49,23 +52,26 @@ def build_mv(df, boundaries):
             numBound += 1
 
 
+"""
+Main steps for building the mv
+"""
 def main(args):
-    print('Loading music : %s ...'%args.input)
+    start = time.time()
 
-    # Check music length
-    # audioSeries, samplingRate = librosa.load(args.input)
-    # musicLength = librosa.get_duration(y=audioSeries, sr=samplingRate)
-    # if musicLength<30 :
-    #     print("The music must be longer than 30 seconds in order to make a quality music video.\n")
-    #     return -1
-    # else:
-    #     print("Length : %f s\n"%musicLength)
+    # Get major changes in music
+    print("Identifying key changes in %s..."%args.input)
+    boundaries, labels = msaf.process(args.input, boundaries_id="olda")
+
+    if boundaries[-1] < 30:
+        print("Music shorter than 30 seconds, please chose a longer music for getting a quality MV.")
+        return -1
+    print("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
 
     # Find music genre
     musicGenre = args.genre
     if musicGenre == '': # No genre given, must find it
 
-        with open('acr_config.json', 'r') as conffile:
+        with open('apis_config.json', 'r') as conffile:
             config = json.load(conffile) # Load host, key, secret from json file
 
         # Recognize the input music
@@ -103,23 +109,33 @@ def main(args):
     listFilesSameGenre = list_scenes("/home/manu/Documents/Thesis/Tests", "json")
     clusterResult = compute_kmeans(listFilesSameGenre)
 
-    # Get major changes in music
-    print("Identifying music key changes...")
-    sonified_file = args.input+"_boundaries.wav"
-    sr = 44100
-    boundaries, labels = msaf.process(args.input, boundaries_id="olda", sonify_bounds=True, out_bounds=sonified_file, out_sr=sr)
-
-    print("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
-
     # Join music scenes while respecting the clustering and the input music rythm
     print("Building the music video around these boundaries...\n")
 
     # TODO : append with ffmpeg
-    build_mv(clusterResult, boundaries)
+    assemble_videos(clusterResult, boundaries)
     # Concatenate videos
     subprocess.call("ffmpeg -loglevel panic -f concat -safe 0 -i video_structure.txt -c copy temp_video.MTS".split(" "))
     # Put input music on top of resulting video
-    subprocess.call(["ffmpeg", "-i", "temp_video.MTS", "-i" ,args.input, "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0", args.output])
+    extension = os.path.splitext(args.output)[1]
+    if extension == 'avi' or extension == 'mkv':
+        subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", "temp_video.MTS", "-i" ,args.input, 
+        "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0", args.output])
+
+    else:
+        if extension != 'mp4' :
+            print("No format within (avi,mkv,mp4) given. Using default mp4 ...")
+        subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", "temp_video.MTS", "-i" ,args.input, 
+        "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0", os.path.splitext(args.output)[0]+".mp4"])
+
+    print("--- Finished building the music video in %f seconds. ---"%(time.time()-start))
+
+    # Delete temp files
+    os.remove('temp_video.MTS')
+    with open('video_structure.txt','r') as vidList: # delete MTS videos
+        for vidFile in vidList:
+            os.remove(vidFile[6:-2])
+    os.remove('video_structure.txt')
 
 
 if __name__ == "__main__":

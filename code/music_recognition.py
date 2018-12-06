@@ -79,7 +79,7 @@ def recognize_database_genres():
     for f in glob.glob(sys.argv[1]+"*.mp3"):
         print("Recognizing genre for : "+f)
 
-        with open('acr_config.json', 'r') as conf:
+        with open('apis_config.json', 'r') as conf:
             config = json.load(conf) # Load host, key, secret from json file
 
         # Recognize the input music. The shortest music in database lasts 70 sec
@@ -107,8 +107,8 @@ def recognize_database_genres():
     df.to_csv("../statistics/songs_on_server.csv", sep=";")
 
 
-if __name__ == "__main__":
-    recognize_database_genres()
+# if __name__ == "__main__":
+#     recognize_database_genres()
 
         
 
