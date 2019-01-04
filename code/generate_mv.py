@@ -1,8 +1,10 @@
-import argparse, random, os, json time
+import argparse, random, os, json, time
 import subprocess
 import msaf
 from music_recognition import recognize_music, get_music_genre, authorizedGenres
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
+
+BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 
 """
 Arguments : 
@@ -12,6 +14,7 @@ boudaries = list of timestamps in seconds
 assemble some videos using the result of df around the boundaries
 """
 def assemble_videos(df, boundaries):
+    boundaries = boundaries[1:-1]
     # Get 5 random clusters such as sum lengths more than whole music
     # with approximately same proportion of each
 
@@ -34,15 +37,22 @@ def assemble_videos(df, boundaries):
     indexes = [0]*5
 
     with open('video_structure.txt','w') as vidList:
-        while videoLength < boundaries[-1]:
+        while videoLength < boundaries[-1]-BOUNDARY_OFFSET:
 
-            while numBound < len(boundaries) and videoLength < (boundaries[numBound]-0.05):
+            # When reaching next boundary
+            while numBound < len(boundaries) and videoLength < boundaries[numBound]-BOUNDARY_OFFSET:
 
                 if indexes[numClus] < len(clus[numClus]) :
                     filename = os.path.splitext(clus[numClus].iloc[indexes[numClus]]['file'])[0]
-                    subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", filename+".mp4", "-q", "0", filename+".MTS"])
+                    fileLength = clus[numClus].iloc[indexes[numClus]]['length']
+                    # If going over boundary, cut scene
+                    if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET :
+                        subprocess.call(["ffmpeg", "-loglevel", "error", "-i", filename+".mp4", "-q", "0", filename+".MTS"])
+                    else :
+                        fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
+                        subprocess.call(["ffmpeg", "-loglevel", "error", "-t", str(fileLength), "-i", filename+".mp4", "-q", "0", filename+".MTS"])
                     vidList.write("file '"+filename+".MTS'\n")
-                    videoLength += clus[numClus].iloc[indexes[numClus]]['length']
+                    videoLength += fileLength
                     indexes[numClus]+=1
                 else:
                     numClus = (numClus+1)%5
@@ -58,7 +68,7 @@ Main steps for building the mv
 def main(args):
     start = time.time()
 
-    # Get major changes in music
+    # 1. Get major changes in music
     print("Identifying key changes in %s..."%args.input)
     boundaries, labels = msaf.process(args.input, boundaries_id="olda")
 
@@ -67,7 +77,7 @@ def main(args):
         return -1
     print("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
 
-    # Find music genre
+    # 2. Find music genre
     musicGenre = args.genre
     if musicGenre == '': # No genre given, must find it
 

@@ -189,7 +189,7 @@ def compute_kmeans(listFiles):
     
 
 def main():
-    start = time.time()
+    # start = time.time()
 
     folder = "/home/manu/Documents/Thesis/Tests"
 
@@ -200,7 +200,7 @@ def main():
     listFiles = list_scenes(folder, "json")
     compute_kmeans(listFiles)
 
-    print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
+    # print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
 
 if __name__ == "__main__":
     main()
