@@ -1,7 +1,7 @@
 import argparse, random, os, json, time
 import subprocess
 import msaf
-from music_recognition import recognize_music, get_music_genre, authorizedGenres
+from music_recognition import recognize_music, get_music_genre, convert_genre_to_style, authorizedGenres
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
@@ -60,6 +60,7 @@ def assemble_videos(df, boundaries):
             # next boundary
             numClus = (numClus+1)%5
             numBound += 1
+            print(videoLength)
 
 
 """
@@ -111,32 +112,45 @@ def main(args):
             ",".join(authorizedGenres)+") or let the algorithm find the genre.")
             return -1
 
-
-    # With the music genre, find appropriate videos in database
+    # 3. With the music genre, find appropriate videos in database
     print("Music genre identified : %s. Fetching matching videos in database...\n"%musicGenre)
+    musicGenre = convert_genre_to_style(musicGenre)
     
     # TODO : call k-means clustering on scenes extracted from Music Videos with same genre
     listFilesSameGenre = list_scenes("/home/manu/Documents/Thesis/Tests", "json")
     clusterResult = compute_kmeans(listFilesSameGenre)
 
-    # Join music scenes while respecting the clustering and the input music rythm
+    # 4. Join music scenes while respecting the clustering and the input music rythm
     print("Building the music video around these boundaries...\n")
 
-    # TODO : append with ffmpeg
+    # Select and order videos for music clip
     assemble_videos(clusterResult, boundaries)
+
     # Concatenate videos
-    subprocess.call("ffmpeg -loglevel panic -f concat -safe 0 -i video_structure.txt -c copy temp_video.MTS".split(" "))
+    subprocess.call("ffmpeg -loglevel error -f concat -safe 0 -i video_structure.txt -c copy -an temp_video.MTS".split(" "))
+
     # Put input music on top of resulting video
     extension = os.path.splitext(args.output)[1]
-    if extension == 'avi' or extension == 'mkv':
-        subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", "temp_video.MTS", "-i" ,args.input, 
-        "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0", args.output])
-
-    else:
+    if extension != 'avi' and extension != 'mkv':
+        args.output = os.path.splitext(args.output)[0]+".mp4"
         if extension != 'mp4' :
             print("No format within (avi,mkv,mp4) given. Using default mp4 ...")
-        subprocess.call(["ffmpeg", "-loglevel", "panic", "-i", "temp_video.MTS", "-i" ,args.input, 
-        "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0", os.path.splitext(args.output)[0]+".mp4"])
+
+    # fade out
+    fade = ('','')
+    if boundaries[-2]-boundaries[-3]<10:
+        fade = (str(boundaries[-3]*25),str(boundaries[-2]-boundaries[-3]))
+    else:
+        fade = (str((boundaries[-2]-1)*25),'25')
+
+    subprocess.call([("ffmpeg -loglevel error -i temp_video.MTS -vf fade=out:%s:%s temp_video.MTS"%(fade[0],fade[1])).split(" ")])
+
+    # copies video stream and replace audio of arg 0 by arg 1
+    subprocess.call(["ffmpeg", "-loglevel", "error", "-i", "temp_video.MTS", "-i" ,args.input, 
+    "-c:v" ,"copy", "-map", "0:v:0", "-map", "1:a:0",  args.output])
+
+
+
 
     print("--- Finished building the music video in %f seconds. ---"%(time.time()-start))
 

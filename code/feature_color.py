@@ -80,6 +80,13 @@ def extract_feature(path, saveThumbnail):
                 return (numSec, hist)
 
 
+'''
+Return an numpy array size 256 x 3 which is the color histogram of the picture :
+[0,255] = blue
+[256,511] = green
+[512,768] = red
+for each channel [0,255], index i gives the percentage of pixels with intensity i in the pic
+'''
 def compute_histogram(img):
     color = ('b','g','r')
     hist = np.empty((0,256))
@@ -94,6 +101,9 @@ def compute_histogram(img):
     return hist
 
 
+'''
+Helper function
+'''
 def list_scenes(folder, extension):
     listFiles = []
 
@@ -107,6 +117,10 @@ def list_scenes(folder, extension):
     return listFiles
 
 
+'''
+Stores information for all scenes in a folder into json files
+informations : scene length, color (feature)
+'''
 def store_color_features(folder):
     listFiles = list_scenes(folder, "mp4")
 
@@ -121,6 +135,9 @@ def store_color_features(folder):
                 json.dump(jsondata, outfile)
 
 
+'''
+Draws on plots each cluster to easily visualize the clustering results
+'''
 def display_clusters(df):
     clusNum = -1
     columns = 10
@@ -165,6 +182,9 @@ def display_clusters(df):
     plt.close(fig)
 
 
+'''
+Executes Kmeans on a given list of files
+'''
 def compute_kmeans(listFiles):
     # Read the features from json files
     arrHist = []
@@ -183,24 +203,35 @@ def compute_kmeans(listFiles):
     # Display the clutering results
     df = pd.DataFrame.from_records(zip(listFiles,arrLength,kmeans.labels_), columns=['file','length','cluster'])
     df = df.sort_values(by=['cluster','file'])
-    df.to_csv("../statistics/clusters-%d.csv"%CLUSTERS)
+    # df.to_csv("../statistics/clusters-%d.csv"%CLUSTERS)
     # display_clusters(df)
     return df
     
 
 def main():
-    # start = time.time()
+    start = time.time()
 
-    folder = "/home/manu/Documents/Thesis/Tests"
+    folder = "../data"
 
     # Extract the color features and store them
     # store_color_features(folder)
 
-    # Kmeans
-    listFiles = list_scenes(folder, "json")
-    compute_kmeans(listFiles)
+    # Kmeans for each style
+    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
-    # print("Finished KMeans. Time elapsed : %f"%(time.time()-start))
+    for style in ["rock","pop","hiphop","electro"] :
+        subDf = df.loc[df["style"] == style]
+        listFiles = []
+        for index, row in subDf.iterrows():
+            # Get all scenes of MVs with same style
+            listFiles += glob.glob(folder+"/"+row["id"]+"/*.json")
+
+        kmeans = compute_kmeans(listFiles)
+        kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)
+
+        print("Finished KMeans for style : %s. Time elapsed : %f"%(style, time.time()-start))
+        start = time.time()
+
 
 if __name__ == "__main__":
     main()
