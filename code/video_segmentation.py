@@ -102,7 +102,6 @@ def main():
     df = df[df["style"].notnull()]
     listVideos = []
     for index, row in df.iterrows():
-        print(row["id"])
         listVideos.append(folder+"/"+row["id"]+".mp4")
 
     if len(listVideos)>0:
