@@ -214,23 +214,23 @@ def main():
     folder = "../data"
 
     # Extract the color features and store them
-    store_color_features(folder)
+    # store_color_features(folder)
 
-    # # Kmeans for each style
-    # df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
+    # Kmeans for each style
+    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
-    # for style in ["rock","pop","hiphop","electro"] :
-    #     subDf = df.loc[df["style"] == style]
-    #     listFiles = []
-    #     for index, row in subDf.iterrows():
-    #         # Get all scenes of MVs with same style
-    #         listFiles += glob.glob(folder+"/"+row["id"]+"/*.json")
+    for style in ["rock","pop","hiphop","electro"] :
+        subDf = df.loc[df["style"] == style]
+        listFiles = []
+        for index, row in subDf.iterrows():
+            # Get all scenes of MVs with same style
+            listFiles += glob.glob(folder+"/"+row["id"]+"/*.json")
 
-    #     kmeans = compute_kmeans(listFiles)
-    #     kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)
+        kmeans = compute_kmeans(listFiles)
+        kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)
 
-    #     print("Finished KMeans for style : %s. Time elapsed : %f"%(style, time.time()-start))
-    #     start = time.time()
+        print("Finished KMeans for style : %s. Time elapsed : %f"%(style, time.time()-start))
+        start = time.time()
 
 
 if __name__ == "__main__":
