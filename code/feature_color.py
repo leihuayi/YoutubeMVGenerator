@@ -8,7 +8,7 @@ import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 70
+CLUSTERS = 100
 thumbnailsPath = "/home/manu/Documents/Thesis/statistics/imgClusters/"
 
 '''
@@ -220,6 +220,7 @@ def main():
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
     for style in ["rock","pop","hiphop","electro"] :
+        print("Starting KMeans for style : %s"%style)
         subDf = df.loc[df["style"] == style]
         listFiles = []
         for index, row in subDf.iterrows():
@@ -229,7 +230,7 @@ def main():
         kmeans = compute_kmeans(listFiles)
         kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)
 
-        print("Finished KMeans for style : %s. Time elapsed : %f"%(style, time.time()-start))
+        print("Finished KMeans. Time elapsed : %f---------------\n"%(time.time()-start))
         start = time.time()
 
 
