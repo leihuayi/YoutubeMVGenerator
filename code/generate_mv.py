@@ -99,7 +99,8 @@ def main(args):
                 tags = get_music_genre(musicInput[0],musicInput[1], config)
                 if len(tags) == 0:
                     print("The algorithm did not manage the recognize the music genre.\n"
-                    "Please try with another music, or manually add genre with the argument --genre <name of genre>.")
+                    "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
+                    "with genre in ("+",".join(authorizedGenres)+").")
                     return -1
                 else:
                     musicGenre = ','.join(tags)
@@ -114,11 +115,14 @@ def main(args):
 
     # 3. With the music genre, find appropriate videos in database
     print("Music genre identified : %s. Fetching matching videos in database...\n"%musicGenre)
-    musicGenre = convert_genre_to_style(musicGenre)
+    musicStyle = convert_genre_to_style(musicGenre)
+    if musicStyle not in authorizedGenres:
+        print("The algorithm did not manage the recognize the music genre.\n"
+                    "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
+                    "with genre in ("+",".join(authorizedGenres)+").")
     
-    # TODO : call k-means clustering on scenes extracted from Music Videos with same genre
-    listFilesSameGenre = list_scenes("/home/manu/Documents/Thesis/Tests", "json")
-    clusterResult = compute_kmeans(listFilesSameGenre)
+    # use k-means clustering result on scenes extracted from Music Videos with same genre
+    clusterResult = df.read_csv("../statistics/kmeans_"+musicStyle+".csv")
 
     # 4. Join music scenes while respecting the clustering and the input music rythm
     print("Building the music video around these boundaries...\n")
@@ -137,13 +141,14 @@ def main(args):
             print("No format within (avi,mkv,mp4) given. Using default mp4 ...")
 
     # fade out
+    '''
     fade = ('','')
     if boundaries[-2]-boundaries[-3]<10:
         fade = (str(boundaries[-3]*25),str(boundaries[-2]-boundaries[-3]))
     else:
         fade = (str((boundaries[-2]-1)*25),'25')
 
-    subprocess.call([("ffmpeg -loglevel error -i temp_video.MTS -vf fade=out:%s:%s temp_video.MTS"%(fade[0],fade[1])).split(" ")])
+    subprocess.call([("ffmpeg -loglevel error -i temp_video.MTS -vf fade=out:%s:%s temp_video.MTS"%(fade[0],fade[1])).split(" ")])'''
 
     # copies video stream and replace audio of arg 0 by arg 1
     subprocess.call(["ffmpeg", "-loglevel", "error", "-i", "temp_video.MTS", "-i" ,args.input, 
