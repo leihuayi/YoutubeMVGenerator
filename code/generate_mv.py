@@ -1,6 +1,7 @@
 import argparse, random, os, json, time
 import subprocess
 import msaf
+import pandas as pd
 from music_recognition import recognize_music, get_music_genre, convert_genre_to_style, authorizedGenres
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
@@ -122,7 +123,7 @@ def main(args):
                     "with genre in ("+",".join(authorizedGenres)+").")
     
     # use k-means clustering result on scenes extracted from Music Videos with same genre
-    clusterResult = df.read_csv("../statistics/kmeans_"+musicStyle+".csv")
+    clusterResult = pd.read_csv("../statistics/kmeans_"+musicStyle+".csv")
 
     # 4. Join music scenes while respecting the clustering and the input music rythm
     print("Building the music video around these boundaries...\n")
