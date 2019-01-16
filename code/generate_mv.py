@@ -7,13 +7,13 @@ from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 
-"""
+'''
 Arguments : 
 df = dataframe (result of videos clustering)
 boudaries = list of timestamps in seconds
 
 assemble some videos using the result of df around the boundaries
-"""
+'''
 def assemble_videos(df, boundaries):
     boundaries = boundaries[1:-1]
     # Get 5 random clusters such as sum lengths more than whole music
@@ -64,9 +64,9 @@ def assemble_videos(df, boundaries):
             print(videoLength)
 
 
-"""
+'''
 Main steps for building the mv
-"""
+'''
 def main(args):
     start = time.time()
 
@@ -136,9 +136,9 @@ def main(args):
 
     # Put input music on top of resulting video
     extension = os.path.splitext(args.output)[1]
-    if extension != 'avi' and extension != 'mkv':
+    if extension != '.avi' and extension != '.mkv':
         args.output = os.path.splitext(args.output)[0]+".mp4"
-        if extension != 'mp4' :
+        if extension != '.mp4' :
             print("No format within (avi,mkv,mp4) given. Using default mp4 ...")
 
     # fade out
