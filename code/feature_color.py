@@ -9,7 +9,7 @@ from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
 CLUSTERS = 100
-thumbnailsPath = "/home/manu/Documents/Thesis/statistics/imgClusters/"
+thumbnailsPath = "../statistics/imgClusters/"
 
 '''
 EXTRACT_FEATURE : for one video file, compute the mean color histogram
@@ -23,7 +23,6 @@ def extract_feature(path, saveThumbnail):
 
     # Path to video file
     if os.path.exists(path):
-
         vidObj = cv2.VideoCapture(path) 
         numFrames = int(vidObj.get(cv2.CAP_PROP_FRAME_COUNT))
         numSec = numFrames/vidObj.get(cv2.CAP_PROP_FPS)
@@ -126,7 +125,7 @@ def store_color_features(folder):
 
     for f in listFiles:
         # extract_feature(video file, save thumbnail for not)
-        sceneLength, hist = extract_feature(f, True)
+        sceneLength, hist = extract_feature(f, False)
 
         if hist.size > 0 :
             jsonpath = os.path.splitext(f)[0]+'.json'
@@ -213,7 +212,7 @@ def main():
 
     folder = "../data"
 
-    # Extract the color features and store them
+    # # Extract the color features and store them
     # store_color_features(folder)
 
     # Kmeans for each style

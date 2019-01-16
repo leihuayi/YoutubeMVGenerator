@@ -1,8 +1,10 @@
 from __future__ import print_function
 import os
 import glob
-import time
+import time, re
 import pandas as pd
+import subprocess
+from collections import Counter
 
 # Standard PySceneDetect imports:
 from scenedetect.video_manager import VideoManager
@@ -21,6 +23,10 @@ VIDEO_SPLIT_TEMPLATE = '$VIDEO_NAME-$SCENE_NUMBER'
 FILE_SCENE_LENGH = '../statistics/scenes_length.csv'
 FILE_SCENE_NUMBER = '../statistics/scenes_number.csv'
 
+
+'''
+Split video into scenes (one camera movement)
+'''
 def find_scenes(video_path):
     start_time = time.time()
     print("Analyzing video "+video_path)
@@ -95,20 +101,43 @@ def find_scenes(video_path):
 
     return scene_list
 
+
+'''
+Get video width and height
+'''
+def detectCropFile(fpath):
+    if os.path.exists(fpath):
+        print("File to detect crop: %s " % fpath)
+        p = subprocess.Popen(["ffmpeg", "-i", fpath, "-vf", "cropdetect=24:16:0", "-vframes", "1000", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        infos = p.stderr.read().decode('utf-8')
+        allCrops = re.findall("crop=\S+", infos)
+        mostCommonCrop = Counter(allCrops).most_common(1)
+        strCrop = mostCommonCrop[0][0][5:].split(":")
+        return(strCrop[0]+"x"+strCrop[1])
+    else:
+        return ""
+
+
 def main():
     folder = "../data"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
     df = df[df["style"].notnull()]
+    df["resolution"] = ""
     listVideos = []
     for index, row in df.iterrows():
-        listVideos.append(folder+"/"+row["id"]+".mp4")
+        # listVideos.append(folder+"/"+row["id"]+".mp4")
+        res = detectCropFile(folder+"/"+row["id"]+".mp4")
+        row["resolution"] = res
+    print(df.to_string())
+    df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
 
+    '''
     if len(listVideos)>0:
         for video in listVideos:
             find_scenes(video)
     else:
-        print("No videos to analyze.")
+        print("No videos to analyze.")'''
 
 if __name__ == "__main__":
     main()

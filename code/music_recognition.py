@@ -5,9 +5,9 @@ import requests, json
 
 authorizedGenres = ["rock","pop","hiphop","electro"]
 
-"""
+'''
 Recognize music fingerprint using ACR API
-"""
+'''
 def recognize_music(filePath,config, start):
     config["timeout"] = 10 # seconds
 
@@ -28,9 +28,9 @@ def recognize_music(filePath,config, start):
         return ('','','')
 
 
-"""
+'''
 Get music genre using Last.fm API
-"""
+'''
 def get_music_genre(title,artist,config):
     params = (
         ('method', 'track.getTopTags'),
@@ -70,9 +70,9 @@ def get_music_genre(title,artist,config):
     return tags
 
 
-"""
+'''
 Use above functions to classify all musics from MVs in database
-"""
+'''
 def recognize_database_genres():
     listMusics = []
 
