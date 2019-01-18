@@ -1,7 +1,7 @@
 from __future__ import print_function
-import os
-import glob
-import time, re
+import os, glob, shutil
+import time
+import re
 import pandas as pd
 import subprocess
 from collections import Counter
@@ -105,10 +105,10 @@ def find_scenes(video_path):
 '''
 Get video width and height
 '''
-def detectCropFile(fpath):
-    if os.path.exists(fpath):
-        print("File to detect crop: %s " % fpath)
-        p = subprocess.Popen(["ffmpeg", "-i", fpath, "-vf", "cropdetect=24:16:0", "-vframes", "1000", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def detectCropFile(video_path):
+    if os.path.exists(video_path):
+        print("File to detect crop: %s " % video_path)
+        p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-vframes", "1000", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         infos = p.stderr.read().decode('utf-8')
         allCrops = re.findall("crop=\S+", infos)
         mostCommonCrop = Counter(allCrops).most_common(1)
@@ -118,18 +118,53 @@ def detectCropFile(fpath):
         return ""
 
 
+'''
+Resize videos to 640 in width
+'''
+def resize_video(video_path):
+    if os.path.exists(video_path):
+        start_time = time.time()
+        temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
+        os.rename(video_path,temp_path)
+        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-1", video_path])
+        print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
+
+        # delete original video
+        os.remove(temp_path)
+        # delete folder
+        video_path = os.path.splitext(video_path)[0]
+        if os.path.exists(video_path):
+            shutil.rmtree(path)
+
+
+'''
+Get video length
+'''
+def get_video_length(video_path):
+    if os.path.exists(video_path):
+        duration = subprocess.check_output(['ffprobe', '-i', video_path, '-show_entries', 'format=duration', '-v', 'quiet', '-of', 'csv=%s' % ("p=0")])
+        return duration.decode('utf-8')[:-1] # remove \n at end
+    else:
+        return ""
+
+
 def main():
     folder = "../data"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
-    df = df[df["style"].notnull()]
-    df["resolution"] = ""
+    df["length"] = ""
     listVideos = []
+    vid_path = ""
     for index, row in df.iterrows():
-        # listVideos.append(folder+"/"+row["id"]+".mp4")
-        res = detectCropFile(folder+"/"+row["id"]+".mp4")
-        row["resolution"] = res
-    print(df.to_string())
+        vid_path = folder+"/"+row["id"]+".mp4"
+        # listVideos.append(vid_path)
+
+        # resize_video(vid_path)
+        # res = detectCropFile(vid_path)
+        # row["resolution"] = res
+        length = get_video_length(vid_path)
+        row["length"] = length
+
     df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
 
     '''
