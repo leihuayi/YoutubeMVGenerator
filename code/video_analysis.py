@@ -108,7 +108,7 @@ Get video width and height
 def detectCropFile(video_path):
     if os.path.exists(video_path):
         print("File to detect crop: %s " % video_path)
-        p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-vframes", "1000", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-vframes", "1500", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         infos = p.stderr.read().decode('utf-8')
         allCrops = re.findall("crop=\S+", infos)
         mostCommonCrop = Counter(allCrops).most_common(1)
@@ -134,7 +134,7 @@ def resize_video(video_path):
         # delete folder
         video_path = os.path.splitext(video_path)[0]
         if os.path.exists(video_path):
-            shutil.rmtree(path)
+            shutil.rmtree(video_path)
 
 
 '''
@@ -149,21 +149,20 @@ def get_video_length(video_path):
 
 
 def main():
-    folder = "../data"
+    folder = "../Tests"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
-    df["length"] = ""
+
     listVideos = []
     vid_path = ""
     for index, row in df.iterrows():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
 
-        # resize_video(vid_path)
-        # res = detectCropFile(vid_path)
-        # row["resolution"] = res
-        length = get_video_length(vid_path)
-        row["length"] = length
+        if row["resolution"][:4] == "640x":
+            resize_video(vid_path)
+            res = detectCropFile(vid_path)
+            row["resolution"] = res
 
     df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
 
