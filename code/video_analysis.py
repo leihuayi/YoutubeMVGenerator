@@ -126,7 +126,7 @@ def resize_video(video_path):
         start_time = time.time()
         temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
         os.rename(video_path,temp_path)
-        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-1", video_path])
+        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-2", video_path])
         print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
 
         # delete original video
@@ -149,7 +149,7 @@ def get_video_length(video_path):
 
 
 def main():
-    folder = "../Tests"
+    folder = "../data"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
@@ -159,7 +159,7 @@ def main():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
 
-        if row["resolution"][:4] == "640x":
+        if row["resolution"][:4] != "640x" and index>64:
             resize_video(vid_path)
             res = detectCropFile(vid_path)
             row["resolution"] = res
