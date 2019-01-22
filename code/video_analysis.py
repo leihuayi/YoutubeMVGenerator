@@ -159,10 +159,10 @@ def main():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
 
-        if row["resolution"][:4] != "640x" and index>64:
-            resize_video(vid_path)
+        if row["resolution"][:4] != "640x":
             res = detectCropFile(vid_path)
             row["resolution"] = res
+            print(res)
 
     df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
 
