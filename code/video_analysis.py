@@ -161,7 +161,7 @@ def main():
 
         if row["resolution"][:4] != "640x":
             res = detectCropFile(vid_path)
-            row["resolution"] = res
+            df.loc[index,"resolution"] = res
             print(res)
 
     df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
