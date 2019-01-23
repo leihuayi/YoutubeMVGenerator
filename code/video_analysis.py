@@ -126,11 +126,17 @@ def crop(video_path, dimension):
         start_time = time.time()
         temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
         os.rename(video_path,temp_path)
-        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "crop="+dimension, video_path])
-        print("-- Finished video cropping in {:.2f}s --".format(time.time() - start_time))
+        try:
+           subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "crop="+dimension, video_path])
+           print("-- Finished video cropping in {:.2f}s --".format(time.time() - start_time))
 
-        # delete original video
-        os.remove(temp_path)
+           # remove original video
+           os.remove(temp_path)
+
+        except:
+            print("Problem while running ffmpeg")
+            os.rename(temp_path,video_path)
+
 
 
 '''
@@ -141,11 +147,16 @@ def resize_video(video_path):
         start_time = time.time()
         temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
         os.rename(video_path,temp_path)
-        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-2", video_path])
-        print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
+        try:
+            subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-2", video_path])
+            print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
 
-        # delete original video
-        os.remove(temp_path)
+            # delete original video
+            os.remove(temp_path)
+            
+        except:
+            print("Problem while running ffmpeg")
+            os.rename(temp_path,video_path)
 
 
 '''
@@ -160,7 +171,7 @@ def get_video_length(video_path):
 
 
 def main():
-    folder = "../data"
+    folder = "/home/manu/Videos/tests"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
@@ -169,9 +180,11 @@ def main():
     for index, row in df.iterrows():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
+        height = int(row["resolution"][4:])
 
-        if int(row["resolution"][4:])>360:
-            crop(vid_path,"640:360")
+        if height<350 and height>320:
+            crop(vid_path,"%d:%d"%(height*16/9,height))
+            resize_video(vid_path)
             res = detect_crop(vid_path)
             df.loc[index,"resolution"] = res
             print(res)
