@@ -118,13 +118,16 @@ def detect_crop(video_path):
         return ""
 
 
+'''
+Crop a video along given dimensions
+'''
 def crop(video_path, dimension):
     if os.path.exists(video_path):
         start_time = time.time()
         temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
         os.rename(video_path,temp_path)
-        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "cropdetect="+dimension, video_path])
-        print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
+        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "crop="+dimension, video_path])
+        print("-- Finished video cropping in {:.2f}s --".format(time.time() - start_time))
 
         # delete original video
         os.remove(temp_path)
@@ -168,8 +171,7 @@ def main():
         # listVideos.append(vid_path)
 
         if int(row["resolution"][:3])<620:
-            print(row)
-            crop(vid_path,":".join(row[resolution].split("x")))
+            crop(vid_path,":".join(row["resolution"].split("x")))
             resize_video(vid_path)
             res = detect_crop(vid_path)
             df.loc[index,"resolution"] = res
