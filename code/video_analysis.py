@@ -105,7 +105,7 @@ def find_scenes(video_path):
 '''
 Get video width and height
 '''
-def detectCropFile(video_path):
+def detect_crop(video_path):
     if os.path.exists(video_path):
         print("File to detect crop: %s " % video_path)
         p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-vframes", "1500", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -116,6 +116,18 @@ def detectCropFile(video_path):
         return(strCrop[0]+"x"+strCrop[1])
     else:
         return ""
+
+
+def crop(video_path, dimension):
+    if os.path.exists(video_path):
+        start_time = time.time()
+        temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
+        os.rename(video_path,temp_path)
+        subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "cropdetect="+dimension, video_path])
+        print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
+
+        # delete original video
+        os.remove(temp_path)
 
 
 '''
@@ -131,10 +143,6 @@ def resize_video(video_path):
 
         # delete original video
         os.remove(temp_path)
-        # delete folder
-        video_path = os.path.splitext(video_path)[0]
-        if os.path.exists(video_path):
-            shutil.rmtree(video_path)
 
 
 '''
@@ -159,8 +167,11 @@ def main():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
 
-        if row["resolution"][:4] != "640x":
-            res = detectCropFile(vid_path)
+        if int(row["resolution"][:3])<620:
+            print(row)
+            crop(vid_path,":".join(row[resolution].split("x")))
+            resize_video(vid_path)
+            res = detect_crop(vid_path)
             df.loc[index,"resolution"] = res
             print(res)
 
