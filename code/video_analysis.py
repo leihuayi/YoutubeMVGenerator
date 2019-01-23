@@ -170,9 +170,8 @@ def main():
         vid_path = folder+"/"+row["id"]+".mp4"
         # listVideos.append(vid_path)
 
-        if int(row["resolution"][:3])<620:
-            crop(vid_path,":".join(row["resolution"].split("x")))
-            resize_video(vid_path)
+        if int(row["resolution"][4:])>360:
+            crop(vid_path,"640:360")
             res = detect_crop(vid_path)
             df.loc[index,"resolution"] = res
             print(res)
