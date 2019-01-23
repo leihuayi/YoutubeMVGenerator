@@ -171,7 +171,7 @@ def get_video_length(video_path):
 
 
 def main():
-    folder = "/home/manu/Videos/tests"
+    folder = "../data"
 
     df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
