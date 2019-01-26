@@ -5,7 +5,7 @@ Master Thesis project within the Machine Learning department of Tsinghua Univers
 ## Requirements
 
 The best is to install the environment using conda.
-* Python 3.6.5
+* Python 3.5.6
 * Librosa  `conda install -c conda-forge librosa`
 * Pyscenedetect cd to folder then   `python setup.py install`
 * Opencv    `pip install opencv-python`

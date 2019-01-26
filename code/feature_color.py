@@ -106,7 +106,7 @@ Helper function
 def list_scenes(folder, extension):
     listFiles = []
 
-    for f in glob.glob(folder+"/*.mp4"):
+    for f in glob.glob(folder+"*.mp4"):
         fname = os.path.splitext(f)[0]
         # Find the folders for each video
         if os.path.exists(fname):
@@ -210,7 +210,7 @@ def compute_kmeans(listFiles):
 def main():
     start = time.time()
 
-    folder = "../data"
+    folder = "../data/"
 
     # # Extract the color features and store them
     # store_color_features(folder)
@@ -224,7 +224,7 @@ def main():
         listFiles = []
         for index, row in subDf.iterrows():
             # Get all scenes of MVs with same style
-            listFiles += glob.glob(folder+"/"+row["id"]+"/*.json")
+            listFiles += glob.glob(folder+row["id"]+"/*.json")
 
         kmeans = compute_kmeans(listFiles)
         kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)

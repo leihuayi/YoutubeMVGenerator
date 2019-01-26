@@ -2,10 +2,11 @@ import argparse, random, os, json, time
 import subprocess
 import msaf
 import pandas as pd
-from music_recognition import recognize_music, get_music_genre, convert_genre_to_style, authorizedGenres
+from music_recognition import get_music_infos, convert_genre_to_style, AUTHORIZED_GENRES
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
+AUTHORIZED_GENRES = ["alternative","metal","rock","pop","hip-hop","R&B","dance","techno","house","indie","electro"]
 
 '''
 Arguments : 
@@ -70,57 +71,41 @@ Main steps for building the mv
 def main(args):
     start = time.time()
 
+    if not os.path.exists(args.input):
+        print("File does not exist")
+        return -1
+
     # 1. Get major changes in music
     print("Identifying key changes in %s..."%args.input)
     boundaries, labels = msaf.process(args.input, boundaries_id="olda")
 
-    if boundaries[-1] < 30:
-        print("Music shorter than 30 seconds, please chose a longer music for getting a quality MV.")
+    if boundaries[-1] < 60:
+        print("Music shorter than 60 seconds, please chose a longer music for getting a quality MV.")
         return -1
     print("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
 
-    # 2. Find music genre
+    # 2. Find music genre and style (music video style = larger category of genre)
     musicGenre = args.genre
+    musicStyle = ''
     if musicGenre == '': # No genre given, must find it
 
-        with open('apis_config.json', 'r') as conffile:
-            config = json.load(conffile) # Load host, key, secret from json file
+        title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
-        # Recognize the input music
-        musicInput = recognize_music(args.input, config, 20)
-
-        if musicInput[1] == '': # Did not recognize the music
+        if musicStyle == ''
             print("The algorithm did not manage the recognize the music genre.\n"
-            "Please try with another music, or manually add genre with the argument --genre <name of genre>.")
+                                "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
+                                "with genre in ("+",".join(AUTHORIZED_GENRES)+").")
             return -1
-
-        else:
-            if musicInput[2] == '': # Recognized, but did not find the genre
-                # Use APi to find genre knowing music title and artist
-                tags = get_music_genre(musicInput[0],musicInput[1], config)
-                if len(tags) == 0:
-                    print("The algorithm did not manage the recognize the music genre.\n"
-                    "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
-                    "with genre in ("+",".join(authorizedGenres)+").")
-                    return -1
-                else:
-                    musicGenre = ','.join(tags)
-            else:
-                musicGenre = musicInput[2]
-
     else:
-        if musicGenre not in authorizedGenres:
+        musicStyle = convert_genre_to_style(musicGenre)
+        if musicStyle == '':
             print("This genre is not authorized. Please input one of the following ("+\
-            ",".join(authorizedGenres)+") or let the algorithm find the genre.")
+            ",".join(AUTHORIZED_GENRES)+") or let the algorithm find the genre.")
             return -1
+
 
     # 3. With the music genre, find appropriate videos in database
     print("Music genre identified : %s. Fetching matching videos in database...\n"%musicGenre)
-    musicStyle = convert_genre_to_style(musicGenre)
-    if musicStyle not in authorizedGenres:
-        print("The algorithm did not manage the recognize the music genre.\n"
-                    "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
-                    "with genre in ("+",".join(authorizedGenres)+").")
     
     # use k-means clustering result on scenes extracted from Music Videos with same genre
     clusterResult = pd.read_csv("../statistics/kmeans_"+musicStyle+".csv")

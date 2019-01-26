@@ -3,8 +3,6 @@ import os, sys, glob
 import pandas as pd
 import requests, json
 
-authorizedGenres = ["rock","pop","hiphop","electro"]
-
 '''
 Recognize music fingerprint using ACR API
 '''
@@ -71,53 +69,43 @@ def get_music_genre(title,artist,config):
 
 
 '''
-Use above functions to classify all musics from MVs in database
+Use above functions to classify a music
+The music should be greater than 60 sec
 '''
-def recognize_database_genres():
-    listMusics = []
+def get_music_infos(f):
 
-    for f in glob.glob(sys.argv[1]+"*.mp3"):
-    # for f in open("../toanalyze.txt").readlines():
-        f = sys.argv[1]+f
-        if f[-1] == "\n":
-            f = f[:-1]
-        print("Recognizing genre for : "+f)
+    print("Recognizing genre for : "+f)
 
-        if os.path.exists(f) and os.path.splitext(f)[1] == ".mp3":
-            with open('apis_config.json', 'r') as conf:
-                config = json.load(conf) # Load host, key, secret from json file
+    with open('apis_config.json', 'r') as conf:
+        config = json.load(conf) # Load host, key, secret from json file
 
-            # Recognize the input music. The shortest music in database lasts 70 sec
-            musicInput = ('','','')
-            musicGenre = ''
-            start = 20
+    # Recognize the input music 
+    musicInput = ('','','')
+    musicGenre = ''
+    start = 20
 
-            while musicInput[1] == '' and start < 70: # Did not recognize the music
-                musicInput = recognize_music(f, config, start)
-                start += 10
+    while musicInput[1] == '' and start < 60: # Did not recognize the music
+        musicInput = recognize_music(f, config, start)
+        start += 10
 
-            if musicInput[1] != '': # Artist recognized
+    if musicInput[1] != '': # Artist recognized
 
-                if musicInput[2] == '': # Did not find the genre
-                    # Use APi to find genre knowing music title and artist
-                    tags = get_music_genre(musicInput[0],musicInput[1], config)
-                    if len(tags) != 0:
-                        musicGenre = ','.join(tags)
-                else:
-                    musicGenre = musicInput[2]
-
-            listMusics.append((os.path.splitext(os.path.basename(f))[0],musicInput[0],musicInput[1],musicGenre))
+        if musicInput[2] == '': # Did not find the genre
+            # Use APi to find genre knowing music title and artist
+            tags = get_music_genre(musicInput[0],musicInput[1], config)
+            if len(tags) != 0:
+                musicGenre = ','.join(tags)
         else:
-            print("mp3 does not exist")
+            musicGenre = musicInput[2]
 
-    df = pd.DataFrame(listMusics, columns=['id','name','artist','genres'])
-    df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
+    musicStyle = convert_genre_to_style(musicGenre)
+    return((musicInput[0],musicInput[1],musicGenre,musicStyle))
 
 
 '''
 Remove silent MVs (mp3 could not be extracted)
 '''
-def del_not_song():
+def del_silent():
     listVid = glob.glob(sys.argv[1]+"*.mp4")
     listSong = glob.glob(sys.argv[1]+"*.mp3")
     for v in listVid:
@@ -144,21 +132,8 @@ def convert_genre_to_style(genre):
         return ""
 
 
-'''
-Classify database genres
-'''
-def convert_db_genres():
-    filePath = "../statistics/songs_on_server.csv"
-    df = pd.read_csv(filePath, sep=";")
-    df['genres'] = df['genres'].fillna('')
-    df['style'] = ''
-    for index, row in df.iterrows():
-        row['style'] = convert_genre_to_style(row['genres'])
-    df.to_csv(filePath, sep=";", index=False)
-
-
 if __name__ == "__main__":
-    convert_db_genres()
+    print(get_music_infos(sys.argv[1]))
 
         
 

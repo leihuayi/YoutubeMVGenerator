@@ -107,8 +107,7 @@ Get video width and height
 '''
 def detect_crop(video_path):
     if os.path.exists(video_path):
-        print("File to detect crop: %s " % video_path)
-        p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-vframes", "1500", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(["ffmpeg", "-i", video_path, "-vf", "cropdetect=24:16:0", "-ss", "10", "-vframes", "1000", "-f", "rawvideo", "-y", "/dev/null"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         infos = p.stderr.read().decode('utf-8')
         allCrops = re.findall("crop=\S+", infos)
         mostCommonCrop = Counter(allCrops).most_common(1)
@@ -119,37 +118,15 @@ def detect_crop(video_path):
 
 
 '''
-Crop a video along given dimensions
+Resize videos
+3 options : crop in, rescale, crop out (pad)
 '''
-def crop(video_path, dimension):
+def resize_video(video_path, option):
     if os.path.exists(video_path):
-        start_time = time.time()
         temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
         os.rename(video_path,temp_path)
         try:
-           subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "crop="+dimension, video_path])
-           print("-- Finished video cropping in {:.2f}s --".format(time.time() - start_time))
-
-           # remove original video
-           os.remove(temp_path)
-
-        except:
-            print("Problem while running ffmpeg")
-            os.rename(temp_path,video_path)
-
-
-
-'''
-Resize videos to 640 in width
-'''
-def resize_video(video_path):
-    if os.path.exists(video_path):
-        start_time = time.time()
-        temp_path = os.path.splitext(video_path)[0]+"_temp"+os.path.splitext(video_path)[1]
-        os.rename(video_path,temp_path)
-        try:
-            subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", "scale=640:-2", video_path])
-            print("-- Finished video resizing in {:.2f}s --".format(time.time() - start_time))
+            subprocess.call(["ffmpeg", "-loglevel", "error",  "-i", temp_path, "-vf", option, video_path])
 
             # delete original video
             os.remove(temp_path)
@@ -170,33 +147,19 @@ def get_video_length(video_path):
         return ""
 
 
-def main():
-    folder = "../data"
-
-    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
-
-    listVideos = []
-    vid_path = ""
-    for index, row in df.iterrows():
-        vid_path = folder+"/"+row["id"]+".mp4"
-        # listVideos.append(vid_path)
-        height = int(row["resolution"][4:])
-
-        if height<350 and height>320:
-            crop(vid_path,"%d:%d"%(height*16/9,height))
-            resize_video(vid_path)
-            res = detect_crop(vid_path)
-            df.loc[index,"resolution"] = res
-            print(res)
-
-    df.to_csv("../statistics/songs_on_server.csv", sep=";", index=False)
-
-    '''
-    if len(listVideos)>0:
-        for video in listVideos:
-            find_scenes(video)
+'''
+Get real video resolution (outside of black bars)
+'''
+def get_video_resolution(video_path):
+    if os.path.exists(video_path):
+        duration = subprocess.check_output(['ffprobe', '-i', video_path, '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-v', 'error', '-of', 'csv=%s' % ("s=x:p=0")])
+        return duration.decode('utf-8')[:-1] # remove \n at end
     else:
-        print("No videos to analyze.")'''
+        return ""
+
+
+def main():
+    print("No videos to analyze.")
 
 if __name__ == "__main__":
     main()
