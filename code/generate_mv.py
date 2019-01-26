@@ -2,7 +2,7 @@ import argparse, random, os, json, time
 import subprocess
 import msaf
 import pandas as pd
-from music_recognition import get_music_infos, convert_genre_to_style, AUTHORIZED_GENRES
+from music_recognition import get_music_infos, convert_genre_to_style
 from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
@@ -90,7 +90,7 @@ def main(args, callback=lambda str: print(str)):
 
         title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
-        if musicStyle == ''
+        if musicStyle == '':
             raise("The algorithm did not manage the recognize the music genre.\n"
                                 "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
                                 "with genre in ("+",".join(AUTHORIZED_GENRES)+").")
