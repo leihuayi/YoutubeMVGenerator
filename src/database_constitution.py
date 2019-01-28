@@ -114,6 +114,6 @@ def database_info_to_csv():
     df.to_csv("infos_videos.csv", sep=";", float_format="%.3f", index=False)
 
 
-
-for vidFile in glob.glob(sys.argv[1]+"*.mp4"):
-    harmonize_video(vidFile)
+if __name__ == "__main__":  
+    for vidFile in glob.glob(sys.argv[1]+"*.mp4"):
+        harmonize_video(vidFile)

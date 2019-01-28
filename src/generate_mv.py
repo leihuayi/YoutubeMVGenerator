@@ -1,9 +1,9 @@
-import argparse, random, os, json, time
+import random, os, json, time
 import subprocess
 import msaf
 import pandas as pd
-from music_recognition import get_music_infos, convert_genre_to_style
-from feature_color import compute_kmeans, CLUSTERS, list_scenes
+from .music_recognition import get_music_infos, convert_genre_to_style
+from .feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 AUTHORIZED_GENRES = ["alternative","metal","rock","pop","hip-hop","R&B","dance","techno","house","indie","electro"]
@@ -13,7 +13,7 @@ DATA_PATH = "/home/manu/Documents/Thesis/Tests/"
 '''
 Arguments : 
 df = dataframe (result of videos clustering)
-boudaries = list of timestamps in seconds
+boundaries = list of timestamps in seconds
 
 assemble some videos using the result of df around the boundaries
 '''
@@ -68,8 +68,10 @@ def assemble_videos(df, boundaries):
 
 '''
 Main steps for building the mv
+args : input, output, video genre (optionnal)
+callback : function that gives feedback to user
 '''
-def generate_mv(args, callback=lambda str: print(str)):
+def main(args, callback=lambda str: print(str)):
     start = time.time()
 
     if not os.path.exists(args.input):
@@ -152,12 +154,3 @@ def generate_mv(args, callback=lambda str: print(str)):
             os.remove(vidFile[6:-2])
     os.remove('video_structure.txt')
 
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', nargs='?', required=True)
-    parser.add_argument('--output', nargs='?', required=True)
-    parser.add_argument('--genre', default='')
-
-    args = parser.parse_args()
-    generate_mv(args)
