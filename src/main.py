@@ -7,6 +7,8 @@ from feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 AUTHORIZED_GENRES = ["alternative","metal","rock","pop","hip-hop","R&B","dance","techno","house","indie","electro"]
+DATA_PATH = "/home/manu/Documents/Thesis/Tests/"
+
 
 '''
 Arguments : 
@@ -62,13 +64,12 @@ def assemble_videos(df, boundaries):
             # next boundary
             numClus = (numClus+1)%5
             numBound += 1
-            print(videoLength)
 
 
 '''
 Main steps for building the mv
 '''
-def main(args, callback=lambda str: print(str)):
+def generate_mv(args, callback=lambda str: print(str)):
     start = time.time()
 
     if not os.path.exists(args.input):
@@ -105,7 +106,9 @@ def main(args, callback=lambda str: print(str)):
     callback("Music genre identified : %s. Fetching matching videos in database...\n"%musicGenre)
     
     # use k-means clustering result on scenes extracted from Music Videos with same genre
-    clusterResult = pd.read_csv("../statistics/kmeans_"+musicStyle+".csv")
+    # clusterResult = pd.read_csv("../statistics/kmeans_"+musicStyle+".csv")
+    listFiles = list_scenes(DATA_PATH,"json")
+    clusterResult = compute_kmeans(listFiles)
 
     # 4. Join music scenes while respecting the clustering and the input music rythm
     callback("Building the music video around these boundaries...\n")
@@ -157,4 +160,4 @@ if __name__ == "__main__":
     parser.add_argument('--genre', default='')
 
     args = parser.parse_args()
-    main(args)
+    generate_mv(args)

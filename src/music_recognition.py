@@ -3,6 +3,8 @@ import os, sys, glob
 import pandas as pd
 import requests, json
 
+CONFIG_FILE = '/home/apis_config.json'
+
 '''
 Recognize music fingerprint using ACR API
 '''
@@ -76,7 +78,7 @@ def get_music_infos(f):
 
     print("Recognizing genre for : "+f)
 
-    with open('apis_config.json', 'r') as conf:
+    with open(CONFIG_FILE, 'r') as conf:
         config = json.load(conf) # Load host, key, secret from json file
 
     # Recognize the input music 
