@@ -23,16 +23,16 @@ def harmonize_video(vidFile):
 
 
     # Make videos ratio 16/9 (640x360)
-    if (crop_width/crop_height < 2):
+    if crop_width/crop_height < 2:
         print("Video radio %.2f ---> format 16/9"%(crop_width/crop_height))
         
         # if too high : crop on top
-        if (crop_width/crop_height) < 16/9-0.1:
+        if (crop_width/crop_height) < 16/9-0.05:
             print("Cropping height ... ")
             resize_video(vidFile, "crop=%d:%d"%(crop_width,crop_width*9/16))
 
         # if too wide : crop on side
-        elif (crop_width/crop_height) > 16/9+0.1:
+        elif (crop_width/crop_height) > 16/9+0.05:
             print("Cropping width ... ")
             resize_video(vidFile, "crop=%d:%d"%(crop_height*16/9,crop_height))
 
@@ -42,12 +42,12 @@ def harmonize_video(vidFile):
         print("Video radio %.2f ---> format 40/17"%(crop_width/crop_height))
 
         # if too high : crop on top
-        if (crop_width/crop_height < 40/17-0.1):
+        if (crop_width/crop_height < 40/17-0.05):
             print("Cropping height ... ")
             resize_video(vidFile, "crop=%d:%d"%(crop_width,crop_width*17/40))
 
         # if too wide : crop on side
-        elif (crop_width/crop_height > 40/17+0.1):
+        elif (crop_width/crop_height > 40/17+0.05):
             print("Cropping width ... ")
             resize_video(vidFile, "crop=%d:%d"%(crop_height*40/17,crop_height))
 
@@ -66,22 +66,37 @@ def harmonize_video(vidFile):
     real_width, real_height = map(int,get_video_resolution(vidFile).split("x"))
 
     if real_width != 640:
-        print("Current width = %d. Scaling to have 640 ..."%real_width)
-        resize_video(vidFile, "scale=640:-2")
+
+        if real_width/real_height > 16/9 + 0.05:
+            print("Current width = %d. Scaling and padding to have 640x360 ..."%real_width)
+            resize_video(vidFile, "scale=640:-2,pad=640:360:(ow-iw)/2:(oh-ih)/2")
+
+        elif real_width/real_height < 16/9 - 0.05:
+            print("Current width = %d. Scaling and cropping to have 640x360 ..."%real_width)
+            resize_video(vidFile, "scale=640:-2,crop=640:360")
+
+        else:
+            print("Current width = %d. Scaling to have 640x360 ..."%real_width)
+            resize_video(vidFile, "scale=640:-2")
 
     # Have final height 360
-    real_width, real_height = map(int,get_video_resolution(vidFile).split("x"))
+    else:
+        real_width, real_height = map(int,get_video_resolution(vidFile).split("x"))
 
-    if real_height > 360:
-        print("Current height = %d. Scaling to have 360 ..."%real_height)
-        resize_video(vidFile, "crop=640:360")
+        if real_height > 360:
+            print("Current height = %d. Cropping to have 360 ..."%real_height)
+            resize_video(vidFile, "crop=640:360")
 
-    elif real_height < 360:
-        print("Current height = %d. Scaling to have 360 ..."%real_height)
-        resize_video(vidFile, "pad=640:360:(ow-iw)/2:(oh-ih)/2")
+        elif real_height < 360:
+            print("Current height = %d. Padding to have 360 ..."%real_height)
+            resize_video(vidFile, "pad=640:360:(ow-iw)/2:(oh-ih)/2")
 
     
     print("Finished video reformatting in %.2f s"%(time.time() - start_time))
+    if crop_width/crop_height < 2:
+        return "16/9"
+    else:
+        return "40/17"
 
 
 
@@ -114,6 +129,12 @@ def database_info_to_csv():
     df.to_csv("infos_videos.csv", sep=";", float_format="%.3f", index=False)
 
 
-if __name__ == "__main__":  
-    for vidFile in glob.glob(sys.argv[1]+"*.mp4"):
-        harmonize_video(vidFile)
+if __name__ == "__main__":
+    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
+
+    for index, row in df.iterrows():
+        res = harmonize_video(sys.argv[1]+row["id"]+".mp4")
+        df.loc[index,"resolution"] = res
+        print(res)
+
+    df.to_csv("../statistics/songs_on_server.csv", sep=";", float_format="%.3f", index=False)

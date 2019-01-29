@@ -82,8 +82,8 @@ def main(args, callback=lambda str: print(str)):
     boundaries, labels = msaf.process(args.input, boundaries_id="olda")
 
     if boundaries[-1] < 60:
-        print("Music shorter than 60 seconds, please chose a longer music for getting a quality MV.")
-        return -1
+        raise("Music shorter than 60 seconds, please chose a longer music for getting a quality MV.")
+        
     callback("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
 
     # 2. Find music genre and style (music video style = larger category of genre)
