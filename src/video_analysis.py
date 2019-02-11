@@ -1,5 +1,5 @@
 from __future__ import print_function
-import os, glob, shutil
+import os, glob, shutil, sys
 import time
 import re
 import pandas as pd
@@ -81,11 +81,11 @@ def find_scenes(video_path):
                     # STATISTICS : Store scenes length
                     with open(FILE_SCENE_LENGH,'a') as myfile:
                        for i, scene in enumerate(scene_list):
-                           myfile.write('%s, %d, %f\n' % (os.path.basename(video_path), scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
+                           myfile.write('%s, %d, %f\n' % (os.path.splitext(os.path.basename(video_path))[0], scene[1].get_frames()-scene[0].get_frames(), (scene[1]-scene[0]).get_seconds()))
                     
                     # STATISTICS : Store number of scenes
                     with open(FILE_SCENE_NUMBER,'a') as myfile:
-                        myfile.write('%d\n'%len(scene_list))
+                        myfile.write('%s,%d\n'%(os.path.splitext(os.path.basename(video_path))[0],len(scene_list)))
 
                     # Split the video
                     print('Splitting the video. Put scenes in %s/%s'%(folder,VIDEO_SPLIT_TEMPLATE))

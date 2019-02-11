@@ -1,1519 +1,1171 @@
-number
-28
-21
-177
-95
-48
-68
-79
-64
-48
-113
-90
-152
-88
-124
-32
-129
-212
-90
-226
-150
-230
-66
-130
-209
-188
-196
-26
-145
-105
-163
-150
-100
-18
-21
-147
-0
-41
-190
-169
-69
-103
-218
-0
-63
-149
-94
-105
-28
-80
-7
-67
-49
-79
-7
-11
-0
-92
-113
-108
-201
-236
-88
-178
-54
-127
-0
-120
-174
-84
-40
-157
-212
-44
-230
-148
-122
-70
-79
-83
-145
-156
-97
-81
-150
-104
-62
-214
-152
-75
-171
-46
-35
-104
-276
-169
-112
-162
-127
-28
-148
-188
-84
-345
-96
-123
-132
-84
-74
-0
-144
-96
-0
-172
-173
-74
-37
-94
-120
-149
-64
-113
-111
-133
-103
-257
-315
-135
-95
-122
-74
-112
-74
-155
-108
-156
-128
-46
-105
-32
-191
-131
-30
-68
-145
-180
-154
-163
-153
-135
-206
-147
-56
-65
-65
-138
-451
-54
-101
-168
-34
-13
-143
-119
-72
-16
-116
-73
-140
-102
-176
-169
-112
-80
-37
-221
-80
-160
-54
-29
-77
-114
-160
-141
-99
-138
-15
-62
-91
-145
-139
-62
-67
-0
-28
-20
-221
-234
-22
-92
-155
-124
-102
-69
-122
-99
-0
-39
-165
-152
-180
-111
-182
-116
-256
-124
-71
-69
-0
-29
-111
-387
-141
-138
-121
-79
-356
-90
-40
-30
-100
-60
-120
-266
-0
-152
-0
-93
-116
-93
-176
-55
-182
-133
-109
-129
-153
-122
-0
-137
-119
-226
-150
-219
-13
-97
-140
-193
-163
-179
-287
-200
-116
-148
-85
-154
-119
-43
-93
-88
-184
-171
-173
-121
-62
-90
-0
-128
-66
-252
-30
-42
-83
-166
-18
-244
-224
-51
-63
-157
-41
-85
-259
-0
-0
-88
-50
-0
-185
-170
-52
-167
-0
-148
-132
-89
-131
-30
-49
-57
-196
-0
-293
-48
-88
-0
-112
-126
-85
-71
-122
-117
-67
-170
-91
-91
-226
-70
-162
-128
-108
-13
-0
-88
-72
-51
-141
-104
-124
-365
-89
-31
-104
-190
-78
-187
-62
-83
-207
-94
-0
-157
-65
-78
-33
-143
-53
-44
-132
-92
-59
-87
-97
-108
-184
-57
-0
-160
-122
-56
-67
-263
-53
-265
-0
-73
-99
-86
-6
-154
-178
-75
-0
-0
-103
-103
-45
-146
-167
-73
-31
-163
-58
-80
-211
-181
-89
-84
-193
-57
-50
-179
-19
-67
-98
-165
-0
-71
-86
-224
-0
-226
-35
-102
-212
-300
-0
-64
-133
-121
-169
-200
-183
-146
-140
-176
-39
-115
-60
-57
-137
-99
-114
-103
-108
-0
-234
-52
-94
-100
-31
-71
-95
-204
-0
-89
-86
-100
-166
-55
-145
-234
-196
-83
-0
-75
-27
-38
-120
-149
-147
-129
-234
-131
-96
-52
-96
-129
-47
-73
-165
-141
-134
-168
-41
-166
-71
-0
-101
-123
-191
-72
-45
-210
-74
-238
-0
-98
-103
-39
-0
-154
-53
-145
-130
-144
-246
-105
-141
-173
-95
-191
-85
-0
-73
-107
-135
-115
-59
-119
-97
-131
-108
-23
-194
-394
-146
-136
-104
-168
-55
-72
-0
-32
-109
-100
-124
-147
-104
-86
-107
-125
-104
-201
-0
-115
-163
-161
-69
-46
-30
-45
-41
-50
-122
-136
-15
-59
-21
-130
-28
-156
-35
-122
-81
-0
-100
-93
-32
-164
-53
-159
-128
-117
-113
-156
-241
-59
-46
-231
-145
-118
-56
-58
-22
-181
-268
-81
-105
-242
-292
-45
-202
-43
-143
-99
-21
-249
-169
-65
-84
-40
-168
-19
-73
-215
-117
-210
-35
-120
-98
-206
-72
-146
-191
-159
-56
-0
-80
-228
-30
-75
-147
-157
-27
-44
-84
-188
-41
-61
-106
-64
-93
-125
-96
-55
-107
-105
-248
-209
-94
-75
-56
-151
-116
-192
-52
-102
-109
-37
-97
-221
-94
-37
-238
-122
-66
-96
-49
-86
-0
-221
-109
-106
-39
-152
-44
-100
-89
-137
-57
-206
-126
-133
-123
-84
-62
-57
-143
-91
-146
-29
-196
-66
-92
-148
-91
-198
-25
-122
-81
-79
-149
-169
-22
-0
-146
-98
-238
-68
-98
-85
-220
-148
-189
-121
-146
-55
-76
-120
-65
-73
-83
-67
-67
-89
-91
-13
-213
-172
-61
-196
-251
-179
-91
-174
-133
-136
-131
-0
-373
-52
-135
-124
-168
-197
-118
-208
-199
-172
-36
-137
-225
-30
-202
-90
-129
-143
-157
-163
-32
-149
-153
-394
-136
-109
-121
-33
-128
-229
-155
-102
-212
-69
-238
-0
-226
-52
-161
-102
-99
-96
-138
-119
-79
-128
-49
-154
-6
-69
-205
-142
-113
-200
-70
-121
-16
-0
-106
-76
-129
-34
-84
-250
-153
-243
-227
-167
-83
-87
-61
-21
-138
-97
-142
-207
-161
-197
-181
-38
-27
-117
-154
-58
-70
-183
-207
-171
-167
-119
-81
-174
-87
-61
-0
-62
-96
-166
-48
-65
-189
-90
-280
-92
-44
-65
-69
-67
-132
-152
-119
-150
-154
-67
-62
-180
-112
-158
-91
-166
-233
-169
-10
-21
-100
-101
-190
-139
-171
-43
-72
-277
-55
-118
-93
-62
-26
-228
-12
-140
 240
-59
-124
-191
-80
-209
-84
-98
-98
-96
-147
-94
-38
-135
-131
-82
-185
-174
-198
-64
-143
-109
-92
-88
-115
-173
-172
-169
-102
-307
-144
-143
-93
-60
-137
-63
-98
-194
-151
-177
-67
-151
-72
-153
-0
-203
-24
-0
-131
-33
-144
-84
-169
-87
-175
-122
-68
-98
-167
-148
-27
-111
-195
-40
-236
-91
-71
-25
-164
-82
-197
-0
-112
-168
-206
-121
-198
-170
-121
-72
-98
-131
-131
-72
-164
-35
-63
-221
-52
-20
-128
-113
-17
-142
-245
-264
-170
-52
-99
-41
-202
-122
-167
-134
-139
-135
-67
-0
-125
-125
-92
-130
-18
-129
-80
-218
-107
-223
-92
-85
-188
-175
-36
-177
-89
-129
-161
-0
-28
-0
-110
-153
-98
-135
-129
-151
-191
-258
-241
-208
-193
-89
-54
-109
-120
-296
-41
-116
-134
-149
-121
-156
-99
-101
-245
-0
-122
-37
-115
-110
-40
-74
-114
-71
-147
-261
-23
-110
-57
-132
-127
-103
-95
-186
-216
-53
-99
-125
-137
-55
-128
-244
-157
-58
-58
-200
-199
-324
-134
-145
-94
-131
-139
-150
-78
-109
-94
-112
-118
-116
-19
-24
-88
-182
-38
-253
-74
-236
-159
-96
-0
-61
-96
-104
-87
-201
-292
-198
-65
-34
-56
-118
-58
-71
-65
-30
-133
-250
-114
-76
-144
-153
-129
-84
-21
-239
-99
-124
-67
-182
-9
-48
-112
-103
-87
-129
-70
-180
-80
-161
-228
-89
-162
-81
-220
-185
-118
-64
-147
-202
-54
-0
-89
-191
-60
-275
-98
-115
-98
-76
-0
-40
-126
-82
-49
-163
-200
-80
-162
-69
-163
-111
-75
-116
-83
-138
-242
-213
-110
-213
-47
-33
-204
-123
-279
-54
-76
-126
-75
-24
-43
-50
-130
-69
-255
-69
-49
-245
-150
-106
-266
-88
-180
-87
-57
-184
-325
-50
-174
-72
-65
-147
-40
-232
-114
-82
-86
-5
-178
-73
-98
-43
-3
-7
-70
-31
-110
-25
-21
-95
-94
-201
-61
-159
-83
-9
-29
-91
-167
-170
-80
-76
-243
-84
-130
-224
-30
-222
-81
-193
-88
-201
-151
-153
-57
-59
-95
-131
-53
-73
-3
-163
-92
-135
-145
-205
-87
-89
-16
-58
-176
-104
-84
-128
-79
-153
-204
-60
-67
-93
-103
-131
-120
-64
-71
-49
-179
-169
-95
-54
-13
-69
-101
-97
-100
-250
-192
-122
-43
-290
-20
-31
-183
-75
-122
-125
-158
-261
-99
-180
-151
-5
-3
-206
-231
-68
-180
-84
-71
-136
-124
-152
-5
-165
-58
-110
-99
-3
-3
-233
-54
-96
-127
-17
-79
-175
-189
-48
-61
-30
-82
-215
-136
-92
-111
-100
-6
-102
-104
-65
-97
-166
-160
-79
-130
-218
-113
-90
-200
-31
-7
-157
-146
-47
-150
-213
-111
-260
-5
-167
-35
-182
-30
-7
-168
-93
-113
-162
-161
-104
-26
-70
-153
-286
-168
-142
-116
-189
-103
-181
-160
-171
-218
-105
-130
-208
-144
-393
-136
-183
-186
-2
-106
-75
-123
-211
-121
-99
-60
-88
-139
-212
-184
-121
-9
-81
-57
-69
-104
-24
-110
-164
-110
-98
-131
-129
-27
-39
-164
-145
-236
-100
-107
-6
-232
-233
-225
-3
-42
-22
-44
-128
-4
-231
-87
-96
-104
-136
-10
-94
-141
-118
-21
-131
-115
-211
-235
-64
-112
-70
-118
-3
-57
-113
-66
-113
-5
-151
-101
-40
-29
-64
-64
-41
-145
-132
-100
-87
-120
-196
-104
-73
-5
-173
-92
-73
-200
-125
-58
-183
-176
-281
-155
-208
-114
-145
-68
-196
-151
-44
-86
-112
-111
-134
-154
-134
-157
-112
-138
-213
-59
-8
-231
-2
-305
-127
-204
-33
-130
-124
-101
-136
-2
-142
-131
-86
-138
-76
-119
-151
-36
-109
-103
-22
-154
-26
-217
-128
-188
-105
-80
-134
-201
-23
-302
-64
-23
-181
-276
+('IXmF4GbA86E', '.mp4'),240
+('NY_n387t9gA', '.mp4'),111
+('FfV_uZy8-j8', '.mp4'),154
+('IJn-EHd7VeU', '.mp4'),169
+('4voZpsokIiY', '.mp4'),108
+('rtTQYA8fkxM', '.mp4'),142
+('H3VCTcmmKUk', '.mp4'),122
+('0YSCYUwxg_E', '.mp4'),87
+('PKWFvbgkWls', '.mp4'),122
+('31crA53Dgu0', '.mp4'),28
+('UknZiaIC9y8', '.mp4'),178
+('2hXwz0rNNVs', '.mp4'),83
+('g2nmgcVbfKE', '.mp4'),137
+('W7zdMeZPkpY', '.mp4'),2
+('oeCihv9A3ac', '.mp4'),159
+('fXSovfzyx28', '.mp4'),152
+('YdHldlDpm6M', '.mp4'),159
+('4u6bWs-ZG0o', '.mp4'),88
+('qYNcHOTsopk', '.mp4'),138
+('yFUAuIfJNJg', '.mp4'),200
+('rA7KP__DaV8', '.mp4'),111
+('eiNV4eWYpxU', '.mp4'),66
+('aq-7UBc3BPk', '.mp4'),225
+('ODig-EXEUPE', '.mp4'),291
+('-PZhroSY8-I', '.mp4'),219
+('5H87zMIllBo', '.mp4'),223
+('okeDc2eSJxE', '.mp4'),135
+('zoYgCg6i9C8', '.mp4'),190
+('1-ZEJxibLrU', '.mp4'),388
+('U17_7VRTPmo', '.mp4'),106
+('epkcoQmSUT0', '.mp4'),97
+('HL1UzIK-flA', '.mp4'),79
+('BQNiC9NguJ0', '.mp4'),313
+('sxpd4c_tiLI', '.mp4'),73
+('E58qLXBfLrs', '.mp4'),90
+('1Uw6ZkbsAH8', '.mp4'),87
+('OKHT7-TDPoQ', '.mp4'),117
+('-NPx9geRcJU', '.mp4'),58
+('TEDkZ02pmWo', '.mp4'),94
+('Io0fBr1XBUA', '.mp4'),89
+('b4ozdiGys5g', '.mp4'),66
+('NaTGwlfRB_c', '.mp4'),81
+('xLMoxjfPUW4', '.mp4'),108
+('nF3y6vWf71E', '.mp4'),38
+('BQeMxWjpr-Y', '.mp4'),128
+('my0qJGUxrE0', '.mp4'),98
+('QIFnS4X90x4', '.mp4'),124
+('Lmxcp_i9T3s', '.mp4'),92
+('bpOR_HuHRNs', '.mp4'),236
+('L5Gj2wfj-zw', '.mp4'),49
+('mQvteoFiMlg', '.mp4'),265
+('RMM2-qudDvo', '.mp4'),206
+('438fndL6pJ0', '.mp4'),82
+('m04jl8VxSic', '.mp4'),88
+('790QLBpW8ek', '.mp4'),171
+('CiP3jC9CQUk', '.mp4'),141
+('0c-xvXxzZzw', '.mp4'),163
+('it_04dk_97E', '.mp4'),141
+('bY4F5s9mMO4', '.mp4'),33
+('ylT16QB6Uig', '.mp4'),181
+('b-3BI9AspYc', '.mp4'),82
+('D8yJsYMUW_k', '.mp4'),72
+('KdS6HFQ_LUc', '.mp4'),251
+('8ELh8eOzq_0', '.mp4'),129
+('DJsjJBbOg2k', '.mp4'),12
+('cEmrvCiEapM', '.mp4'),120
+('DFSG8KfIvBY', '.mp4'),199
+('mIBjdKn97T4', '.mp4'),173
+('55AUYnFKJGQ', '.mp4'),48
+('Z1FK7yKRVXQ', '.mp4'),160
+('oFB-6Ncxmjc', '.mp4'),88
+('3AtDnEC4zak', '.mp4'),58
+('cmoCYFfKQtc', '.mp4'),129
+('Wc3DDIZK3c0', '.mp4'),52
+('HqTNDJgvaj0', '.mp4'),85
+('YIHRlWmeodY', '.mp4'),81
+('kBsycvSU6r8', '.mp4'),288
+('nwyjxsOYnys', '.mp4'),81
+('ixAK_UvLu0A', '.mp4'),237
+('tg00YEETFzg', '.mp4'),201
+('-u08GXzjJrM', '.mp4'),191
+('sunoA3R1YF8', '.mp4'),120
+('O6RjAeIS0w0', '.mp4'),22
+('4fnN52gA5oM', '.mp4'),33
+('BPNTC7uZYrI', '.mp4'),85
+('afUuzGTCtuw', '.mp4'),138
+('E1mU6h4Xdxc', '.mp4'),204
+('euCqAq6BRa4', '.mp4'),96
+('7yQdrxxPiKQ', '.mp4'),257
+('YtG-c1Thfco', '.mp4'),67
+('0k_1kvDh2UA', '.mp4'),234
+('uxpDa-c-4Mc', '.mp4'),95
+('Oxo_9KbVS0I', '.mp4'),123
+('i5Sutf3rg94', '.mp4'),81
+('hbJuEFs7-kU', '.mp4'),73
+('m2QoJqBdfGE', '.mp4'),89
+('EZW7et3tPuQ', '.mp4'),74
+('IqYFWQcnBXA', '.mp4'),210
+('9vMh9f41pqE', '.mp4'),104
+('i_FXF5tR74U', '.mp4'),170
+('iiNXf0n_hrA', '.mp4'),126
+('SZ4SNgRQduE', '.mp4'),202
+('n4ZIPIwGkGk', '.mp4'),71
+('MBmDssOeOqU', '.mp4'),67
+('dGghkjpNCQ8', '.mp4'),164
+('6CHs4x2uqcQ', '.mp4'),88
+('m9fUYcxP1UA', '.mp4'),180
+('J9NfIai2vZs', '.mp4'),104
+('WC8s_za_6g0', '.mp4'),69
+('ppL8VzT4LsI', '.mp4'),48
+('svIxm6Zn1_o', '.mp4'),129
+('ytIfSuy_mOA', '.mp4'),128
+('2TlF9d7_K_o', '.mp4'),75
+('Q0yS53QjLqg', '.mp4'),167
+('YkwQbuAGLj4', '.mp4'),171
+('hXM0w1DPL3I', '.mp4'),94
+('A-lebYNcgBk', '.mp4'),96
+('iW5EzxFR4SM', '.mp4'),190
+('FEKEjpTzB0Q', '.mp4'),97
+('RubBzkZzpUA', '.mp4'),163
+('m4S2avleyeM', '.mp4'),257
+('yC1Z-SW5CVY', '.mp4'),87
+('8PTDv_szmL0', '.mp4'),91
+('fUiZ5vz9pUw', '.mp4'),151
+('9o3Wg7vI-0w', '.mp4'),88
+('B3eAMGXFw1o', '.mp4'),151
+('g0LJNEQz-E4', '.mp4'),108
+('z9BPMjL44Aw', '.mp4'),49
+('qbbQb9bEcDQ', '.mp4'),451
+('b87dBaL4qI0', '.mp4'),87
+('pSx1p-WrT4k', '.mp4'),46
+('ICaTsTkBPV8', '.mp4'),96
+('EzqNtvQiCro', '.mp4'),148
+('r2ozuCXpVJY', '.mp4'),146
+('51RHQnXhzjg', '.mp4'),56
+('nhBorPm6JjQ', '.mp4'),56
+('ya-kUZdoleY', '.mp4'),27
+('MlzrC-B6n-M', '.mp4'),177
+('UFOVpYJIqrY', '.mp4'),102
+('FBn3k-w2YxY', '.mp4'),177
+('pNNMr5glICM', '.mp4'),170
+('8aRor905cCw', '.mp4'),146
+('ipUbf0W7VUg', '.mp4'),136
+('HDI9inno86U', '.mp4'),77
+('6s1DkSCkU9M', '.mp4'),201
+('CccnAvfLPvE', '.mp4'),165
+('DGIgXP9SvB8', '.mp4'),90
+('ILTZ8qZbNK0', '.mp4'),62
+('j5-yKhDd64s', '.mp4'),178
+('pSFyrrhKj1Q', '.mp4'),146
+('oHmBf4ExtZk', '.mp4'),107
+('DATeKnxceP4', '.mp4'),41
+('iECYZklHd74', '.mp4'),65
+('e-fA-gBCkj0', '.mp4'),210
+('lWA2pjMjpBs', '.mp4'),134
+('fhshMjRNhs0', '.mp4'),150
+('LDj8kkVwisY', '.mp4'),105
+('Zen9yCyn4VA', '.mp4'),212
+('Bpy4osay3vY', '.mp4'),56
+('jWsdlH3qizM', '.mp4'),97
+('YVkUvmDQ3HY', '.mp4'),219
+('IvN5h9BE444', '.mp4'),180
+('uelHwf8o7_U', '.mp4'),129
+('yzTuBuRdAyA', '.mp4'),32
+('gdx7gN1UyX0', '.mp4'),155
+('EMPOVo-K7HM', '.mp4'),21
+('MAdqQ70o2I8', '.mp4'),143
+('xVqsS8RT88o', '.mp4'),43
+('n_NwJLbzATY', '.mp4'),32
+('G-notIVdT4w', '.mp4'),92
+('rcOVxiD4W7c', '.mp4'),115
+('Ys7-6_t7OEQ', '.mp4'),170
+('G5Mv2iV0wkU', '.mp4'),62
+('rTAZlHGOVo8', '.mp4'),132
+('q22qP_0b3-I', '.mp4'),14
+('xETC86u7eJo', '.mp4'),103
+('wWDUMfL2rV8', '.mp4'),70
+('CYJpVtgW_-g', '.mp4'),69
+('mYgkp3rTLuk', '.mp4'),129
+('yw6i1SAHetc', '.mp4'),179
+('Ud-z3qZeeEA', '.mp4'),96
+('I5canBXoCyU', '.mp4'),51
+('KxJLYM9XOT4', '.mp4'),19
+('yTay2mZhiXA', '.mp4'),24
+('A9RPmjFeXeE', '.mp4'),69
+('fy6rpExn57A', '.mp4'),40
+('-iVF5B2JpZ8', '.mp4'),325
+('6Djhc3Xb4eU', '.mp4'),54
+('rAq585rAUbU', '.mp4'),195
+('RDMsf0FoaMQ', '.mp4'),47
+('D55rDDvu3n4', '.mp4'),16
+('rtodyi12q-4', '.mp4'),130
+('wmvQcajq9Eo', '.mp4'),182
+('8aShfolR6w8', '.mp4'),105
+('rFUB3hsY7ss', '.mp4'),154
+('7FIOVIOvMWY', '.mp4'),135
+('B_gt1etlEoI', '.mp4'),245
+('i602gOecGbc', '.mp4'),249
+('OmliBRZUxnk', '.mp4'),251
+('myamTUmNob0', '.mp4'),161
+('7F37r50VUTQ', '.mp4'),97
+('AtKZKl7Bgu0', '.mp4'),136
+('VkXjvHfP3MM', '.mp4'),193
+('I-BIZ_37Oog', '.mp4'),102
+('Q821mNXNw-I', '.mp4'),47
+('fOSpFf6wTBk', '.mp4'),171
+('EEuQU6a90Pc', '.mp4'),233
+('OrlAKCdc18E', '.mp4'),148
+('iuc19oVw39c', '.mp4'),129
+('9dcVOmEQzKA', '.mp4'),207
+('YWt4wmZ_EMI', '.mp4'),200
+('u3VTKvdAuIY', '.mp4'),119
+('plP8nLPEw0A', '.mp4'),223
+('cr-Lj9TnJOE', '.mp4'),231
+('JRfuAukYTKg', '.mp4'),99
+('1aEImx74gLA', '.mp4'),229
+('_ZTYgq4EoRo', '.mp4'),55
+('LDZX4ooRsWs', '.mp4'),151
+('SOI4OF7iIr4', '.mp4'),137
+('2JdBDp9GbpA', '.mp4'),121
+('v7iQ-mcPciY', '.mp4'),29
+('m8Ed8in9Qng', '.mp4'),143
+('M6t47RI4bns', '.mp4'),100
+('IakDItZ7f7Q', '.mp4'),97
+('LQ488QrqGE4', '.mp4'),66
+('4Z9b2HiW_L8', '.mp4'),94
+('hk9K032K7UM', '.mp4'),177
+('fwrY0D2ACNk', '.mp4'),215
+('7oxSjw83u5E', '.mp4'),61
+('8W_1vg7W6Oo', '.mp4'),235
+('TsMMuXZZUm8', '.mp4'),234
+('8tEyAAniu5U', '.mp4'),249
+('bJuWlMFToNo', '.mp4'),152
+('a35rNEBNiO4', '.mp4'),185
+('gaOHg-Jsrj8', '.mp4'),218
+('D7IoXbkQUsA', '.mp4'),55
+('Bp0phVuGjdU', '.mp4'),41
+('6Sst02Q6OE0', '.mp4'),66
+('M8C8XJpxYdQ', '.mp4'),23
+('ytQ5CYE1VZw', '.mp4'),191
+('dqHFSuLadOU', '.mp4'),122
+('WckScK2Kkx0', '.mp4'),95
+('9C7L0nCcsGo', '.mp4'),275
+('D4hAVemuQXY', '.mp4'),385
+('_dGu72BHD7Y', '.mp4'),84
+('1vehcmdWNUA', '.mp4'),93
+('WsptdUFthWI', '.mp4'),79
+('kFLGTT4_lO4', '.mp4'),182
+('j47MYli8pj4', '.mp4'),225
+('qNk-xjCISYQ', '.mp4'),105
+('HaivSgO1qE0', '.mp4'),90
+('pa14VNsdSYM', '.mp4'),125
+('v1ySZ1M8Dfc', '.mp4'),65
+('rNsP4nE1_FA', '.mp4'),166
+('lWzdORxIbNk', '.mp4'),154
+('QjlFqgRbICY', '.mp4'),54
+('n2zgJkRspfk', '.mp4'),91
+('Y7OCgi7rANc', '.mp4'),44
+('TQFaAbZhs94', '.mp4'),186
+('EJ5KlZNh1WA', '.mp4'),119
+('q-35q9ISBsI', '.mp4'),165
+('i3jUme7_5wY', '.mp4'),145
+('lgT1AidzRWM', '.mp4'),115
+('qdDVtFvJwUc', '.mp4'),142
+('Avx35Mjkkhw', '.mp4'),192
+('cie140M_Wjo', '.mp4'),242
+('7cDYYvOhKwg', '.mp4'),144
+('BBAtAM7vtgc', '.mp4'),141
+('56N9anA_PYc', '.mp4'),78
+('HziChUj-moY', '.mp4'),93
+('wvX1-iEAqTU', '.mp4'),117
+('PfGaX8G0f2E', '.mp4'),39
+('6eHWVpqbMco', '.mp4'),47
+('tL715hoVb1U', '.mp4'),98
+('SCG4-CTQtW0', '.mp4'),148
+('qSF247RiwBo', '.mp4'),67
+('H3evCDEXp4I', '.mp4'),7
+('2_ScGcuXZqc', '.mp4'),110
+('GMH7L1_lPVs', '.mp4'),134
+('fNdeLSKSZ1M', '.mp4'),85
+('t2NgsJrrAyM', '.mp4'),50
+('oyEuk8j8imI', '.mp4'),24
+('HkVS79y4p4Y', '.mp4'),102
+('gQh87Rt0czM', '.mp4'),215
+('08eonrytDGc', '.mp4'),97
+('3n71KUiWn1I', '.mp4'),178
+('yWeuUwpEQfs', '.mp4'),20
+('lGKG0mlin6A', '.mp4'),197
+('cAX0xgHoB6k', '.mp4'),234
+('gOMhN-hfMtY', '.mp4'),287
+('VICpS9XCYmI', '.mp4'),119
+('hWmgsfiklcs', '.mp4'),131
+('HZ98Io4W3po', '.mp4'),74
+('cnc4ei0rKYQ', '.mp4'),172
+('NGLxoKOvzu4', '.mp4'),198
+('weweLG6Or-g', '.mp4'),6
+('vGZMvV9KBp8', '.mp4'),226
+('1FCyRLJevqI', '.mp4'),186
+('obcBPXLyMzY', '.mp4'),120
+('MEkGaPyYS2w', '.mp4'),163
+('uKdYs6xhnhU', '.mp4'),140
+('zcjCsvA_3oI', '.mp4'),165
+('N7y9d478ZHE', '.mp4'),68
+('jBNif9kUvkE', '.mp4'),241
+('a_3bqSpmtQw', '.mp4'),70
+('6ACl8s_tBzE', '.mp4'),122
+('fo4p5GJDk_g', '.mp4'),93
+('3U72hzeBLOw', '.mp4'),76
+('3XR5mhXtpXw', '.mp4'),82
+('avFq9errZCk', '.mp4'),171
+('kSdtcOy6qy0', '.mp4'),123
+('IDvu1ehPq0g', '.mp4'),171
+('-6jhuhsG-7w', '.mp4'),135
+('Z4TwbrihsNw', '.mp4'),216
+('F84wsflIUPI', '.mp4'),83
+('9TrQXlA7258', '.mp4'),121
+('LELFIuhSPCI', '.mp4'),50
+('8FOBxcluXdk', '.mp4'),128
+('uv4A-gbGADw', '.mp4'),72
+('x-R73KiELRY', '.mp4'),97
+('C8KV0mzqTXY', '.mp4'),90
+('KEI4qSrkPAs', '.mp4'),96
+('RgASBDwGSSs', '.mp4'),259
+('Xbw_BxDwdjk', '.mp4'),107
+('4UqF0z2wZCM', '.mp4'),164
+('3PAnrXiLfmk', '.mp4'),115
+('v_bNfVz63jw', '.mp4'),69
+('9BZMqajycaE', '.mp4'),40
+('DK_0jXPuIr0', '.mp4'),179
+('lBmdcInF6e0', '.mp4'),198
+('u6C2N2t4NXE', '.mp4'),67
+('oC-GflRB0y4', '.mp4'),144
+('iVJtWWH2qWk', '.mp4'),163
+('_XqyLasihg4', '.mp4'),129
+('qk7DT43hwFw', '.mp4'),266
+('Hb2aR-P9oe4', '.mp4'),189
+('CfihYWRWRTQ', '.mp4'),141
+('JC2yu2a9sHk', '.mp4'),83
+('JA_UnE3l5Sk', '.mp4'),73
+('QcIy9NiNbmo', '.mp4'),112
+('q9MoF0NAx-E', '.mp4'),209
+('Phod9cQrMZg', '.mp4'),171
+('elVF7oG0pQs', '.mp4'),33
+('0P_-ol5E0j8', '.mp4'),149
+('_4vpXeIlMZE', '.mp4'),122
+('T8oLQmqHnws', '.mp4'),122
+('ShbUE88U5do', '.mp4'),167
+('RSdKmX2BH7o', '.mp4'),226
+('7rQb2NCuQ64', '.mp4'),182
+('RV4oPdNCnx8', '.mp4'),111
+('zTFBJgnNgU4', '.mp4'),258
+('PGoCtJzPHkU', '.mp4'),46
+('4GuqB1BQVr4', '.mp4'),146
+('DwZVZ5qZnoA', '.mp4'),147
+('j4SNtFQZF0A', '.mp4'),80
+('37-y1qRnVNw', '.mp4'),97
+('7bDLIV96LD4', '.mp4'),104
+('v5Ok3_l1Opc', '.mp4'),102
+('QYDI0Wp3b18', '.mp4'),99
+('mM2SWM358bM', '.mp4'),91
+('MIf9KebN7Og', '.mp4'),142
+('GF8aaTu2kg0', '.mp4'),133
+('Ic5vxw3eijY', '.mp4'),87
+('u8XFFTWwSvY', '.mp4'),74
+('iL7V9u_tdjs', '.mp4'),34
+('EAc4zHEDd7o', '.mp4'),187
+('szbl1xQvc0g', '.mp4'),66
+('zXtsGAkyeIo', '.mp4'),214
+('OxiPLWaVNYc', '.mp4'),365
+('tjWWYhHB88Q', '.mp4'),32
+('FVFdpDVEZ7k', '.mp4'),88
+('Fmw72NhU5R8', '.mp4'),128
+('RltdWxYcmQI', '.mp4'),84
+('xzXDSWz3Nbw', '.mp4'),195
+('b2AcxL88DoI', '.mp4'),144
+('mLxKjMQ54Go', '.mp4'),98
+('KyvEm5eJFv0', '.mp4'),82
+('WeBfKGoVTJ4', '.mp4'),73
+('ETNZWCNkDaI', '.mp4'),160
+('dT90lx0fcYw', '.mp4'),152
+('nlR0MkrRklg', '.mp4'),106
+('RnpyRe_7jZA', '.mp4'),118
+('T6j4f8cHBIM', '.mp4'),129
+('VP7GNxLI9fM', '.mp4'),71
+('00cr3g6wCG0', '.mp4'),67
+('eqJ-Shv3kEw', '.mp4'),41
+('kK6kNfKYaJg', '.mp4'),154
+('he3DJLXbebI', '.mp4'),88
+('PWjRMuyXl2o', '.mp4'),39
+('fRh_vgS2dFE', '.mp4'),67
+('Bm5iA4Zupek', '.mp4'),36
+('eDuRoPIOBjE', '.mp4'),189
+('nJSdYlAFKqA', '.mp4'),132
+('ZGTe7BEsB60', '.mp4'),42
+('PexGMPD1fGI', '.mp4'),25
+('CvBfHwUxHIk', '.mp4'),192
+('n2sH4ANbIB4', '.mp4'),142
+('RhU9MZ98jxo', '.mp4'),127
+('EHkozMIXZ8w', '.mp4'),197
+('acI2OIH8iSw', '.mp4'),45
+('FR_yo8wAgJ4', '.mp4'),353
+('51vf4399MIs', '.mp4'),123
+('tPZbBBdfr5E', '.mp4'),138
+('-ylyBq1OFaY', '.mp4'),47
+('ogy8Ms1E5OM', '.mp4'),124
+('PH4JPgVD2SM', '.mp4'),76
+('5WL672bjJgM', '.mp4'),98
+('O5_zsUkFSrY', '.mp4'),142
+('ssoEWgRBcDs', '.mp4'),97
+('LUjn3RpkcKY', '.mp4'),117
+('ZQ2nCGawrSY', '.mp4'),144
+('Bds_z1jXIJw', '.mp4'),162
+('1-TTNdyIMAE', '.mp4'),175
+('0GoGcVs6pbU', '.mp4'),181
+('ZvUBGN4KoP0', '.mp4'),97
+('a_jyL8AnqmY', '.mp4'),53
+('Wpl_6jotaHA', '.mp4'),167
+('kffacxfA7G4', '.mp4'),160
+('Oe4Ic7fHWf8', '.mp4'),176
+('AkNVRKNFXGQ', '.mp4'),14
+('FuZdC9oOw94', '.mp4'),118
+('AQe8Bmgee3g', '.mp4'),103
+('lysp-BVbf9Q', '.mp4'),74
+('BYDKK95cpfM', '.mp4'),171
+('LCSMFMsLLzU', '.mp4'),127
+('Ao8cGLIMtvg', '.mp4'),197
+('Wq6V9YpE1aE', '.mp4'),236
+('iuz7F6diEkQ', '.mp4'),88
+('4Y3a_F0nCPE', '.mp4'),35
+('izo-09kA0eE', '.mp4'),197
+('nAQVGx1vzrk', '.mp4'),178
+('um4-d7VzZiE', '.mp4'),249
+('1Tp0r9197uo', '.mp4'),67
+('eTtH4Qxeofw', '.mp4'),179
+('90FQRA3yiDk', '.mp4'),190
+('eJO5HU_7_1w', '.mp4'),138
+('klIF0nhsxxM', '.mp4'),142
+('kLeqNtmhmtg', '.mp4'),135
+('1cUAUrRSesE', '.mp4'),154
+('LmCydrZngjY', '.mp4'),40
+('09iAlDwZqzs', '.mp4'),289
+('XbGs_qK2PQA', '.mp4'),276
+('EyAdm1U8Xno', '.mp4'),123
+('RqcjBLMaWCg', '.mp4'),127
+('Co0tTeuUVhU', '.mp4'),92
+('tsUmC5ulukc', '.mp4'),181
+('92XVwY54h5k', '.mp4'),172
+('Ys2SlX3xAeM', '.mp4'),62
+('pn1VGytzXus', '.mp4'),218
+('2LCFh3-xpOM', '.mp4'),59
+('VvCnhyAP1m8', '.mp4'),173
+('cimoNqiulUE', '.mp4'),181
+('3y1hSUyjNTA', '.mp4'),191
+('1wYNFfgrXTI', '.mp4'),173
+('47YClVMlthI', '.mp4'),133
+('U6ZVK0q9wZo', '.mp4'),112
+('NT9O1ALEa7Q', '.mp4'),152
+('prmmCg5bKxA', '.mp4'),192
+('B5YNiCfWC3A', '.mp4'),162
+('Qq5b2jRGOt0', '.mp4'),20
+('X6oCebR5elk', '.mp4'),159
+('orTi-PUXXy4', '.mp4'),149
+('QtXby3twMmI', '.mp4'),104
+('bBKrHm6qerI', '.mp4'),141
+('W0uqLM1uj_k', '.mp4'),130
+('tkgQBYgoCEM', '.mp4'),118
+('QFcv5Ma8u8k', '.mp4'),127
+('tfA6uXQAZe8', '.mp4'),25
+('IqLlfuLrhxM', '.mp4'),109
+('rp4UwPZfRis', '.mp4'),123
+('NpL3g3UKPG8', '.mp4'),278
+('LaNvMomX2-E', '.mp4'),55
+('8bdvNnyyM6o', '.mp4'),49
+('Xcwd_Nz6Zog', '.mp4'),224
+('lHe00hyWq5I', '.mp4'),214
+('YY6CJRGgVyU', '.mp4'),145
+('9rXdTAOn_Bw', '.mp4'),167
+('6EiBJPMIn8M', '.mp4'),150
+('hwR_1EP18eo', '.mp4'),262
+('1GLDAaTpagc', '.mp4'),173
+('SZDmuHSqwtg', '.mp4'),130
+('0RyInjfgNc4', '.mp4'),43
+('YjtsaXwDcF0', '.mp4'),132
+('3EZ2SFHs1cM', '.mp4'),176
+('GpUFSEX_teg', '.mp4'),105
+('Hpm5zNhNfmE', '.mp4'),97
+('i2uOqPEOCHo', '.mp4'),33
+('e0Y39QnwRvY', '.mp4'),243
+('6FIksKtfBe0', '.mp4'),133
+('9IJSVXeeZ0M', '.mp4'),79
+('4JipHEz53sU', '.mp4'),155
+('P1J1mby_5Dg', '.mp4'),189
+('1kVxpsi1XQ4', '.mp4'),77
+('GH-HD9DrxHo', '.mp4'),345
+('vMagUxOJZDQ', '.mp4'),79
+('tfrWuiQ4QNc', '.mp4'),123
+('rp6VuUIgHCY', '.mp4'),97
+('PXwgojNwZY4', '.mp4'),135
+('Xx_jxLt-i-0', '.mp4'),7
+('fP8FMdVcCQQ', '.mp4'),154
+('aSLZFdqwh7E', '.mp4'),232
+('IcrbM1l_BoI', '.mp4'),120
+('-BDiIOglboY', '.mp4'),178
+('hfPU2nM5PQ0', '.mp4'),177
+('UopnGGTF5pk', '.mp4'),58
+('AepbzNWEAjQ', '.mp4'),7
+('8kyWDhB_QeI', '.mp4'),62
+('glaG64Ao7sM', '.mp4'),62
+('Dp__fMSmWWs', '.mp4'),50
+('nBtDsQ4fhXY', '.mp4'),114
+('IRIszAE1ZlA', '.mp4'),137
+('r1qjId9PF98', '.mp4'),13
+('z7i5qS5nCAA', '.mp4'),74
+('drcWaTCS6bg', '.mp4'),34
+('kyiB4_VHNWM', '.mp4'),79
+('eY2ugWgEQVQ', '.mp4'),135
+('uQZMaG1eO74', '.mp4'),157
+('jE_1wyt98DY', '.mp4'),151
+('X0ZVaFO7cGE', '.mp4'),98
+('OaQAy-8OY54', '.mp4'),83
+('NnrswAX5qFo', '.mp4'),39
+('dql1ew8r_vc', '.mp4'),161
+('uFdWhalhP5Y', '.mp4'),70
+('KKlX4VEX1WQ', '.mp4'),92
+('FPAmeM3JJQk', '.mp4'),110
+('j5Z3KUOrhS0', '.mp4'),206
+('nhq6xkpMJpA', '.mp4'),67
+('xUetSQlxOWY', '.mp4'),148
+('x3WTc6Q2wIc', '.mp4'),143
+('2ZCUtnuAXg8', '.mp4'),80
+('mf58RAPR8Ws', '.mp4'),185
+('zzrNI66FUWE', '.mp4'),35
+('qqjVwAg5fK4', '.mp4'),207
+('PeFGaXCYktg', '.mp4'),55
+('vJgwn7b5Iug', '.mp4'),81
+('WrklZD9H5Vg', '.mp4'),90
+('eJgEmw5Ke0Q', '.mp4'),201
+('Jtj5Pzd9tkA', '.mp4'),81
+('dQg-l9OoN-0', '.mp4'),78
+('o3mP3mJDL2k', '.mp4'),153
+('uM6vFI_p7vg', '.mp4'),137
+('syu8uuqUVP4', '.mp4'),73
+('5FJO6b8GL3M', '.mp4'),147
+('e9Kcg_8gK30', '.mp4'),26
+('W6e1TctNyw8', '.mp4'),94
+('uxBganA7KnY', '.mp4'),70
+('7LnBvuzjpr4', '.mp4'),72
+('6IS6g3_pp1I', '.mp4'),186
+('Gb2h7MiC_50', '.mp4'),128
+('MYF7H_fpc-g', '.mp4'),131
+('nkjwn240AMc', '.mp4'),50
+('SeaUfrAwM4M', '.mp4'),102
+('vqW18C4plZ8', '.mp4'),126
+('qFrWFkjaqJc', '.mp4'),60
+('NC9y_HBl_qc', '.mp4'),55
+('PtQiFgGwuGM', '.mp4'),145
+('3JrDVPsVbVA', '.mp4'),118
+('URiDdlAS6ls', '.mp4'),196
+('cl3b7dDBLpo', '.mp4'),111
+('IAXcT5ZRzq8', '.mp4'),38
+('lDERedWHc3s', '.mp4'),88
+('IKs5OsT4dIY', '.mp4'),177
+('NgIH7_HFCpU', '.mp4'),52
+('l04j4llLnZM', '.mp4'),100
+('pvL39XfRXXM', '.mp4'),237
+('46j_q1Wr0jY', '.mp4'),28
+('wi105P5bX-g', '.mp4'),90
+('tkJ_koXPZzs', '.mp4'),112
+('kuHRswmnMBg', '.mp4'),79
+('bCfSRJENSnc', '.mp4'),143
+('EVr__5Addjw', '.mp4'),395
+('y-Du3QZ0eOQ', '.mp4'),100
+('J4A8al4MSvU', '.mp4'),41
+('ptlhMhM9CUU', '.mp4'),95
+('OUDLHzgchlA', '.mp4'),180
+('hXd6u9o6dYY', '.mp4'),102
+('7NupeUDpcrU', '.mp4'),168
+('koVHN6eO4Xg', '.mp4'),143
+('hrFesnQTDls', '.mp4'),72
+('DszIoEP8OAo', '.mp4'),245
+('vdrqA93sW-8', '.mp4'),206
+('2bSSe1clKMs', '.mp4'),112
+('VroDtC62Mw8', '.mp4'),193
+('HiXYDQxU3OE', '.mp4'),86
+('UgyvNhmYHjo', '.mp4'),17
+('Wa5B22KAkEk', '.mp4'),161
+('kp5YUqEVVMw', '.mp4'),113
+('OPf0YbXqDm0', '.mp4'),148
+('CqPU7NSVQwY', '.mp4'),206
+('GUWxNu7J_Hk', '.mp4'),52
+('fhcpubAVdmc', '.mp4'),201
+('0KCWqnldEag', '.mp4'),100
+('YZZTSP5v8AA', '.mp4'),62
+('z8IJq7iCAMg', '.mp4'),194
+('cQY00k3wK1Y', '.mp4'),253
+('E5ONTXHS2mM', '.mp4'),96
+('FWa1VQdyH90', '.mp4'),172
+('o9tJW9MDs2M', '.mp4'),96
+('Q2pwY6QNNNA', '.mp4'),70
+('VYJw-2NfV-k', '.mp4'),84
+('URdf7WX-nlc', '.mp4'),166
+('s5I4yWbnlxM', '.mp4'),62
+('SiS7fNeNNY4', '.mp4'),129
+('02Zm-Ayv-PA', '.mp4'),152
+('BoEKWtgJQAU', '.mp4'),65
+('1NktXS1GiWU', '.mp4'),21
+('AGyW4G5Qfz4', '.mp4'),116
+('CKhmCh68Qu0', '.mp4'),21
+('aatr_2MstrI', '.mp4'),144
+('YuqXhhcrN80', '.mp4'),292
+('csHlIM5xOG8', '.mp4'),106
+('5dmQ3QWpy1Q', '.mp4'),31
+('f8zKtcKCaG8', '.mp4'),151
+('67CMPOsmoLw', '.mp4'),250
+('uPCal5JvzuM', '.mp4'),209
+('t3Mqi-Tv7q0', '.mp4'),196
+('ALZHF5UqnU4', '.mp4'),124
+('nYWX-rcUv1E', '.mp4'),91
+('x8Oha-TnekE', '.mp4'),146
+('d379r5Ov-os', '.mp4'),45
+('kXFcr6oy5dk', '.mp4'),196
+('F5kNE3UD7fg', '.mp4'),208
+('fRNkQH4DVg8', '.mp4'),108
+('Pkgeai985rA', '.mp4'),224
+('8DS-h67qEiY', '.mp4'),67
+('Rw4WrkTL96Y', '.mp4'),114
+('ka9AIoRw-WU', '.mp4'),234
+('ywvRgGAd2XI', '.mp4'),122
+('LXUSaVw3Mvk', '.mp4'),116
+('S0z1Mo7O6dE', '.mp4'),131
+('yZqmarGShxg', '.mp4'),203
+('glxr822v9K4', '.mp4'),196
+('S9bCLPwzSC0', '.mp4'),56
+('Zj_kSkTSrQM', '.mp4'),124
+('e82VE8UtW8A', '.mp4'),194
+('Hn4yUqYKbYM', '.mp4'),66
+('7NqO-4kTu_4', '.mp4'),205
+('E5kJDWQSBUk', '.mp4'),141
+('dMMUH_ZpbB0', '.mp4'),145
+('ebXbLfLACGM', '.mp4'),117
+('wO89_H7GqaQ', '.mp4'),181
+('nxvm4P0jFKY', '.mp4'),169
+('nB4tBgQSP3Y', '.mp4'),145
+('CLsamA1bCMc', '.mp4'),173
+('YpnjwJBOPu8', '.mp4'),37
+('6OQlO_kUOps', '.mp4'),226
+('D7FTPM4lWD0', '.mp4'),130
+('HBxt_v0WF6Y', '.mp4'),135
+('u1YRjCTxR80', '.mp4'),67
+('cGi4hNgyhik', '.mp4'),160
+('RgKAFK5djSk', '.mp4'),107
+('zp7NtW_hKJI', '.mp4'),2
+('ZuwfZGDWOio', '.mp4'),205
+('7JddDOHtcJU', '.mp4'),131
+('mB5C6NkH0hI', '.mp4'),61
+('LpH6NjhUUhY', '.mp4'),137
+('bvC_0foemLY', '.mp4'),100
+('c7PLgW7LwhU', '.mp4'),54
+('rJYcmq__nDM', '.mp4'),92
+('mh5tsTa7-qQ', '.mp4'),111
+('lwk7yimxAfU', '.mp4'),147
+('c2MiyZx8MTY', '.mp4'),128
+('HLOhxTRRRb4', '.mp4'),50
+('Ekqu_Ku7nuY', '.mp4'),165
+('ekAXPCphKXQ', '.mp4'),275
+('MRLyREkZles', '.mp4'),152
+('N2oACZJFDZ4', '.mp4'),152
+('2k_S7Xx35js', '.mp4'),110
+('hYgXY00DP30', '.mp4'),85
+('t94vmNGDXds', '.mp4'),136
+('0zGcUoRlhmw', '.mp4'),116
+('mDU-5jwPKmQ', '.mp4'),118
+('dULOjT9GYdQ', '.mp4'),89
+('onjKcjlCb-A', '.mp4'),201
+('kIll0-AyMa0', '.mp4'),72
+('-zzP29emgpg', '.mp4'),92
+('Vcd4bHqNgLU', '.mp4'),129
+('7mWQ38SpEf8', '.mp4'),75
+('fyMhvkC3A84', '.mp4'),232
+('zjbIX4ryi1k', '.mp4'),88
+('ayZ0vzTAEVw', '.mp4'),74
+('Y34jC4I1m70', '.mp4'),92
+('g5qU7p7yOY8', '.mp4'),131
+('1G4isv_Fylg', '.mp4'),124
+('0tVLzjk4VEk', '.mp4'),52
+('mBZdHuZCfic', '.mp4'),74
+('SjTt5PZ5IRg', '.mp4'),145
+('a2Gh3VdnXQs', '.mp4'),61
+('yd8jh9QYfEs', '.mp4'),216
+('gPF2TF3S9Jk', '.mp4'),90
+('FWhf1vnx7WY', '.mp4'),90
+('tITkm-sBHH8', '.mp4'),142
+('APyyMrH7HFY', '.mp4'),90
+('UtoHI0JEfDg', '.mp4'),138
+('qICes_riodM', '.mp4'),145
+('Pj-Q9vx0EeQ', '.mp4'),241
+('undkbBJLa-Y', '.mp4'),97
+('kn4q8R2rgWA', '.mp4'),162
+('nY-Xk3sGr6Q', '.mp4'),128
+('n3JG3WDOjRQ', '.mp4'),125
+('nntGTK2Fhb0', '.mp4'),161
+('mLkpk9YxlXM', '.mp4'),121
+('m7HhLuA2z0Q', '.mp4'),126
+('qfX2DMQUe1Y', '.mp4'),66
+('JF8BRvqGCNs', '.mp4'),53
+('oYIepngsW04', '.mp4'),103
+('WXpt_mU5NKA', '.mp4'),185
+('ZXBcwyMUrcU', '.mp4'),92
+('IvPT2QuCIOA', '.mp4'),81
+('lNq2ZN2IpoA', '.mp4'),93
+('qN4ooNx77u0', '.mp4'),90
+('FF1hjJYuqXU', '.mp4'),238
+('bhr9mYO6LsE', '.mp4'),29
+('ofaRvNOV4SI', '.mp4'),86
+('o_Ly93EP5Ak', '.mp4'),65
+('c1Iik8iF8iw', '.mp4'),164
+('n69klxarmos', '.mp4'),238
+('em0RhB00rbE', '.mp4'),125
+('W7LIn9sd9BA', '.mp4'),139
+('gG_dA32oH44', '.mp4'),278
+('6GtlXkEvcMY', '.mp4'),20
+('DlHJXVDRSNE', '.mp4'),88
+('oEauWw9ZGrA', '.mp4'),175
+('ytK1zoq5CE8', '.mp4'),145
+('hvVn7Td3eEQ', '.mp4'),80
+('pPT7NdOkQdY', '.mp4'),42
+('wUZuV17uheM', '.mp4'),27
+('we-LaiQNY5s', '.mp4'),64
+('iS1g8G_njx8', '.mp4'),167
+('R-Eix23JPbI', '.mp4'),117
+('sN98p-M92rc', '.mp4'),107
+('-ahYrSLmMz8', '.mp4'),13
+('WxQpEeRwkcA', '.mp4'),113
+('iwbYwisSZkI', '.mp4'),213
+('6hGza1pWZ_E', '.mp4'),157
+('LWICozd_1Cc', '.mp4'),108
+('0-XXX3dnlVc', '.mp4'),21
+('0I73ZdXZJLY', '.mp4'),87
+('mmgoztq80Bk', '.mp4'),153
+('Fc_4WI8FwRg', '.mp4'),169
+('Nr56aeRv3pQ', '.mp4'),106
+('ZmcycnV2e10', '.mp4'),157
+('HxilwT1sKSo', '.mp4'),110
+('KY44zvhWhp4', '.mp4'),218
+('yK8pc1BzzkY', '.mp4'),104
+('fRpTyB0HLtI', '.mp4'),100
+('wfN4PVaOU5Q', '.mp4'),104
+('L7_jYl8A73g', '.mp4'),63
+('Cp0d3-MQN_w', '.mp4'),207
+('r033bxSd_eI', '.mp4'),21
+('56qgO0C82vY', '.mp4'),296
+('a59gmGkq_pw', '.mp4'),64
+('SoJ8s90NLc4', '.mp4'),20
+('Hg9ZoYolDcg', '.mp4'),214
+('h2CxeEN_hsE', '.mp4'),145
+('hmP7TYtDVUU', '.mp4'),226
+('S4ovJ3uvwqY', '.mp4'),57
+('N_b0rJhVawk', '.mp4'),83
+('_sV0S8qWSy0', '.mp4'),182
+('p_RqWocthcc', '.mp4'),166
+('rRV28RBwf6k', '.mp4'),125
+('0tRAPsKa5Ek', '.mp4'),98
+('yh6QxtRpSH8', '.mp4'),163
+('zz2EmsqGYlo', '.mp4'),133
+('HZwMX6T5Jhk', '.mp4'),55
+('9GhtZt2HYkM', '.mp4'),101
+('YIh9OWvfIes', '.mp4'),187
+('HmNUGBRNhf8', '.mp4'),221
+('97v9Z9qMI-4', '.mp4'),162
+('VgbKoNOS3I0', '.mp4'),86
+('srMfJuIEz9k', '.mp4'),134
+('bgKJiXf5KkY', '.mp4'),116
+('dqZSbI2v_fM', '.mp4'),120
+('eCeBNwBUkcI', '.mp4'),55
+('wldXDdPfUSA', '.mp4'),227
+('59GRKgTSFe0', '.mp4'),90
+('lyw1xRXVFpY', '.mp4'),185
+('JDe86ul6RmI', '.mp4'),48
+('CDoVdkPXNKI', '.mp4'),183
+('djyhbYsDnPg', '.mp4'),134
+('0wteig3c_Ls', '.mp4'),155
+('zIrhcTkHX_A', '.mp4'),154
+('O5wlxT9ygtY', '.mp4'),102
+('ztOGSzwxaC4', '.mp4'),137
+('7AZWf-vo3wQ', '.mp4'),74
+('RQ9_TKayu9s', '.mp4'),174
+('rT10BHHqYUc', '.mp4'),28
+('nky4me4NP70', '.mp4'),149
+('m4StsX4ArqA', '.mp4'),156
+('RnUu7VlIVfc', '.mp4'),169
+('h6Ol3eprKiw', '.mp4'),129
+('CHVhwcOg6y8', '.mp4'),170
+('FQuzDgjmv4o', '.mp4'),99
+('m2ua3O_fdCY', '.mp4'),36
+('E_exesnCA5Y', '.mp4'),204
+('h3EvwERR86o', '.mp4'),155
+('IiDkVftBgak', '.mp4'),131
+('k4V3Mo61fJM', '.mp4'),138
+('NlmezywdxPI', '.mp4'),211
+('gvTUaS54_bk', '.mp4'),92
+('NYivX_GnFUY', '.mp4'),49
+('rONcsZatJww', '.mp4'),93
+('GLr0usOC2_k', '.mp4'),100
+('wAawx1O52dw', '.mp4'),117
+('g6ZN-NA9ZW8', '.mp4'),188
+('U21uMLiMCf4', '.mp4'),26
+('rV_gKjf8-Zg', '.mp4'),156
+('8ELbX5CMomE', '.mp4'),42
+('dZzkNZ2Nf9M', '.mp4'),212
+('WdTcyt3DyNE', '.mp4'),207
+('KledSRXC5Zo', '.mp4'),48
+('q7-vUeyA3K0', '.mp4'),113
+('4sTeFufqDIA', '.mp4'),274
+('08DjMT-qR9g', '.mp4'),69
+('0EOm92OxDmw', '.mp4'),253
+('0HRJmBLpPZU', '.mp4'),70
+('0kRQ8rWVI3k', '.mp4'),49
+('0tkO_4tGf2E', '.mp4'),262
+('1Az2J7ONvWw', '.mp4'),150
+('1Cd2PTpGHbo', '.mp4'),105
+('1ohYsK5Y8Dc', '.mp4'),268
+('1S5h0nlE65I', '.mp4'),87
+('1spQxG89Xdk', '.mp4'),180
+('1ZC2JER_TOE', '.mp4'),89
+('27SyS1125EA', '.mp4'),57
+('2a09INp3zlY', '.mp4'),182
+('2IH8tNQAzSs', '.mp4'),329
+('2MCt3VrjFk8', '.mp4'),50
+('2oSzKiARR5M', '.mp4'),179
+('2q4uFnokRrU', '.mp4'),82
+('_2wMblhDr2Q', '.mp4'),65
+('2_wpOmM1d8w', '.mp4'),147
+('2xk4xPdvt9o', '.mp4'),41
+('3fumBcKC6RE', '.mp4'),231
+('3G32BQ3JJ1c', '.mp4'),113
+('3pAoC-DWNfs', '.mp4'),82
+('3QiZpI1AzjA', '.mp4'),86
+('3sNjS-PkB6M', '.mp4'),6
+('3yl-5FOZcr0', '.mp4'),180
+('409-JtKl2mA', '.mp4'),75
+('43-whQz78oM', '.mp4'),113
+('4CkwtG9Sj3k', '.mp4'),43
+('4Hq-zs9qs5A', '.mp4'),3
+('4iyIE_iqr-c', '.mp4'),7
+('4Qqu-BEShw8', '.mp4'),70
+('5dNEJtIRMyc', '.mp4'),31
+('5EEhXhGcX0k', '.mp4'),114
+('5j5NzxksXz0', '.mp4'),21
+('5MwWqomm7bQ', '.mp4'),95
+('5sc2mgWGu4o', '.mp4'),94
+('5sMKX22BHeE', '.mp4'),195
+('5vrP3YB7iAg', '.mp4'),60
+('5z25pGEGBM4', '.mp4'),141
+('6352tM7T8WU', '.mp4'),83
+('6hyFNc3t41Y', '.mp4'),8
+('6l7J1i1OkKs', '.mp4'),11
+('_6SBTKmqakw', '.mp4'),90
+('6ZHpLyas01A', '.mp4'),159
+('_7anctpbSSo', '.mp4'),152
+('7CPYoGtI75Q', '.mp4'),80
+('7gCpz_FP2WE', '.mp4'),75
+('7pqTa1lQjtY', '.mp4'),240
+('7ua-vpqx3e8', '.mp4'),78
+('7vMQyZ2QmfI', '.mp4'),151
+('7y0ChoYgSek', '.mp4'),223
+('81fer9ulOeA', '.mp4'),28
+('_81U4ngh4tc', '.mp4'),238
+('8c6OvO7BUKM', '.mp4'),81
+('8Dcpy5fbt_0', '.mp4'),196
+('8iAfXZa1cDQ', '.mp4'),88
+('8kS2dhmJdH0', '.mp4'),201
+('8QKzwqLKTok', '.mp4'),151
+('8rBCaSg2mmQ', '.mp4'),153
+('8rX7QybRu1k', '.mp4'),57
+('9e1YdVZMBFU', '.mp4'),59
+('9g1CgvXhCo4', '.mp4'),95
+('9gRPsz7Gf5k', '.mp4'),131
+('9pgq9QzJyc8', '.mp4'),53
+('9wvooe6abUU', '.mp4'),73
+('a0yA-LIM7l0', '.mp4'),3
+('a1_aETw9yfw', '.mp4'),163
+('a6_7txZLwvA', '.mp4'),91
+('a9WYm0oZaLk', '.mp4'),135
+('ADmCFmYLns4', '.mp4'),144
+('AI0gk2KJeho', '.mp4'),208
+('aPxVSCfoYnU', '.mp4'),87
+('AqR-ElB5kXY', '.mp4'),88
+('aV8NqiYjuIc', '.mp4'),16
+('B9_8qHSIDfo', '.mp4'),58
+('B9qZz-m6BL4', '.mp4'),176
+('b9XNyeeJZ2k', '.mp4'),104
+('bEVHt3r3PYg', '.mp4'),82
+('bfn2yOacQ-Q', '.mp4'),129
+('bgCQcSqnojY', '.mp4'),80
+('BP1PsqBmbvM', '.mp4'),153
+('BRmf2Uob8lA', '.mp4'),202
+('bUE7wkTyLC8', '.mp4'),60
+('bWZ8Itjy7Qw', '.mp4'),67
+('bY89yHZO048', '.mp4'),93
+('C7CjDktkHyM', '.mp4'),103
+('CbEHS4J_5so', '.mp4'),118
+('cBIMozddkjY', '.mp4'),120
+('CCOHZ8uWhu0', '.mp4'),64
+('CJ6Po7fivdk', '.mp4'),70
+('cL4uhaQ58Rk', '.mp4'),51
+('cNw8A5pwbVI', '.mp4'),179
+('COwkCW38J54', '.mp4'),167
+('CoXSznushNc', '.mp4'),94
+('CPUB97ilIqE', '.mp4'),53
+('DANNxk1elrw', '.mp4'),13
+('DcbMPXYMh9A', '.mp4'),69
+('dEFY2zYJ62w', '.mp4'),102
+('dF774uTycsw', '.mp4'),84
+('DJi7WupFqPQ', '.mp4'),118
+('dkQ0OJ5Byls', '.mp4'),249
+('dtCxmbFgnrc', '.mp4'),192
+('DTMo_wEwMnw', '.mp4'),118
+('E2SuYd-Z5PI', '.mp4'),43
+('E4z_FH2wiCg', '.mp4'),290
+('e7t9WTePAy4', '.mp4'),20
+('e_9Od-l6TW8', '.mp4'),30
+('eh-72yBP7sw', '.mp4'),184
+('elsAYGFVMdY', '.mp4'),84
+('eSFSZs8POwM', '.mp4'),123
+('F0vmjT-00DU', '.mp4'),125
+('f6dUH2JnN04', '.mp4'),157
+('F_7baOCYg-Q', '.mp4'),270
+('F8FYmRE8adM', '.mp4'),98
+('FFamEq1PilQ', '.mp4'),178
+('fhMlSITt7hU', '.mp4'),152
+('fHoau67yI3A', '.mp4'),5
+('fls8VU7XClU', '.mp4'),208
+('fmTKcyp7tmo', '.mp4'),231
+('fWNiVcR_keU', '.mp4'),180
+('fZKdcPO8O-A', '.mp4'),82
+('G1Igoc6yrKE', '.mp4'),71
+('g3ORsEpnY_o', '.mp4'),135
+('G6GcRqEgT98', '.mp4'),122
+('GG-4aCEjtzI', '.mp4'),5
+('GJ26gAc7BtU', '.mp4'),167
+('-GJx_Xe-_8U', '.mp4'),58
+('Gr4ywRqR-gk', '.mp4'),103
+('gtgIpb1J2bI', '.mp4'),99
+('gxApr8QnlGY', '.mp4'),2
+('GXOwiQ5QFqk', '.mp4'),3
+('GyAAwCu-Lu4', '.mp4'),234
+('-H2Lp7uRUTs', '.mp4'),54
+('hBvmN4GTcEk', '.mp4'),96
+('Hke2SSFLh5I', '.mp4'),29
+('HKErmFliQG0', '.mp4'),78
+('hnOEg6T1mHs', '.mp4'),169
+('Hq0JWpzsdXs', '.mp4'),195
+('HQ15ZjMig1U', '.mp4'),46
+('HQEZ-RiW7X0', '.mp4'),64
+('hunha8UtqCk', '.mp4'),44
+('HuTXNjp985g', '.mp4'),82
+('HVPJb0AV1AU', '.mp4'),136
+('hXsYqGuNr6M', '.mp4'),93
+('I0MT8SwNa_U', '.mp4'),71
+('I26EwcssMbY', '.mp4'),100
+('i2WABj3CBiU', '.mp4'),6
+('IajZTuxdv3Q', '.mp4'),102
+('icaVRciv0kI', '.mp4'),176
+('icnBNjtDYZ8', '.mp4'),65
+('ICVv9bfthes', '.mp4'),99
+('IgLcQmlN2Xg', '.mp4'),166
+('IltwiyqKhEI', '.mp4'),160
+('iMpxUVHL8W8', '.mp4'),80
+('iNa2-sHcIUY', '.mp4'),130
+('ingU4oNUbEE', '.mp4'),216
+('iQUx0dp_BbM', '.mp4'),113
+('IrgqUZaeRuc', '.mp4'),106
+('IZNRTJ6q3sY', '.mp4'),182
+('J12t-MOYuYM', '.mp4'),85
+('j4fXfxJCehY', '.mp4'),7
+('J7Flypi2rrs', '.mp4'),157
+('Jd4ov1i-eJA', '.mp4'),146
+('jeWYdbi5CbM', '.mp4'),47
+('jEy9ygty4JQ', '.mp4'),153
+('jKbR7u8J5PU', '.mp4'),213
+('jzhQEOuSQyw', '.mp4'),111
+('_K6MoWuAXjQ', '.mp4'),258
+('K7KfDoBJ0bY', '.mp4'),8
+('KAfOI37aK4A', '.mp4'),167
+('Kf8608tigwQ', '.mp4'),35
+('kG-1kFGEYV8', '.mp4'),183
+('KiO2-R8yKjE', '.mp4'),30
+('krpdSno_qXI', '.mp4'),7
+('kTcnP_-IQYc', '.mp4'),153
+('Kwp3pVbVrh0', '.mp4'),106
+('KxJTpDeKNjg', '.mp4'),112
+('kYfguGh_890', '.mp4'),175
+('KyPj6xVS08M', '.mp4'),161
+('l03TayANCbc', '.mp4'),102
+('lazyDlfaptM', '.mp4'),26
+('lBK3ae0pBGA', '.mp4'),70
+('LbouTdwOrVw', '.mp4'),155
+('lJlccP0VWCo', '.mp4'),286
+('LLSahvcy7fc', '.mp4'),167
+('LLTLqGusGOE', '.mp4'),152
+('ls6Lv2qL2Uw', '.mp4'),114
+('lTurfn7vvCk', '.mp4'),192
+('m0YDvzOXpwI', '.mp4'),102
+('mGRBVUo7R7M', '.mp4'),183
+('MGyJGbZKDmI', '.mp4'),159
+('MKVBLu1zkog', '.mp4'),172
+('MNS-Ho5tWo0', '.mp4'),218
+('mS969DYxUSY', '.mp4'),105
+('mTF1d_1Kd80', '.mp4'),132
+('Mx_CmyOCSyI', '.mp4'),212
+('mytLRy32Viw', '.mp4'),145
+('N17FXwRWEZs', '.mp4'),392
+('N6LDslTbW8o', '.mp4'),135
+('_Nb4EHY_2bI', '.mp4'),178
+('Nc7B6tk60eI', '.mp4'),186
+('n_lMnq-4kmc', '.mp4'),2
+('nmjdaBaZe8Y', '.mp4'),126
+('NMQ8QwVD7co', '.mp4'),75
+('NnNnkPbXH6E', '.mp4'),122
+('NPce-skLCt0', '.mp4'),212
+('nq4ojnkcwFs', '.mp4'),121
+('n-Tj9dObRLE', '.mp4'),102
+('nWCdG0RacIk', '.mp4'),59
+('nxNnnR4XCyk', '.mp4'),88
+('NXrLrg7U_6Y', '.mp4'),164
+('O8Z-T5VcP88', '.mp4'),184
+('oJ3XXubFxhA', '.mp4'),116
+('OM8FCtZALyU', '.mp4'),9
+('OQLuhelCaDQ', '.mp4'),84
+('orhJ1TzREZU', '.mp4'),57
+('Or-ykUkRMeM', '.mp4'),69
+('oUbpGmR1-QM', '.mp4'),110
+('OxxNSG1GM7M', '.mp4'),23
+('oy37OlRPomA', '.mp4'),110
+('p2cQSPRTdhg', '.mp4'),164
+('p7K0ooqNWEo', '.mp4'),110
+('pOGljjwb_iQ', '.mp4'),97
+('PscXGpsF3dY', '.mp4'),134
+('PT7rNpBtytY', '.mp4'),132
+('PxmT-E6sfn8', '.mp4'),28
+('Pyx-wNEttEk', '.mp4'),39
+('Q10AqolSgQg', '.mp4'),145
+('Q4dPrjh9wCc', '.mp4'),236
+('qFJ3VKnwmJw', '.mp4'),89
+('qH1oww65y1Q', '.mp4'),6
+('qpgTC9MDx1o', '.mp4'),232
+('QptiPrhr6bo', '.mp4'),233
+('QrbZ8UYvi14', '.mp4'),224
+('qteSJHiR-ls', '.mp4'),3
+('QXEGyrPxEvE', '.mp4'),41
+('r7Cge4cOo_o', '.mp4'),22
+('rFo1UmS4sgE', '.mp4'),43
+('rFSWtsFqKJ4', '.mp4'),129
+('RH4Kb865AK0', '.mp4'),4
+('rhBwt9mw7Sk', '.mp4'),231
+('rhj_GGsb3So', '.mp4'),98
+('Rl3ELiPXFRo', '.mp4'),106
+('Rop0lzrsC7s', '.mp4'),10
+('rPZtXYaY4do', '.mp4'),105
+('rV8NHsmVMPE', '.mp4'),141
+('rYEDA3JcQqw', '.mp4'),118
+('rZWwH1NJsKs', '.mp4'),21
+('s1XozsBN5Z4', '.mp4'),132
+('s6Nc4qEI3k4', '.mp4'),116
+('sAebYQgy4n4', '.mp4'),211
+('-SBj50bho48', '.mp4'),236
+('SCv9CkIRUio', '.mp4'),64
+('se3TUhpn0II', '.mp4'),113
+('-sEvExZNllA', '.mp4'),72
+('sGLOE9LVNmc', '.mp4'),118
+('sIWgF4QB89A', '.mp4'),3
+('sncDtok7LRE', '.mp4'),57
+('sNrNqcKXMKE', '.mp4'),114
+('snTZ7X8OMuc', '.mp4'),67
+('SS0aCc9e-mQ', '.mp4'),119
+('SsAm32tesvg', '.mp4'),5
+('SUjitYrRFn0', '.mp4'),151
+('SYbh6ob_R9M', '.mp4'),105
+('_t1gfn9aqiQ', '.mp4'),40
+('T7Z4dU8ZK40', '.mp4'),29
+('tdDF39UoZtg', '.mp4'),64
+('tf_fT3HfHIk', '.mp4'),73
+('tIDlV6lkcT4', '.mp4'),41
+('tISjbqqWc7U', '.mp4'),144
+('tkClJp0jSgA', '.mp4'),132
+('tlnMVb2XVVk', '.mp4'),100
+('TmJ8wXJ9y3A', '.mp4'),87
+('-TniSwqqr6s', '.mp4'),115
+('TNsOqVBzrYo', '.mp4'),196
+('TofVHNce9Hg', '.mp4'),104
+('ToP82VUjrNU', '.mp4'),74
+('tpleNoWqvsc', '.mp4'),3
+('TSNerxNwWtU', '.mp4'),175
+('tU3p6mz-uxU', '.mp4'),91
+('TucHVw0NVR8', '.mp4'),73
+('u6nuMv6sULw', '.mp4'),195
+('U9FXpzwCyRQ', '.mp4'),125
+('udb1jmH-37I', '.mp4'),55
+('UHNNmu2KzW0', '.mp4'),165
+('UiAujAOzePk', '.mp4'),178
+('uIsT-9DQMnE', '.mp4'),282
+('UkiHbmreLaQ', '.mp4'),163
+('uMhalar35IY', '.mp4'),243
+('uNSBq6hvU1s', '.mp4'),113
+('UROLAsyc_KU', '.mp4'),158
+('UzCcgwtvOf0', '.mp4'),68
+('v4gCRuoviw0', '.mp4'),196
+('v52AqofLXXM', '.mp4'),151
+('V7m8oZeY-7k', '.mp4'),44
+('_VBG02qe8F4', '.mp4'),79
+('VBppx70Ebjk', '.mp4'),112
+('VdXQ5wAtr1M', '.mp4'),107
+('vH020rDYBXo', '.mp4'),134
+('vHJAUuicC0Q', '.mp4'),153
+('VICB2228hb8', '.mp4'),134
+('vkK70XE6dS8', '.mp4'),157
+('VlMEGBsw6j8', '.mp4'),111
+('VMCDTHx6cDI', '.mp4'),137
+('vuEVH1OtVl4', '.mp4'),212
+('vxIMLHEKPUE', '.mp4'),59
+('W_0rrS4seLo', '.mp4'),8
+('w6QGe-pXgdI', '.mp4'),231
+('Wa64gOwuIyE', '.mp4'),2
+('WaV4Bc31OPA', '.mp4'),314
+('WBKnpyoFEBo', '.mp4'),124
+('_wmD3M-BfVo', '.mp4'),204
+('wnUD7T5hQAs', '.mp4'),37
+('wROiQkB5-vM', '.mp4'),130
+('wXHX_MOPWCs', '.mp4'),124
+('wzMrK-aGCug', '.mp4'),104
+('XgFiWGIVP6s', '.mp4'),136
+('xgJyoKUHzpQ', '.mp4'),2
+('xH5t1WBPGbU', '.mp4'),140
+('XPpTgCho5ZA', '.mp4'),131
+('XQbdsq05Khg', '.mp4'),87
+('XTWDTBkj6xU', '.mp4'),138
+('y5gre_VD2MM', '.mp4'),76
+('Y7ix6RITXM0', '.mp4'),119
+('y8Gf4-eT3w0', '.mp4'),150
+('yABPLSymyHk', '.mp4'),36
+('YAg6cLi1lic', '.mp4'),109
+('YazYP7ngaE8', '.mp4'),103
+('YcEgXlYIFi8', '.mp4'),22
+('yFk8k3npvpo', '.mp4'),151
+('Ylp0mjGk5mo', '.mp4'),26
+('yn_6LC4loY8', '.mp4'),218
+('YvC84NpZ3Y4', '.mp4'),129
+('_y_Xpps46Uc', '.mp4'),189
+('YZx5WXwNUVM', '.mp4'),87
+('z29nI8RQV0U', '.mp4'),85
+('Z4ufe-B_C2Y', '.mp4'),125
+('ZBx-M2oRBLg', '.mp4'),204
+('ZC1F_gq2wY4', '.mp4'),35
+('ZoWsL3vXSLw', '.mp4'),302
+('Zpeb0PSeU9A', '.mp4'),64
+('ZQnCHHiziEs', '.mp4'),34
+('zsOoCtj2pw4', '.mp4'),180
+('ZXIA-U2mL3U', '.mp4'),276
+('gIDde0NJN9M', '.mp4'),79
+('cduBUfiRc3w', '.mp4'),159
+('eiCsYwJNXyo', '.mp4'),79
+('AewNd29wRUM', '.mp4'),88
+('no1YHRhFr5A', '.mp4'),146
+('qonGRB0ekys', '.mp4'),66
+('Rs5mbEV8KmM', '.mp4'),16
+('uztCqjxrkjQ', '.mp4'),150
+('Z-CozqGfCTA', '.mp4'),307
+('Sgp0WDMH88g', '.mp4'),143
+('9ozcWZI3VL0', '.mp4'),159
+('ALZHF5UqnU4', '.mp4'),124
