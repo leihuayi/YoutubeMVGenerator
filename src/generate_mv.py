@@ -1,6 +1,7 @@
 import random, os, json, time
 import subprocess
 import msaf
+import warnings
 import pandas as pd
 from .music_recognition import get_music_infos, convert_genre_to_style
 from .feature_color import compute_kmeans, CLUSTERS, list_scenes
@@ -75,14 +76,17 @@ def main(args, callback=lambda str: print(str)):
     start = time.time()
 
     if not os.path.exists(args.input):
-        raise("File does not exist")
+        raise FileNotFoundError
 
     # 1. Get major changes in music
     callback("Identifying key changes in %s..."%args.input)
+
+    warnings.filterwarnings("ignore")
     boundaries, labels = msaf.process(args.input, boundaries_id="olda")
 
     if boundaries[-1] < 60:
-        raise("Music shorter than 60 seconds, please chose a longer music for getting a quality MV.")
+        print("Music shorter than 60 seconds, please chose a longer music for getting a quality MV.")
+        return -1
         
     callback("Key changes at (%s) seconds\n"%" , ".join(map("{:.2f}".format, boundaries)))
 
@@ -94,14 +98,16 @@ def main(args, callback=lambda str: print(str)):
         title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
         if musicStyle == '':
-            raise("The algorithm did not manage the recognize the music genre.\n"
+            print("The algorithm did not manage the recognize the music genre.\n"
                                 "Please try with another music, or manually add genre with the argument --genre <name of genre> \n"
                                 "with genre in ("+",".join(AUTHORIZED_GENRES)+").")
+            return -1
     else:
         musicStyle = convert_genre_to_style(musicGenre)
         if musicStyle == '':
-            raise("This genre is not authorized. Please input one of the following ("+\
+            print("This genre is not authorized. Please input one of the following ("+\
             ",".join(AUTHORIZED_GENRES)+") or let the algorithm find the genre.")
+            return -1
 
 
     # 3. With the music genre, find appropriate videos in database
