@@ -83,7 +83,7 @@ def extract_feature(path, saveThumbnail):
 Return an numpy array size 256 x 3 which is the color histogram of the picture :
 [0,255] = blue
 [256,511] = green
-[512,768] = red
+[512,767] = red
 for each channel [0,255], index i gives the percentage of pixels with intensity i in the pic
 '''
 def compute_histogram(img):
@@ -212,25 +212,26 @@ def main():
 
     folder = "../data/"
 
-    # # Extract the color features and store them
-    # store_color_features(folder)
+    # Extract the color features and store them
+    store_color_features(folder)
 
-    # Kmeans for each style
-    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
+    # # Kmeans for each style
+    # df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
 
-    for style in ["rock","pop","hiphop","electro"] :
-        print("Starting KMeans for style : %s"%style)
-        subDf = df.loc[df["style"] == style]
-        listFiles = []
-        for index, row in subDf.iterrows():
-            # Get all scenes of MVs with same style
-            listFiles += glob.glob(folder+row["id"]+"/*.json")
+    # for resolution in ["16/9","40/17"]:
+    #     for style in ["rock","pop","hiphop","electro"] :
+    #         print("Starting KMeans for style : %s"%style)
+    #         subDf = df.loc[(df["style"] == style) & (df["resolution"] == resolution)]
+    #         listFiles = []
+    #         for index, row in subDf.iterrows():
+    #             # Get all scenes of MVs with same style
+    #             listFiles += glob.glob(folder+row["id"]+"/*.json")
 
-        kmeans = compute_kmeans(listFiles)
-        kmeans.to_csv("../statistics/kmeans_"+style+".csv",index=False)
+    #         kmeans = compute_kmeans(listFiles)
+    #         kmeans.to_csv("../statistics/kmeans_"+resolution+"_"+style+".csv",index=False)
 
-        print("Finished KMeans. Time elapsed : %f---------------\n"%(time.time()-start))
-        start = time.time()
+    #         print("Finished KMeans. Time elapsed : %f---------------\n"%(time.time()-start))
+    #         start = time.time()
 
 
 if __name__ == "__main__":
