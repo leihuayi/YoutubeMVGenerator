@@ -108,11 +108,11 @@ give in input the folder where all videos are (must contain / at end)
 the audio files of the videos should have been extracted beforehand with ffmpeg
 and put in the same folder 
 '''
-def database_info_to_csv():
+def database_info_to_csv(database_path):
     data = []
     name, artist, genres, style, resolution, length = ("","","","","","")
 
-    for vidFile in glob.glob(sys.argv[1]+"*.mp4"):
+    for vidFile in glob.glob(database_path+"*.mp4"):
 
         # Audio infos
         audFile = vidFile[:-3]+"mp3"
@@ -133,11 +133,10 @@ def database_info_to_csv():
 
 
 if __name__ == "__main__":
-    df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
+    # 1. HARMONIZE VIDEOS
+    # for vid in glob.glob(sys.argv[1]+"*.mp4"):
+    #     harmonize_video(vid)
 
-    for index, row in df.iterrows():
-        res = harmonize_video(sys.argv[1]+row["id"]+".mp4")
-        df.loc[index,"resolution"] = res
-        print(res)
+    # 2. CREATE CSV INFO FILE
+    # database_info_to_csv(sys.argv[1])
 
-    df.to_csv("../statistics/songs_on_server.csv", sep=";", float_format="%.3f", index=False)

@@ -1,15 +1,17 @@
-- Music video remix exiting content HMM 2012 https://dl.acm.org/citation.cfm?id=2342957
+- Music video remix exiting content HMM 2012 https://dl.acm.org/citation.cfm?id=2342957, 2013 https://ieeexplore.ieee.org/document/6680357
 - Music video pattern analysis 2004 https://dl.acm.org/citation.cfm?id=1027641
 - Optimization-Based Automated Home Video Editing System 2003 http://ieeexplore.ieee.org/document/1294950/
-- Music video based emotions song 2016 https://dl.acm.org/citation.cfm?id=2967245, 2015 https://dl.acm.org/citation.cfm?id=2806359, 2012 https://dl.acm.org/citation.cfm?id=2393347.2396494
+- Music video based emotions song 2016 https://dl.acm.org/citation.cfm?id=2967245 https://ieeexplore.ieee.org/document/7472182, 2015 https://dl.acm.org/citation.cfm?id=2806359, 2017 https://dl.acm.org/citation.cfm?id=3123266.3123399
 - Automated music video generation using multi-level feature-based segmentation 2009 + map video and music length https://link.springer.com/article/10.1007/s11042-008-0225-0
 - Creating Music Videos using Automatic Media Analysis + segment music 2002 https://www.fxpal.com/publications/creating-music-videos-using-automatic-media-analysis.pdf
 
 - Rap music generator animations https://ieeexplore.ieee.org/document/8229189/
 - Music video from images 2012 https://dl.acm.org/citation.cfm?id=2396495, 2007 https://ieeexplore.ieee.org/document/4217514/
 - Music video made of free content dubbing sequences 2011 https://patents.google.com/patent/US20130163963A1/en
+- Video mashup https://link.springer.com/chapter/10.1007/978-3-319-65840-7_6
 
 - Danse from music http://www.osaka-kyoiku.ac.jp/~challeng/SIG-Challenge-046/SIG-Challenge-046-08.pdf
+- DanseReProducer https://www.scopus.com/record/display.uri?eid=2-s2.0-84905180329&origin=inward&txGid=2728e49ce9559a0fc3304de8d569b707
 
 - Video generation from text https://arxiv.org/abs/1710.00421
 - Video generation from captions https://www.microsoft.com/en-us/research/publication/create-tell-generating-videos-captions/

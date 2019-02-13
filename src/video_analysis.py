@@ -159,7 +159,8 @@ def get_video_resolution(video_path):
 
 
 def main():
-    print("No videos to analyze.")
+    for vid in glob.glob(sys.argv[1]+"*.mp4"):
+        find_scenes(vid)
 
 if __name__ == "__main__":
     main()

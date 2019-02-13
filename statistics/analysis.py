@@ -2,7 +2,7 @@ import numpy
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def scenes_analysis():
+def database_analysis():
     dfLength = pd.read_csv("scenes_length.csv")
     dfNum = pd.read_csv("scenes_number.csv")
     dfVid = pd.read_csv("songs_on_server.csv", sep=";")
@@ -34,4 +34,4 @@ def scenes_analysis():
     plt.close(fig)
 
 if __name__ == "__main__":
-    scenes_analysis()
+    database_analysis()

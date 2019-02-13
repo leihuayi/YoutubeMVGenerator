@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
-import os, glob
+import os, glob, sys
 import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
@@ -210,10 +210,8 @@ def compute_kmeans(listFiles):
 def main():
     start = time.time()
 
-    folder = "../data/"
-
     # Extract the color features and store them
-    store_color_features(folder)
+    store_color_features(sys.argv[1])
 
     # # Kmeans for each style
     # df = pd.read_csv("../statistics/songs_on_server.csv", sep=";")
@@ -228,7 +226,7 @@ def main():
     #             listFiles += glob.glob(folder+row["id"]+"/*.json")
 
     #         kmeans = compute_kmeans(listFiles)
-    #         kmeans.to_csv("../statistics/kmeans_"+resolution+"_"+style+".csv",index=False)
+    #         kmeans.to_csv("../statistics/kmeans_"+resolution[:2]+"_"+style+".csv",index=False)
 
     #         print("Finished KMeans. Time elapsed : %f---------------\n"%(time.time()-start))
     #         start = time.time()
