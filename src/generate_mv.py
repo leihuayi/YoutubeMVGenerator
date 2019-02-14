@@ -62,34 +62,47 @@ def assemble_videos(df, boundaries):
                     numClus = (numClus+1)%5
 
             # next boundary
+            print(videoLength)
             numClus = (numClus+1)%5
             numBound += 1
+
+def log_progress():
+    while True:
+        progress = yield
+        print(progress)
 
 
 '''
 Main steps for building the mv
 args : input, output, video genre (optionnal)
-callback : function that gives feedback to user
+callback.send : function that gives feedback to user
 '''
-def main(args, callback=lambda str: print(str)):
+def main(args, callback=log_progress()):
+    if callback is not None:  # Prime the generator
+        next(callback)
+
     start = time.time()
+    print('Analyzing music %s...'%args.input)
 
     if not os.path.exists(args.input):
         raise FileNotFoundError
     elif not os.path.isdir(args.data) and not args.data[-4:] == '.csv':
-        raise Exception('The data path must either be a .csv file or a folder')
+        if not os.path.exists(args.data):
+            raise FileNotFoundError
+        else:
+            raise Exception('The data path must either be a .csv file or a folder')
 
     # 1. Get major changes in music
-    callback('Identifying key changes in %s...'%args.input)
+    callback.send('Identifying significant rythm changes in music...\n This will take about a minute.')
 
     warnings.filterwarnings('ignore')
     boundaries, labels = msaf.process(args.input, boundaries_id='olda')
 
     if boundaries[-1] < 60:
-        print('Music shorter than 60 seconds, please chose a longer music for getting a quality MV.')
+        print('Error : Music shorter than 60 seconds, please chose a longer music for getting a quality MV.')
         return -1
         
-    callback('Key changes at (%s) seconds\n'%' , '.join(map('{:.2f}'.format, boundaries)))
+    callback.send('Key changes found at \n(%s) seconds\n'%' , '.join(map('{:.2f}'.format, boundaries)))
 
     if args.data[-4:] == '.csv':
         # 2. Find music genre and style (music video style = larger category of genre)
@@ -100,20 +113,20 @@ def main(args, callback=lambda str: print(str)):
             title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
             if musicStyle == '':
-                print('The algorithm did not manage the recognize the music genre.\n'
+                print('Error : The algorithm did not manage to recognize the music genre.\n'
                                     'Please try with another music, or manually add genre with the argument --genre <name of genre> \n'
                                     'with genre in ('+','.join(AUTHORIZED_GENRES)+').')
                 return -1
         else:
             musicStyle = convert_genre_to_style(musicGenre)
             if musicStyle == '':
-                print('This genre is not authorized. Please input one of the following ('+\
+                print('Error : This genre is not authorized. Please input one of the following ('+\
                 ','.join(AUTHORIZED_GENRES)+') or let the algorithm find the genre.')
                 return -1
 
 
         # 3. With the music genre, find appropriate videos in database
-        callback('Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
+        callback.send('Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
         
         # use k-means clustering result on scenes extracted from Music Videos with same genre
         clusterResult = pd.read_csv('../statistics/kmeans_'+musicStyle+'.csv')
@@ -124,7 +137,7 @@ def main(args, callback=lambda str: print(str)):
         clusterResult = compute_kmeans(listFiles)
 
     # 4. Join music scenes while respecting the clustering and the input music rythm
-    callback('Building the music video around these boundaries...\n')
+    callback.send('Building the music video around these boundaries...\n This won \'t take long.\n')
 
     # Select and order videos for music clip
     assemble_videos(clusterResult, boundaries)
@@ -156,7 +169,7 @@ def main(args, callback=lambda str: print(str)):
 
 
 
-    callback('--- Finished building the music video in %f seconds. ---'%(time.time()-start))
+    callback.send('--- Finished building the music video in %f seconds. ---'%(time.time()-start))
 
     # Delete temp files
     os.remove('temp_video.MTS')
@@ -164,4 +177,8 @@ def main(args, callback=lambda str: print(str)):
         for vidFile in vidList:
             os.remove(vidFile[6:-2])
     os.remove('video_structure.txt')
+
+    if callback is not None:  # Close the generator
+        callback.close()
+
 
