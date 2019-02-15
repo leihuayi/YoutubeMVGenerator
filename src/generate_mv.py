@@ -8,6 +8,7 @@ from .feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 AUTHORIZED_GENRES = ['alternative','metal','rock','pop','hip-hop','R&B','dance','techno','house','indie','electro']
+RESOLUTION_PROBABILITY = 0.3333 # Probability for resolution format (640x360 or 640x272)
 
 '''
 Arguments : 
@@ -128,8 +129,13 @@ def main(args, callback=log_progress()):
         # 3. With the music genre, find appropriate videos in database
         callback.send('Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
         
-        # use k-means clustering result on scenes extracted from Music Videos with same genre
-        clusterResult = pd.read_csv('../statistics/kmeans_'+musicStyle+'.csv')
+        # use k-means clustering result on scenes extracted from Music Videos with same genre and chose one resolution
+        resolution = random.random()
+        if resolution < RESOLUTION_PROBABILITY :
+            resolution = '40'
+        else:
+            resolution = '16'
+        clusterResult = pd.read_csv('../statistics/kmeans_'+resolution+'_musicStyle+'.csv')
 
     else:
         # use k-means clustering result on scenes extracted from Music Videos with same genre
