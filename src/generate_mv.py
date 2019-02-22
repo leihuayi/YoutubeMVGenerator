@@ -3,6 +3,7 @@ import subprocess
 import msaf
 import warnings
 import pandas as pd
+import tempfile, shutil
 from .music_recognition import get_music_infos, convert_genre_to_style
 from .feature_color import compute_kmeans, CLUSTERS, list_scenes
 
@@ -19,7 +20,7 @@ boundaries = list of timestamps in seconds
 
 assemble some videos using the result of df around the boundaries
 '''
-def assemble_videos(df, boundaries):
+def assemble_videos(df, boundaries, tempDir):
     if boundaries[-1]-boundaries[-2]<3:
         boundaries = boundaries[1:-1]
     else:
@@ -45,7 +46,7 @@ def assemble_videos(df, boundaries):
     clus = [df[df['cluster'] == selectedClus[i][0]] for i in range(NUM_CLUS_IN_VIDEO)] # files in each cluster
     indexes = [0]*NUM_CLUS_IN_VIDEO # keeps track if last used file index for each cluster
 
-    with open('video_structure.txt','w') as vidList:
+    with open(tempDir+'video_structure.txt','w') as vidList:
         while videoLength < boundaries[-1]-END_OFFSET:
 
             # When reaching next boundary
@@ -58,14 +59,14 @@ def assemble_videos(df, boundaries):
                     if videoLength+fileLength>boundaries[-1]-END_OFFSET: # stop this algorithm for the last END_OFFSET seconds
                         break
 
-                    if not os.path.exists(filename+'.MTS'):
-                        # If going over boundary, cut scene
-                        if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET : # no cut
-                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
-                        else : # cut
-                            fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
-                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
-                    vidList.write("file '"+filename+".MTS'\n")
+                    # If going over boundary, cut scene
+                    if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET : # no cut
+                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                    else : # cut
+                        fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
+                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                    
+                    vidList.write("file '"+tempDir+os.path.basename(filename)+".MTS'\n")
                     videoLength += fileLength
                     indexes[numClus]+=1
                     
@@ -93,16 +94,15 @@ def assemble_videos(df, boundaries):
                 indexes[numClus] = (indexes[numClus]+1)%len(clus[numClus])
         
         if indexes == [0]*NUM_CLUS_IN_VIDEO: # no fade
-            subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
+            subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
         else: # fade out last 2 sec
-            print("Add fating effect.")
+            print("Add fading effect.")
             subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0',
-            '-vf', 'fade=t=out:st='+str(fileLength-2)+':d=2', filename+'.MTS'])
+            '-vf', 'fade=t=out:st='+str(fileLength-2)+':d=2', tempDir+os.path.basename(filename)+'.MTS'])
 
-        vidList.write("file '"+filename+".MTS'\n")
+        vidList.write("file '"+tempDir+os.path.basename(filename)+".MTS'\n")
 
-
-
+        
 def log_progress():
     while True:
         progress = yield
@@ -183,10 +183,13 @@ def main(args, callback=log_progress()):
     callback.send('(3/3) Building the music video around these boundaries...\n This won \'t take long.\n')
 
     # Select and order videos for music clip
-    assemble_videos(clusterResult, boundaries)
+    tempDir = tempfile.mkdtemp('temp_build')+'/'
+    print("Building the video file in folder %s"%tempDir)
+    assemble_videos(clusterResult, boundaries, tempDir)
 
     # Concatenate videos
-    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'video_structure.txt', '-c', 'copy', '-an', 'temp_video.MTS'])
+    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', tempDir+'video_structure.txt',
+    '-c', 'copy', '-an', tempDir+'temp_video.MTS'])
 
     # Put input music on top of resulting video
     extension = os.path.splitext(args.output)[1]
@@ -196,19 +199,14 @@ def main(args, callback=log_progress()):
             print('No format within (avi,mkv,mp4) given. Using default mp4 ...')
 
     # copies video stream and replace audio of arg 0 by arg 1
-    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', 'temp_video.MTS', '-i' ,args.input, 
+    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', tempDir+'temp_video.MTS', '-i', args.input,
     '-c:v' ,'copy', '-map', '0:v:0', '-map', '1:a:0', args.output])
 
     print('Video file %s written.\n'%args.output)
     callback.send('--- Finished building the music video in %f seconds. ---'%(time.time()-start))
 
     # Delete temp files
-    os.remove('temp_video.MTS')
-    with open('video_structure.txt','r') as vidList: # delete MTS videos
-        for vidFile in vidList:
-            if os.path.exists(vidFile[6:-2]):
-                os.remove(vidFile[6:-2])
-    os.remove('video_structure.txt')
+    shutil.rmtree(tempDir)
 
     if callback is not None:  # Close the generator
         callback.close()
