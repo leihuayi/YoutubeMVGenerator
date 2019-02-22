@@ -7,6 +7,8 @@ from .music_recognition import get_music_infos, convert_genre_to_style
 from .feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
+END_OFFSET = 3
+NUM_CLUS_IN_VIDEO = 6
 AUTHORIZED_GENRES = ['alternative','metal','rock','pop','hip-hop','R&B','dance','techno','house','indie','electro']
 RESOLUTION_PROBABILITY = 0.3333 # Probability for resolution format (640x360 or 640x272)
 
@@ -18,30 +20,33 @@ boundaries = list of timestamps in seconds
 assemble some videos using the result of df around the boundaries
 '''
 def assemble_videos(df, boundaries):
-    boundaries = boundaries[1:-1]
-    # Get 5 random clusters such as sum lengths more than whole music
+    if boundaries[-1]-boundaries[-2]<3:
+        boundaries = boundaries[1:-1]
+    else:
+        boundaries = boundaries[1:]
+    # Get NUM_CLUS_IN_VIDEO random clusters such as sum lengths more than whole music
     # with approximately same proportion of each
 
     # List of number of scenes and total length for each cluster
     clusLengths = [(i,len(df[df['cluster'] == i]), df[df['cluster']==i]['length'].sum()) for i in range(CLUSTERS)]
 
-    limit = boundaries[-1]/5-10
+    limit = boundaries[-1]/NUM_CLUS_IN_VIDEO-10
     clusLengths = [x for x in clusLengths if x[2]>limit]
-    selectedClus = random.sample(clusLengths,5)
+    selectedClus = random.sample(clusLengths,NUM_CLUS_IN_VIDEO)
     # TODO : add ending condition in case
     while sum([x[2] for x in selectedClus])<boundaries[-1]:
-        selectedClus = random.sample(clusLengths,5)
+        selectedClus = random.sample(clusLengths,NUM_CLUS_IN_VIDEO)
 
     # Append videos of selected 5 clusters
     videoLength = 0
     numBound = 1
     numClus = 0
 
-    clus = [df[df['cluster'] == selectedClus[i][0]] for i in range(5)]
-    indexes = [0]*5
+    clus = [df[df['cluster'] == selectedClus[i][0]] for i in range(NUM_CLUS_IN_VIDEO)] # files in each cluster
+    indexes = [0]*NUM_CLUS_IN_VIDEO # keeps track if last used file index for each cluster
 
     with open('video_structure.txt','w') as vidList:
-        while videoLength < boundaries[-1]-BOUNDARY_OFFSET:
+        while videoLength < boundaries[-1]-END_OFFSET:
 
             # When reaching next boundary
             while numBound < len(boundaries) and videoLength < boundaries[numBound]-BOUNDARY_OFFSET:
@@ -49,23 +54,54 @@ def assemble_videos(df, boundaries):
                 if indexes[numClus] < len(clus[numClus]) :
                     filename = os.path.splitext(clus[numClus].iloc[indexes[numClus]]['file'])[0]
                     fileLength = clus[numClus].iloc[indexes[numClus]]['length']
+
+                    if videoLength+fileLength>boundaries[-1]-END_OFFSET: # stop this algorithm for the last END_OFFSET seconds
+                        break
+
                     if not os.path.exists(filename+'.MTS'):
                         # If going over boundary, cut scene
-                        if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET :
+                        if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET : # no cut
                             subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
-                        else :
+                        else : # cut
                             fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
                             subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
                     vidList.write("file '"+filename+".MTS'\n")
                     videoLength += fileLength
                     indexes[numClus]+=1
+                    
                 else:
-                    numClus = (numClus+1)%5
+                    numClus = (numClus+1)%NUM_CLUS_IN_VIDEO
 
             # next boundary
-            print(videoLength)
-            numClus = (numClus+1)%5
-            numBound += 1
+            if numBound<len(boundaries)-1:
+                print(videoLength)
+                numClus = (numClus+1)%NUM_CLUS_IN_VIDEO
+                numBound += 1
+
+            else:
+                break
+
+        # find only one video to end for the last seconds
+        indexes[numClus] %= len(clus[numClus])
+        while fileLength < boundaries[-1]-videoLength and indexes != [0]*NUM_CLUS_IN_VIDEO:
+            if indexes[numClus] == 0: # if reached end of cluster, go to next cluster
+                numClus = (numClus+1)%NUM_CLUS_IN_VIDEO
+                indexes[numClus] %= len(clus[numClus])
+            else:
+                fileLength = clus[numClus].iloc[indexes[numClus]]['length']
+                filename = os.path.splitext(clus[numClus].iloc[indexes[numClus]]['file'])[0]
+                indexes[numClus] = (indexes[numClus]+1)%len(clus[numClus])
+        
+        if indexes == [0]*NUM_CLUS_IN_VIDEO: # no fade
+            subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', filename+'.MTS'])
+        else: # fade out last 2 sec
+            print("Add fating effect.")
+            subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0',
+            '-vf', 'fade=t=out:st='+str(fileLength-2)+':d=2', filename+'.MTS'])
+
+        vidList.write("file '"+filename+".MTS'\n")
+
+
 
 def log_progress():
     while True:
@@ -94,13 +130,13 @@ def main(args, callback=log_progress()):
             raise Exception('The data path must either be a .csv file or a folder')
 
     # 1. Get major changes in music
-    callback.send('Identifying significant rythm changes in music...\n This will take about a minute.')
+    callback.send('(1/3) Identifying significant rythm changes in music...\n This will take about a minute.')
 
     warnings.filterwarnings('ignore')
     boundaries, labels = msaf.process(args.input, boundaries_id='olda')
 
     if boundaries[-1] < 60:
-        print('Error : Music shorter than 60 seconds, please chose a longer music for getting a quality MV.')
+        callback.send('Error : Music shorter than 60 seconds, please chose a longer music for getting a quality MV.')
         return -1
         
     callback.send('Key changes found at \n(%s) seconds\n'%' , '.join(map('{:.2f}'.format, boundaries)))
@@ -114,20 +150,20 @@ def main(args, callback=log_progress()):
             title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
             if musicStyle == '':
-                print('Error : The algorithm did not manage to recognize the music genre.\n'
+                callback.send('Error : The algorithm did not manage to recognize the music genre.\n'
                                     'Please try with another music, or manually add genre with the argument --genre <name of genre> \n'
                                     'with genre in ('+','.join(AUTHORIZED_GENRES)+').')
                 return -1
         else:
             musicStyle = convert_genre_to_style(musicGenre)
             if musicStyle == '':
-                print('Error : This genre is not authorized. Please input one of the following ('+\
+                callback.send('Error : This genre is not authorized. Please input one of the following ('+\
                 ','.join(AUTHORIZED_GENRES)+') or let the algorithm find the genre.')
                 return -1
 
 
         # 3. With the music genre, find appropriate videos in database
-        callback.send('Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
+        callback.send('(2/3) Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
         
         # use k-means clustering result on scenes extracted from Music Videos with same genre and chose one resolution
         resolution = random.random()
@@ -135,21 +171,22 @@ def main(args, callback=log_progress()):
             resolution = '40'
         else:
             resolution = '16'
-        clusterResult = pd.read_csv('../statistics/kmeans_'+resolution+'_musicStyle+'.csv')
+        clusterResult = pd.read_csv('statistics/kmeans_'+resolution+'_'+musicStyle+'.csv')
 
     else:
         # use k-means clustering result on scenes extracted from Music Videos with same genre
         listFiles = list_scenes(args.data,'json')
+        callback.send('(2/3) Generating K-Means for the database...')
         clusterResult = compute_kmeans(listFiles)
 
     # 4. Join music scenes while respecting the clustering and the input music rythm
-    callback.send('Building the music video around these boundaries...\n This won \'t take long.\n')
+    callback.send('(3/3) Building the music video around these boundaries...\n This won \'t take long.\n')
 
     # Select and order videos for music clip
     assemble_videos(clusterResult, boundaries)
 
     # Concatenate videos
-    subprocess.call('ffmpeg -loglevel error -f concat -safe 0 -i video_structure.txt -c copy -an temp_video.MTS'.split(' '))
+    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'video_structure.txt', '-c', 'copy', '-an', 'temp_video.MTS'])
 
     # Put input music on top of resulting video
     extension = os.path.splitext(args.output)[1]
@@ -158,30 +195,19 @@ def main(args, callback=log_progress()):
         if extension != '.mp4' :
             print('No format within (avi,mkv,mp4) given. Using default mp4 ...')
 
-    # fade out
-    '''
-    fade = ('','')
-    if boundaries[-2]-boundaries[-3]<10:
-        fade = (str(boundaries[-3]*25),str(boundaries[-2]-boundaries[-3]))
-    else:
-        fade = (str((boundaries[-2]-1)*25),'25')
-
-    subprocess.call([('ffmpeg -loglevel error -i temp_video.MTS -vf fade=out:%s:%s temp_video.MTS'%(fade[0],fade[1])).split(' ')])'''
-
     # copies video stream and replace audio of arg 0 by arg 1
-    subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', 'temp_video.MTS', '-i' ,args.input, 
-    '-c:v' ,'copy', '-map', '0:v:0', '-map', '1:a:0',  args.output])
+    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', 'temp_video.MTS', '-i' ,args.input, 
+    '-c:v' ,'copy', '-map', '0:v:0', '-map', '1:a:0', args.output])
 
-
-
-
+    print('Video file %s written.\n'%args.output)
     callback.send('--- Finished building the music video in %f seconds. ---'%(time.time()-start))
 
     # Delete temp files
     os.remove('temp_video.MTS')
     with open('video_structure.txt','r') as vidList: # delete MTS videos
         for vidFile in vidList:
-            os.remove(vidFile[6:-2])
+            if os.path.exists(vidFile[6:-2]):
+                os.remove(vidFile[6:-2])
     os.remove('video_structure.txt')
 
     if callback is not None:  # Close the generator
