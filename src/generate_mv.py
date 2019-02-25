@@ -21,10 +21,12 @@ boundaries = list of timestamps in seconds
 assemble some videos using the result of df around the boundaries
 '''
 def assemble_videos(df, boundaries, tempDir):
+    # Very often msaf detects 2 times the last boundary. Remove it if necessary
     if boundaries[-1]-boundaries[-2]<3:
         boundaries = boundaries[1:-1]
     else:
         boundaries = boundaries[1:]
+
     # Get NUM_CLUS_IN_VIDEO random clusters such as sum lengths more than whole music
     # with approximately same proportion of each
 
@@ -34,9 +36,13 @@ def assemble_videos(df, boundaries, tempDir):
     limit = boundaries[-1]/NUM_CLUS_IN_VIDEO-10
     clusLengths = [x for x in clusLengths if x[2]>limit]
     selectedClus = random.sample(clusLengths,NUM_CLUS_IN_VIDEO)
-    # TODO : add ending condition in case
-    while sum([x[2] for x in selectedClus])<boundaries[-1]:
+    limit = 0
+    while sum([x[2] for x in selectedClus])<boundaries[-1] and limit<1000:
         selectedClus = random.sample(clusLengths,NUM_CLUS_IN_VIDEO)
+        limit += 1
+    if limit == 1000:
+        print("Could not find clusters covering the whole video.")
+        return -1
 
     # Append videos of selected 5 clusters
     videoLength = 0
@@ -75,7 +81,6 @@ def assemble_videos(df, boundaries, tempDir):
 
             # next boundary
             if numBound<len(boundaries)-1:
-                print(videoLength)
                 numClus = (numClus+1)%NUM_CLUS_IN_VIDEO
                 numBound += 1
 
@@ -93,7 +98,7 @@ def assemble_videos(df, boundaries, tempDir):
                 filename = os.path.splitext(clus[numClus].iloc[indexes[numClus]]['file'])[0]
                 indexes[numClus] = (indexes[numClus]+1)%len(clus[numClus])
         
-        if indexes == [0]*NUM_CLUS_IN_VIDEO: # no fade
+        if indexes == [0]*NUM_CLUS_IN_VIDEO: # not found a video long enough -> no fade
             subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
         else: # fade out last 2 sec
             print("Add fading effect.")
@@ -102,7 +107,10 @@ def assemble_videos(df, boundaries, tempDir):
 
         vidList.write("file '"+tempDir+os.path.basename(filename)+".MTS'\n")
 
-        
+
+'''
+Generator function for printing out progress info
+'''
 def log_progress():
     while True:
         progress = yield
@@ -135,8 +143,8 @@ def main(args, callback=log_progress()):
     warnings.filterwarnings('ignore')
     boundaries, labels = msaf.process(args.input, boundaries_id='olda')
 
-    if boundaries[-1] < 60:
-        callback.send('Error : Music shorter than 60 seconds, please chose a longer music for getting a quality MV.')
+    if boundaries[-1] < 60 or boundaries[-1]>400:
+        callback.send('Error : Please chose a music lasting between 60 and 400 seconds for getting a quality MV.')
         return -1
         
     callback.send('Key changes found at \n(%s) seconds\n'%' , '.join(map('{:.2f}'.format, boundaries)))
@@ -183,7 +191,7 @@ def main(args, callback=log_progress()):
     callback.send('(3/3) Building the music video around these boundaries...\n This won \'t take long.\n')
 
     # Select and order videos for music clip
-    tempDir = tempfile.mkdtemp('temp_build')+'/'
+    tempDir = tempfile.mkdtemp('_music_video_build')+'/'
     print("Building the video file in folder %s"%tempDir)
     assemble_videos(clusterResult, boundaries, tempDir)
 
