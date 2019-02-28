@@ -1,7 +1,7 @@
 import random, os, json, time
 import subprocess
 import msaf
-import warnings
+from warnings import filterwarnings
 import pandas as pd
 import tempfile, shutil
 from .music_recognition import get_music_infos, convert_genre_to_style
@@ -12,6 +12,24 @@ END_OFFSET = 3
 NUM_CLUS_IN_VIDEO = 6
 AUTHORIZED_GENRES = ['alternative','metal','rock','pop','hip-hop','R&B','dance','techno','house','indie','electro']
 RESOLUTION_PROBABILITY = 0.3333 # Probability for resolution format (640x360 or 640x272)
+
+'''
+Changes the order in which appear group of videos from one MV in cluster
+'''
+def shuffle_mvs(df):
+    dic = {}
+    for index, row in df.iterrows():
+        if os.path.dirname(row['file']) not in dic.keys():
+            dic[os.path.dirname(row['file'])] = 1
+        else:
+            dic[os.path.dirname(row['file'])] += 1
+
+    mvList = list(dic.keys())
+    random.shuffle(mvList)
+    res = []
+    for mv in mvList:
+        res.append(df[df['file'].str.startswith(mv)])
+    return pd.concat(res).reset_index(drop=True)
 
 '''
 Arguments : 
@@ -49,10 +67,10 @@ def assemble_videos(df, boundaries, tempDir):
     numBound = 1
     numClus = 0
 
-    clus = [df[df['cluster'] == selectedClus[i][0]] for i in range(NUM_CLUS_IN_VIDEO)] # files in each cluster
+    clus = [shuffle_mvs(df[df['cluster'] == selectedClus[i][0]]) for i in range(NUM_CLUS_IN_VIDEO)] # files in each cluster
     indexes = [0]*NUM_CLUS_IN_VIDEO # keeps track if last used file index for each cluster
 
-    with open(tempDir+'video_structure.txt','w') as vidList:
+    with open('video_structure.txt','w') as vidList:
         while videoLength < boundaries[-1]-END_OFFSET:
 
             # When reaching next boundary
@@ -65,12 +83,16 @@ def assemble_videos(df, boundaries, tempDir):
                     if videoLength+fileLength>boundaries[-1]-END_OFFSET: # stop this algorithm for the last END_OFFSET seconds
                         break
 
-                    # If going over boundary, cut scene
-                    if videoLength + fileLength < boundaries[numBound]-BOUNDARY_OFFSET : # no cut
-                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
-                    else : # cut
-                        fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
-                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                    
+                    if os.path.exists(tempDir+os.path.basename(filename)+'.MTS'):
+                        print('!!!! VERY STRANGE - duplicate at cluster %d, index %d, file %s !!!!'%(numClus, indexes[numClus], os.path.basename(filename)))
+                    else:
+                        # If going over boundary, cut scene
+                        if videoLength + fileLength > boundaries[numBound]-BOUNDARY_OFFSET :
+                            fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
+                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                        else :
+                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
                     
                     vidList.write("file '"+tempDir+os.path.basename(filename)+".MTS'\n")
                     videoLength += fileLength
@@ -140,7 +162,7 @@ def main(args, callback=log_progress()):
     # 1. Get major changes in music
     callback.send('(1/3) Identifying significant rythm changes in music...\n This will take about a minute.')
 
-    warnings.filterwarnings('ignore')
+    filterwarnings('ignore')
     boundaries, labels = msaf.process(args.input, boundaries_id='olda')
 
     if boundaries[-1] < 60 or boundaries[-1]>400:
@@ -196,7 +218,7 @@ def main(args, callback=log_progress()):
     assemble_videos(clusterResult, boundaries, tempDir)
 
     # Concatenate videos
-    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', tempDir+'video_structure.txt',
+    subprocess.call(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', 'video_structure.txt',
     '-c', 'copy', '-an', tempDir+'temp_video.MTS'])
 
     # Put input music on top of resulting video
@@ -215,6 +237,10 @@ def main(args, callback=log_progress()):
 
     # Delete temp files
     shutil.rmtree(tempDir)
+
+    # Copy video to folder generated
+    if os.path.exists('generatedmvs'):
+        shutil.copyfile(args.output, 'generatedmvs/'+time.strftime('%Y-%m-%d_%H-%M-%S', time.gmtime())+'.mp4')
 
     if callback is not None:  # Close the generator
         callback.close()
