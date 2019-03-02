@@ -1,6 +1,7 @@
 import random, os, json, time
 import subprocess
 import msaf
+import types
 from warnings import filterwarnings
 import pandas as pd
 import tempfile, shutil
@@ -145,7 +146,7 @@ args : input, output, video genre (optionnal)
 callback.send : function that gives feedback to user
 '''
 def main(args, callback=log_progress()):
-    if callback is not None:  # Prime the generator
+    if isinstance(callback, types.GeneratorType):
         next(callback)
 
     start = time.time()
@@ -201,7 +202,7 @@ def main(args, callback=log_progress()):
             resolution = '40'
         else:
             resolution = '16'
-        clusterResult = pd.read_csv('statistics/kmeans_'+resolution+'_'+musicStyle+'.csv')
+        clusterResult = pd.read_csv('YoutubeMVGenerator/statistics/kmeans_'+resolution+'_'+musicStyle+'.csv')
 
     else:
         # use k-means clustering result on scenes extracted from Music Videos with same genre
@@ -242,7 +243,7 @@ def main(args, callback=log_progress()):
     if os.path.exists('generatedmvs'):
         shutil.copyfile(args.output, 'generatedmvs/'+time.strftime('%Y-%m-%d_%H-%M-%S', time.gmtime())+'.mp4')
 
-    if callback is not None:  # Close the generator
+    if callback is not None and isinstance(callback, types.GeneratorType):  # Close the generator
         callback.close()
 
 
