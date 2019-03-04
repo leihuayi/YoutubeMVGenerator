@@ -10,7 +10,7 @@ from .feature_color import compute_kmeans, CLUSTERS, list_scenes
 
 BOUNDARY_OFFSET = 0.50 # Delay in boundary delection
 END_OFFSET = 3
-NUM_CLUS_IN_VIDEO = 6
+NUM_CLUS_IN_VIDEO = 5
 AUTHORIZED_GENRES = ['alternative','metal','rock','pop','hip-hop','R&B','dance','techno','house','indie','electro']
 RESOLUTION_PROBABILITY = 0.3333 # Probability for resolution format (640x360 or 640x272)
 
@@ -83,18 +83,18 @@ def assemble_videos(df, boundaries, tempDir):
 
                     if videoLength+fileLength>boundaries[-1]-END_OFFSET: # stop this algorithm for the last END_OFFSET seconds
                         break
-
                     
                     if os.path.exists(tempDir+os.path.basename(filename)+'.MTS'):
-                        print('!!!! VERY STRANGE - duplicate at cluster %d, index %d, file %s !!!!'%(numClus, indexes[numClus], os.path.basename(filename)))
-                    else:
-                        # If going over boundary, cut scene
-                        if videoLength + fileLength > boundaries[numBound]-BOUNDARY_OFFSET :
-                            fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
-                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
-                        else :
-                            subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
-                    
+                        indexes[numClus]+=1
+                        continue
+                        
+                    # If going over boundary, cut scene
+                    if videoLength + fileLength > boundaries[numBound]-BOUNDARY_OFFSET :
+                        fileLength = boundaries[numBound]-BOUNDARY_OFFSET-videoLength
+                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-t', str(fileLength), '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                    else :
+                        subprocess.call(['ffmpeg', '-loglevel', 'error', '-i', filename+'.mp4', '-q', '0', tempDir+os.path.basename(filename)+'.MTS'])
+                
                     vidList.write("file '"+tempDir+os.path.basename(filename)+".MTS'\n")
                     videoLength += fileLength
                     indexes[numClus]+=1
