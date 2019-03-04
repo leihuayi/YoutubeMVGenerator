@@ -181,20 +181,23 @@ def main(args, callback=log_progress()):
             title, artist, musicGenre, musicStyle = get_music_infos(args.input)
 
             if musicStyle == '':
-                callback.send('Error : The algorithm did not manage to recognize the music genre.\n'
+                callback.send('GenreError : The algorithm did not manage to recognize the music genre.\n'
                                     'Please try with another music, or manually add genre with the argument --genre <name of genre> \n'
                                     'with genre in ('+','.join(AUTHORIZED_GENRES)+').')
                 return -1
+
+            callback.send('Music genre identified : %s.'%musicGenre)
+
         else:
             musicStyle = convert_genre_to_style(musicGenre)
             if musicStyle == '':
-                callback.send('Error : This genre is not authorized. Please input one of the following ('+\
+                callback.send('GenreError : This genre is not authorized. Please input one of the following ('+\
                 ','.join(AUTHORIZED_GENRES)+') or let the algorithm find the genre.')
                 return -1
 
 
         # 3. With the music genre, find appropriate videos in database
-        callback.send('(2/3) Music genre identified : %s. Fetching matching videos in database...\n'%musicGenre)
+        callback.send('(2/3) Fetching matching videos in database...\n')
         
         # use k-means clustering result on scenes extracted from Music Videos with same genre and chose one resolution
         resolution = random.random()

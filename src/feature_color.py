@@ -8,7 +8,7 @@ import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 120
+CLUSTERS = 70
 thumbnailsPath = "../statistics/imgClusters/"
 
 '''
@@ -223,7 +223,7 @@ def main():
             listFiles = []
             for index, row in subDf.iterrows():
                 # Get all scenes of MVs with same style
-                listFiles += glob.glob(folder+row["id"]+"/*.json")
+                listFiles += glob.glob(sys.argv[1]+row["id"]+"/*.json")
 
             kmeans = compute_kmeans(listFiles)
             kmeans.to_csv("../statistics/kmeans_"+resolution[:2]+"_"+style+".csv",index=False)
