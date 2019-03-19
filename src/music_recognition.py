@@ -3,7 +3,7 @@ import os, sys, glob
 import pandas as pd
 import requests, json
 
-CONFIG_FILE = '/home/apis_config.json'
+CONFIG_FILE = '/home/sarah/apis_config.json'
 
 '''
 Recognize music fingerprint using ACR API
@@ -124,7 +124,7 @@ def convert_genre_to_style(genre):
     genre = genre.lower()
     if "alternative" in genre or "rock" in genre or "metal" in genre:
         return "rock"
-    elif "hip hop" in genre or "hip-hop" in genre or "rnb" in genre or "r&b" in genre or "rap" in genre:
+    elif "hip hop" in genre or "hip-hop" in genre or "hiphop" in genre or "rnb" in genre or "r&b" in genre or "rap" in genre:
         return "hiphop"
     elif "electro" in genre or "dance" in genre or "techno" in genre or "house" in genre:
         return "electro"

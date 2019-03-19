@@ -39,3 +39,11 @@
 - Emotions linked to colors 2013 https://link.springer.com/article/10.1007/s00371-012-0755-3
 - Image Clustering using Color, Texture and Shape Features 2011 https://www.researchgate.net/publication/220595166_Image_Clustering_using_Color_Texture_and_Shape_Features
 - Image color analysis 2002 http://www.cse.msu.edu/~pramanik/research/papers/2002Papers/icip.hsv.pdf
+
+- Controversial Rap Themes, Gender Portrayals and Skin Tone Distortion: A Content Analysis of Rap Music Videos https://www.tandfonline.com/doi/full/10.1080/08838150802643795
+- Dreams and Mediation in Music Video https://eric.ed.gov/?id=ED284312
+- EEG-Based Measurement of Emotion Induced by Mode, Rhythm, and MV of Chinese Pop Music https://link.springer.com/chapter/10.1007%2F978-3-319-07308-8_9
+- Affective content analysis of music video clips https://dl.acm.org/citation.cfm?id=2072532
+- Music Video in Its Contexts: Popular Music and Post-Modernism in the 1980s https://www.jstor.org/stable/853024?seq=1#metadata_info_tab_contents more importance for visual than for lyrics, no coherence wanted for break
+- The post-television music video. A methodological proposal and aesthetic analysis http://revistalatinacs.org/071/paper/1098/18en.html, mixed type (performance/content), lyrics not important
+

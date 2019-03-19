@@ -8,7 +8,7 @@ import json
 from scipy.stats import itemfreq
 from sklearn.cluster import KMeans
 
-CLUSTERS = 70
+CLUSTERS = 90
 thumbnailsPath = "../statistics/imgClusters/"
 
 '''

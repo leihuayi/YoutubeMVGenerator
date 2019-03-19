@@ -13,22 +13,23 @@ def database_analysis():
 
     fig = plt.figure()
 
-    plt.subplot(131)
-    plt.boxplot(numScenes,0,'')
-    plt.title('Number of scenes per video')
 
-    plt.subplot(132)
+    plt.subplot(121)
     plt.boxplot(duration, 0, '')
     plt.title('Duration of scene (s)')
 
-    plt.subplot(133)
+    plt.subplot(122)
     plt.boxplot(frames,0,'')
-    B=plt.title('Number of frames per scene')
+    plt.title('Number of frames per scene')
     plt.show()
 
-    plt.subplot()
+    plt.subplot(121)
+    plt.boxplot(numScenes,0,'')
+    plt.title('Number of scenes per video')
+
+    plt.subplot(122)
     plt.boxplot(vidLength,0,'')
-    plt.title('Length of video')
+    plt.title('Length of video (s)')
     plt.show()
 
     plt.close(fig)

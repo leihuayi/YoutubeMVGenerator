@@ -205,7 +205,7 @@ def main(args, callback=log_progress()):
             resolution = '40'
         else:
             resolution = '16'
-        clusterResult = pd.read_csv('YoutubeMVGenerator/statistics/kmeans_'+resolution+'_'+musicStyle+'.csv')
+        clusterResult = pd.read_csv('/home/sarah/YoutubeMVGenerator/statistics/kmeans_'+resolution+'_'+musicStyle+'.csv')
 
     else:
         # use k-means clustering result on scenes extracted from Music Videos with same genre
