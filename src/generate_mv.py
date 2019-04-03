@@ -41,7 +41,7 @@ assemble some videos using the result of df around the boundaries
 '''
 def assemble_videos(df, boundaries, tempDir):
     # Very often msaf detects 2 times the last boundary. Remove it if necessary
-    if boundaries[-1]-boundaries[-2]<3:
+    if boundaries[-1]-boundaries[-2]<20:
         boundaries = boundaries[1:-1]
     else:
         boundaries = boundaries[1:]
